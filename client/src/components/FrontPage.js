@@ -6,7 +6,6 @@ import logo from '../images/invoice.svg';
 import Footer from "./Footer";
 import HeaderFrontPage from "./HeaderFrontPage";
 
-
 const FrontPage = (props) => {
 
 
@@ -20,7 +19,7 @@ const FrontPage = (props) => {
             <button class="uk-button uk-button-primary uk-align-center uk-margin-medium">Get Started
             </button>
             <Footer />
-        </div>
+        </div >
 
     )
 }
