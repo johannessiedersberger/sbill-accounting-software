@@ -13,10 +13,10 @@ const FrontPage = (props) => {
         <div>
             <HeaderFrontPage />
 
-            <h2 style={{ textAlign: "center" }}>Simple Accounting Software for <br />Freelancers and Small Businesses</h2>
+            <h2 style={{ textAlign: "center" }}>Einfache Buchhaltungs-Software für <br />Freiberufler und KMUs</h2>
 
             <img src={logo} style={{ height: 300, margin: "auto", display: "block" }} />
-            <button class="uk-button uk-button-primary uk-align-center uk-margin-medium">Get Started
+            <button class="uk-button uk-button-primary uk-align-center uk-margin-medium">Jetzt Starten
             </button>
             <Footer />
         </div >

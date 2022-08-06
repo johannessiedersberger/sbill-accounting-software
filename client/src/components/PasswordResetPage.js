@@ -47,7 +47,7 @@ const PasswordResetPage = (props) => {
                                             </div>
                                         </div>
                                         <div className="uk-margin">
-                                            <a className="uk-button uk-button-primary uk-button-large uk-width-1-1" style={{ background: "#1e87f0" }} onClick={resetPassword}>Passwort Ändern</a>
+                                            <a className="uk-button uk-button-primary uk-button-large uk-width-1-1" onClick={resetPassword}>Passwort Ändern</a>
                                         </div>
                                         <div className="uk-text-small uk-text-center">
                                             Already Registered? <a href="/login" style={{ color: "#1e87f0" }}>Login</a>

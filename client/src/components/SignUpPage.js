@@ -49,7 +49,7 @@ const SignUpPage = () => {
                             <div className="uk-width-1-1@m">
                                 <div className="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
                                     <img src={logo} width={100} className="uk-align-center" />
-                                    <h3 className="uk-card-title uk-text-center">Sign Up for SBill</h3>
+                                    <h3 className="uk-card-title uk-text-center">Erstelle einen Account</h3>
                                     <form>
                                         <div className="uk-margin">
                                             <div className="uk-inline uk-width-1-1">
@@ -88,7 +88,7 @@ const SignUpPage = () => {
                                             </div>
                                         </div>
                                         <div className="uk-margin">
-                                            <a className="uk-button uk-button-primary uk-button-large uk-width-1-1" style={{ background: "#1e87f0" }} onClick={createAccount}>Account Erstellen</a>
+                                            <a className="uk-button uk-button-primary uk-button-large uk-width-1-1" onClick={createAccount}>Account Erstellen</a>
                                         </div>
                                         <div className="uk-text-small uk-text-center">
                                             Bereits registriert? <a href="/login" style={{ color: "#1e87f0" }}>Login</a>
