@@ -1,15 +1,13 @@
-// Bootstrap CSS
-import "bootstrap/dist/css/bootstrap.min.css";
-// Bootstrap Bundle JS
-import "bootstrap/dist/js/bootstrap.bundle.min";
 import MainDashboard from './components/MainDashboard';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import FrontPage from "./components/FrontPage";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<MainDashboard />} />
+        <Route path="/dashboard" element={<MainDashboard />} />
+        <Route path="/" element={<FrontPage />} />
       </Routes>
     </BrowserRouter>
   );
