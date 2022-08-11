@@ -11,6 +11,8 @@ import 'uikit/dist/css/uikit.min.css';
 import 'uikit/dist/js/uikit-core.min.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
+import FeaturesPage from './components/FeaturesPage';
+import PricingPage from './components/PricingPage';
 
 function App() {
   UIkit.use(Icons);
@@ -23,6 +25,9 @@ function App() {
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/reset-password-email" element={<SendPasswordResetEmail />} />
         <Route path="/reset-password" element={<PasswordResetPage />} />
+        <Route path="/features" element={<FeaturesPage />} />
+        <Route path="/pricing" element={<PricingPage />} />
+
       </Routes>
     </BrowserRouter>
   );
