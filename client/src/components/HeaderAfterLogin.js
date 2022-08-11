@@ -13,8 +13,8 @@ const HeaderFrontPage = (props) => {
                         <div class="uk-navbar-dropdown">
                             <ul class="uk-nav uk-navbar-dropdown-nav">
                                 <li><a href="/dashboard">Dashboard</a></li>
-                                <li><a href="#">Angebote</a></li>
-                                <li><a href="#">Rechnungen</a></li>
+                                <li><a href="#">Quotes</a></li>
+                                <li><a href="#">Invoices</a></li>
                             </ul>
                         </div>
                     </li>

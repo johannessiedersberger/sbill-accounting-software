@@ -49,49 +49,49 @@ const SignUpPage = () => {
                             <div className="uk-width-1-1@m">
                                 <div className="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
                                     <img src={logo} width={100} className="uk-align-center" />
-                                    <h3 className="uk-card-title uk-text-center">Erstelle einen Account</h3>
+                                    <h3 className="uk-card-title uk-text-center">Create an Account</h3>
                                     <form>
                                         <div className="uk-margin">
                                             <div className="uk-inline uk-width-1-1">
                                                 <span className="uk-form-icon" uk-icon="icon: user"></span>
-                                                <input className="uk-input uk-form-large" value={firstName} onChange={handleFirstNameChange} type="text" placeholder="Vorname" />
+                                                <input className="uk-input uk-form-large" value={firstName} onChange={handleFirstNameChange} type="text" placeholder="Firstname" />
                                             </div>
                                         </div>
                                         <div className="uk-margin">
                                             <div className="uk-inline uk-width-1-1">
                                                 <span className="uk-form-icon" uk-icon="icon: users"></span>
-                                                <input className="uk-input uk-form-large" value={lastName} onChange={handleLastNameChange} type="text" placeholder="Nachname" />
+                                                <input className="uk-input uk-form-large" value={lastName} onChange={handleLastNameChange} type="text" placeholder="Lastname" />
                                             </div>
                                         </div>
                                         <div className="uk-margin">
                                             <div className="uk-inline uk-width-1-1">
                                                 <span className="uk-form-icon" uk-icon="icon: mail"></span>
-                                                <input className="uk-input uk-form-large" value={email} onChange={handleEmailChange} type="text" placeholder="E-Mail Adresse" />
+                                                <input className="uk-input uk-form-large" value={email} onChange={handleEmailChange} type="text" placeholder="E-Mail Adress" />
                                             </div>
                                         </div>
                                         <div className="uk-margin">
                                             <div className="uk-inline uk-width-1-1">
                                                 <span className="uk-form-icon" uk-icon="icon: lock"></span>
-                                                <input className="uk-input uk-form-large" value={password1} onChange={handlePassword1Change} type="password" placeholder="Passwort" />
+                                                <input className="uk-input uk-form-large" value={password1} onChange={handlePassword1Change} type="password" placeholder="Password" />
                                             </div>
                                         </div>
                                         <div className="uk-margin">
                                             <div className="uk-inline uk-width-1-1">
                                                 <span className="uk-form-icon" uk-icon="icon: lock"></span>
-                                                <input className="uk-input uk-form-large" value={password2} onChange={handlePassword2Change} type="password" placeholder="Passwort wiederhohlen" />
+                                                <input className="uk-input uk-form-large" value={password2} onChange={handlePassword2Change} type="password" placeholder="Passwort repeaded" />
                                             </div>
                                         </div>
 
                                         <div className="uk-margin">
                                             <div className="uk-inline uk-width-1-1">
-                                                <label><input class="uk-checkbox" type="checkbox" value={acceptDataProctection} onChange={handleAcceptDataProctectionChange} /> Ich habe die Hinweise zum <a target="_blank" href="https://johannessiedersberger.com/datenschutz/">Datenschutz</a> gelesen und akzeptiere sie.*</label>
+                                                <label><input class="uk-checkbox" type="checkbox" value={acceptDataProctection} onChange={handleAcceptDataProctectionChange} /> I've read the <a target="_blank" href="https://johannessiedersberger.com/datenschutz/">Data Protection</a> and accepted it.*</label>
                                             </div>
                                         </div>
                                         <div className="uk-margin">
-                                            <a className="uk-button uk-button-primary uk-button-large uk-width-1-1" onClick={createAccount}>Account Erstellen</a>
+                                            <a className="uk-button uk-button-primary uk-button-large uk-width-1-1" onClick={createAccount}>Create Account</a>
                                         </div>
                                         <div className="uk-text-small uk-text-center">
-                                            Bereits registriert? <a href="/login" style={{ color: "#1e87f0" }}>Login</a>
+                                            Already registered? <a href="/login" style={{ color: "#1e87f0" }}>Login</a>
                                         </div>
                                     </form>
                                 </div>

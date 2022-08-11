@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Footer from './Footer';
 import logo from '../images/invoice.svg';
+import HeaderFrontPage from './HeaderFrontPage';
 
 const PasswordResetPage = (props) => {
 
@@ -25,6 +26,7 @@ const PasswordResetPage = (props) => {
 
     return (
         <div>
+            <HeaderFrontPage />
             <div className="uk-flex uk-animation-fade" data-uk-height-viewport>
                 <div className="uk-width-1-1">
                     <div className="uk-container">
@@ -37,17 +39,17 @@ const PasswordResetPage = (props) => {
                                         <div className="uk-margin">
                                             <div className="uk-inline uk-width-1-1">
                                                 <span className="uk-form-icon" uk-icon="icon: lock"></span>
-                                                <input className="uk-input uk-form-large" type="password" placeholder="Neues Passwort" value={newPassword1} onChange={handleNewPassword1Change} />
+                                                <input className="uk-input uk-form-large" type="password" placeholder="New Password" value={newPassword1} onChange={handleNewPassword1Change} />
                                             </div>
                                         </div>
                                         <div className="uk-margin">
                                             <div className="uk-inline uk-width-1-1">
                                                 <span className="uk-form-icon" uk-icon="icon: lock"></span>
-                                                <input className="uk-input uk-form-large" type="password" placeholder="Neues Passwort Wiederhohlen" value={newPassword2} onChange={handleNewPassword2Change} />
+                                                <input className="uk-input uk-form-large" type="password" placeholder="Repeat new Password" value={newPassword2} onChange={handleNewPassword2Change} />
                                             </div>
                                         </div>
                                         <div className="uk-margin">
-                                            <a className="uk-button uk-button-primary uk-button-large uk-width-1-1" onClick={resetPassword}>Passwort Ändern</a>
+                                            <a className="uk-button uk-button-primary uk-button-large uk-width-1-1" onClick={resetPassword}>Change Password</a>
                                         </div>
                                         <div className="uk-text-small uk-text-center">
                                             Already Registered? <a href="/login" style={{ color: "#1e87f0" }}>Login</a>

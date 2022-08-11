@@ -8,13 +8,13 @@ const HeaderFrontPage = () => {
                 <a class="uk-navbar-item uk-logo uk-margin-left" href="/">SBill</a>
 
                 <ul class="uk-navbar-nav">
-                    <li><a href="#">Funktionen</a></li>
-                    <li><a href="#">Preise</a></li>
+                    <li><a href="#">Features</a></li>
+                    <li><a href="#">Pricing</a></li>
                     <li><a href="/dashboard">Dashboard</a></li>
                 </ul>
                 <ul class="uk-navbar-nav uk-position-right uk-margin-right">
                     <li><a href="/login">Login</a></li>
-                    <li><a href="/signup">Account Erstellen</a></li>
+                    <li><a href="/signup">Sign Up</a></li>
                 </ul>
 
             </div>

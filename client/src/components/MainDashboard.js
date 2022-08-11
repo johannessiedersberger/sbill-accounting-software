@@ -49,19 +49,19 @@ const MainDashboard = (props) => {
                     <div class="col-md-4">
                         <div class="uk-card uk-card-default uk-card-body uk-margin">
                             <h3 class="uk-card-title">477,680</h3>
-                            <p>Bezahlungen Erhalten</p>
+                            <p>Payments received</p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="uk-card uk-card-default uk-card-body uk-margin">
                             <h3 class="uk-card-title">12,000</h3>
-                            <p>Ausstehender Betrag</p>
+                            <p>Outstanding payments</p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="uk-card uk-card-default uk-card-body uk-margin">
                             <h3 class="uk-card-title">489,680</h3>
-                            <p>Gesamter Betrag</p>
+                            <p>Total Amount</p>
                         </div>
                     </div>
                 </div>

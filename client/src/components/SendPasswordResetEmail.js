@@ -26,7 +26,7 @@ const SendPasswordResetEmail = (props) => {
                             <div className="uk-width-1-1@m">
                                 <div className="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
                                     <img src={logo} width={100} className="uk-align-center" />
-                                    <h3 className="uk-card-title uk-text-center">Gib hier deine E-Mail Adresse an, und du bekommst eine E-mail zum zurücksetzen deines Passworts</h3>
+                                    <h3 className="uk-card-title uk-text-center">Type in your E-Mail Address here and receive an E-Mail to reset your password</h3>
                                     <form>
                                         <div className="uk-margin">
                                             <div className="uk-inline uk-width-1-1">
@@ -35,10 +35,10 @@ const SendPasswordResetEmail = (props) => {
                                             </div>
                                         </div>
                                         <div className="uk-margin">
-                                            <a className="uk-button uk-button-primary uk-button-large uk-width-1-1" style={{ background: "#1e87f0" }} onClick={sendPwResetEmail} >Email Senden</a>
+                                            <a className="uk-button uk-button-primary uk-button-large uk-width-1-1" style={{ background: "#1e87f0" }} onClick={sendPwResetEmail} >Send Email</a>
                                         </div>
                                         <div className="uk-text-small uk-text-center">
-                                            Bereits registriert? <a href="/login" style={{ color: "#1e87f0" }}>Login</a>
+                                            Already registered? <a href="/login" style={{ color: "#1e87f0" }}>Login</a>
                                         </div>
                                     </form>
                                 </div>

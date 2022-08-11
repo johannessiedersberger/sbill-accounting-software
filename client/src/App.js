@@ -22,6 +22,7 @@ function App() {
         <Route path="/" element={<FrontPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/reset-password-email" element={<SendPasswordResetEmail />} />
+        <Route path="/reset-password" element={<PasswordResetPage />} />
       </Routes>
     </BrowserRouter>
   );
