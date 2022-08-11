@@ -9,6 +9,8 @@ import PasswordResetPage from './components/PasswordResetPage';
 import SendPasswordResetEmail from './components/SendPasswordResetEmail';
 import 'uikit/dist/css/uikit.min.css';
 import 'uikit/dist/js/uikit-core.min.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
 
 function App() {
   UIkit.use(Icons);

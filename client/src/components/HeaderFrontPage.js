@@ -4,7 +4,7 @@ import React, { useState } from "react";
 const HeaderFrontPage = () => {
     return (
         <nav class="uk-navbar-container uk-margin" uk-navbar="mode: click">
-            <div class="uk-navbar-left">
+            <div class="uk-navbar-left ">
                 <a class="uk-navbar-item uk-logo uk-margin-left" href="/">SBill</a>
 
                 <ul class="uk-navbar-nav">
