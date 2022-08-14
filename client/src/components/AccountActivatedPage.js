@@ -4,9 +4,11 @@ import { API_ENDPOINT } from "../utils/constants";
 import Loading from "../images/loading.svg";
 import Logo from "../images/invoice.svg";
 import Footer from "./Footer";
+import { useParams } from "react-router-dom";
 
-const AccountActivatedPage = (props) => {
-    const uniqueString = props.match.params.uniqueString;
+const AccountActivatedPage = () => {
+    const params = useParams();
+    const uniqueString = params.uniqueString;
     const [hasLoaded, setHasLoaded] = useState(false);
     const [successFullActivation, SetSuccessFullActivation] = useState(false);
 

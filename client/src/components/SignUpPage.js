@@ -32,7 +32,7 @@ const SignUpPage = () => {
     }
 
     const handleAcceptDataProctectionChange = (event) => {
-
+        SetAcceptDataProctection(event.target.checked);
     }
 
     const createAccount = () => {

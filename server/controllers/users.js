@@ -60,3 +60,21 @@ export const signup = async (req, res) => {
         res.status(404).send(err);
     }
 }
+
+export const verifyEmail = async (req, res) => {
+    // Check if uniqueString is included
+    if (req.params.uniqueString == undefined || req.params.uniqueString == ''
+        || req.params.uniqueString == null) return res.status(400).send('No ID given');
+
+    // getting the string
+    const uniqueString = req.params.uniqueString;
+    console.log(req.params);
+    // Checking if the user with the uniqueId exists
+    const user = await User.findOne({ uniqueString: uniqueString });
+    if (!user) return res.status(400).send('Wrong ID');
+
+    user.isValid = true;
+    await user.save();
+
+    res.send('User Registered Successfully');
+}

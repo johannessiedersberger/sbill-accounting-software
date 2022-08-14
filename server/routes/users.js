@@ -1,9 +1,11 @@
 import express from 'express';
-import { signup } from '../controllers/users.js';
+import { signup, verifyEmail } from '../controllers/users.js';
 
 const router = express.Router();
 
 router.post('/signup', signup);
+
+router.get('/verify/:uniqueString', verifyEmail);
 
 export default router;
 

@@ -28,8 +28,7 @@ function App() {
         <Route path="/reset-password/:userId/:token" element={<PasswordResetPage />} />
         <Route path="/features" element={<FeaturesPage />} />
         <Route path="/pricing" element={<PricingPage />} />
-        <Route path='/account-activated/:uniqueString' element={(props) => <AccountActivatedPage {...props} />} />
-
+        <Route path='/account-activated/:uniqueString' element={<AccountActivatedPage />} />
       </Routes>
     </BrowserRouter>
   );
