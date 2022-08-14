@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^13.5.0",
     "ajv": "^6.12.6",
     "apexcharts": "^3.35.4",
+    "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
     "font-awesome": "^4.7.0",
     "jquery": "^3.6.0",

@@ -13,6 +13,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import FeaturesPage from './components/FeaturesPage';
 import PricingPage from './components/PricingPage';
+import AccountActivatedPage from './components/AccountActivatedPage';
 
 function App() {
   UIkit.use(Icons);
@@ -24,9 +25,10 @@ function App() {
         <Route path="/" element={<FrontPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/reset-password-email" element={<SendPasswordResetEmail />} />
-        <Route path="/reset-password" element={<PasswordResetPage />} />
+        <Route path="/reset-password/:userId/:token" element={<PasswordResetPage />} />
         <Route path="/features" element={<FeaturesPage />} />
         <Route path="/pricing" element={<PricingPage />} />
+        <Route path='/account-activated/:uniqueString' element={(props) => <AccountActivatedPage {...props} />} />
 
       </Routes>
     </BrowserRouter>
