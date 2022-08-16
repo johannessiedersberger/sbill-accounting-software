@@ -2,7 +2,7 @@ import User from '../models/User.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import joi from 'joi';
-import { registerValidation } from '../validation.js';
+import { registerValidation, loginValidation } from '../validation.js';
 import { sendEmail, randString } from '../utils/email.js';
 
 export const signup = async (req, res) => {
@@ -77,4 +77,39 @@ export const verifyEmail = async (req, res) => {
     await user.save();
 
     res.send('User Registered Successfully');
+}
+
+export const signin = async (req, res) => {
+    // Lets Validate the Data before we authenticate a user
+    const { error } = loginValidation(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
+    // Checking if the email exists
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) return res.status(400).send('Email is wrong');
+
+    // Checking if the user is valid and verified his email address
+    const emailVerified = user.isValid;
+    if (!emailVerified) return res.status(400).send('User Email is not verified');
+
+    // Checking if the password is correct
+    const validPass = await bcrypt.compare(req.body.password, user.password);
+    if (!validPass) return res.status(400).send('Wrong Password');
+
+    // Create and assign a token
+    const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
+
+
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    res.json({
+        token: token,
+        user: {
+            id: user._id,
+            email: user.email,
+            firstname: user.firstname,
+            lastname: user.lastname,
+            isAdmin: user.admin
+        }
+    });
 }

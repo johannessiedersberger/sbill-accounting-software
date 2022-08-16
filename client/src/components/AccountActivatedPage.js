@@ -6,6 +6,7 @@ import Footer from "./Footer";
 import { useParams } from "react-router-dom";
 import { activeAccount } from "../redux/actions/authActions";
 import { useDispatch } from 'react-redux'
+import HeaderFrontPage from "./HeaderFrontPage";
 
 const AccountActivatedPage = () => {
     const params = useParams();
@@ -20,27 +21,13 @@ const AccountActivatedPage = () => {
     });
 
     const activateAccount = () => {
-        // axios({
-        //     url: `${API_ENDPOINT}/api/users/verify/${uniqueString}`,
-        //     method: 'post'
-        // }).then((response) => {
-
-        //     if (response.status === 200) {
-        //         // All went right
-        //         setHasLoaded(true);
-        //         SetSuccessFullActivation(true);
-        //     }
-        // }).catch((err) => {
-        //     setHasLoaded(true);
-        //     SetSuccessFullActivation(false);
-        //     console.log(err);
-        // });;
         dispatch(activeAccount(uniqueString, setHasLoaded, SetSuccessFullActivation));
     }
 
 
     return (
         <div>
+            <HeaderFrontPage />
             <div className="uk-section  uk-flex uk-flex-middle uk-animation-fade" data-uk-height-viewport>
                 <div className="uk-width-1-1">
                     <div className="uk-container">

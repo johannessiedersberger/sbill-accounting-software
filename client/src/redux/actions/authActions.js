@@ -2,23 +2,28 @@ import * as api from '../api/index';
 import { AUTH, CREATE_PROFILE } from './constants';
 import UIkit from 'uikit';
 
-export const signin = (formData, openSnackbar, setLoading) => async (dispatch) => {
+export const signin = (formData) => async (dispatch) => {
 
-    // try {
-    //     //login the user
-    //     const { data } = await api.signIn(formData)
+    try {
+        //login the user
+        const response = await api.signIn(formData)
+        const data = response.data;
 
-    //     dispatch({ type: AUTH, data })
-    //     // setLoading(false)
-    //     openSnackbar("Signin successfull")
-    //     // history.push('/dashboard')
-    //     window.location.href = "/dashboard"
+        if (response.status === 200) {
+            dispatch({ type: AUTH, data });
+            window.location.href = "/dashboard"
+        }
 
-    // } catch (error) {
-    //     // console.log(error?.response?.data?.message)
-    //     openSnackbar(error?.response?.data?.message)
-    //     setLoading(false)
-    // }
+
+    } catch (error) {
+        // console.log(error?.response?.data?.message)
+        UIkit.notification({
+            message: 'Error during Login: ' + error.response.data,
+            status: 'warning',
+            pos: 'top-right',
+            timeout: 5000
+        });
+    }
 }
 
 export const signup = (formData) => async (dispatch) => {

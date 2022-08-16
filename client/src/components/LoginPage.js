@@ -4,10 +4,13 @@ import styled from "styled-components";
 import Footer from "./Footer";
 import HeaderFrontPage from "./HeaderFrontPage";
 import logo from '../images/invoice.svg';
+import { signin } from "../redux/actions/authActions";
+import { useDispatch } from 'react-redux';
 
 const LoginPage = () => {
     const [email, SetEmail] = React.useState("");
     const [password, SetPassword] = React.useState("");
+    const dispatch = useDispatch();
 
 
     const handleEmailChange = (event) => {
@@ -19,7 +22,11 @@ const LoginPage = () => {
     }
 
     const login = () => {
-
+        const loginData = {
+            email: email,
+            password: password
+        }
+        dispatch(signin(loginData))
     }
 
     return (
