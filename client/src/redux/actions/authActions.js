@@ -29,8 +29,6 @@ export const signin = (formData) => async (dispatch) => {
 export const signup = (formData) => async (dispatch) => {
     try {
         const response = await api.signUp(formData);
-        console.log("response");
-        console.log(response);
         if (response.status === 200) {
             window.location.href = "/check-email";
         }
@@ -49,11 +47,20 @@ export const signup = (formData) => async (dispatch) => {
 
 export const activeAccount = (uniqueString, setHasLoaded, SetSuccessFullActivation) => async (dispatch) => {
 
-
-    const { data } = await api.verifyEmail(uniqueString);
-    console.log(data);
-    SetSuccessFullActivation(true);
-    setHasLoaded(true);
-
+    try {
+        const response = await api.verifyEmail(uniqueString);
+        if (response.status === 200) {
+            SetSuccessFullActivation(true);
+            setHasLoaded(true);
+        }
+    } catch (error) {
+        UIkit.notification({
+            message: 'Error during Account activation: ' + error.response.data,
+            status: 'warning',
+            pos: 'top-right',
+            timeout: 5000
+        });
+        setHasLoaded(true);
+    }
 
 }
