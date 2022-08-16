@@ -1,7 +1,15 @@
 import React, { useState } from "react";
+import { useDispatch } from 'react-redux';
 
 
 const HeaderFrontPage = (props) => {
+    const dispatch = useDispatch();
+
+    const logout = () => {
+        dispatch({ type: 'LOGOUT' });
+        window.location.href = "/login";
+    }
+
     return (
         <nav class="uk-navbar-container uk-margin" uk-navbar="mode: click">
             <div class="uk-navbar-left">
@@ -21,7 +29,7 @@ const HeaderFrontPage = (props) => {
                 </ul>
 
                 <ul class="uk-navbar-nav uk-position-right uk-margin-right">
-                    <li><a href="/">Logout</a></li>
+                    <li><a onClick={logout}>Logout</a></li>
                 </ul>
 
             </div>

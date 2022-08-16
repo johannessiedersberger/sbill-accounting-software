@@ -16,7 +16,6 @@ export const signin = (formData) => async (dispatch) => {
 
 
     } catch (error) {
-        // console.log(error?.response?.data?.message)
         UIkit.notification({
             message: 'Error during Login: ' + error.response.data,
             status: 'warning',
@@ -32,7 +31,6 @@ export const signup = (formData) => async (dispatch) => {
         if (response.status === 200) {
             window.location.href = "/check-email";
         }
-
     } catch (err) {
 
         UIkit.notification({
