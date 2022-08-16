@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { API_ENDPOINT } from "../utils/constants";
 import Loading from "../images/loading.svg";
 import Logo from "../images/invoice.svg";
 import Footer from "./Footer";
 import { useParams } from "react-router-dom";
+import { activeAccount } from "../redux/actions/authActions";
+import { useDispatch } from 'react-redux'
 
 const AccountActivatedPage = () => {
     const params = useParams();
     const uniqueString = params.uniqueString;
     const [hasLoaded, setHasLoaded] = useState(false);
     const [successFullActivation, SetSuccessFullActivation] = useState(false);
-
+    const dispatch = useDispatch();
     useEffect(() => {
         if (hasLoaded === false) {
             activateAccount();
@@ -19,21 +20,22 @@ const AccountActivatedPage = () => {
     });
 
     const activateAccount = () => {
-        axios({
-            url: `${API_ENDPOINT}/api/users/verify/${uniqueString}`,
-            method: 'get'
-        }).then((response) => {
+        // axios({
+        //     url: `${API_ENDPOINT}/api/users/verify/${uniqueString}`,
+        //     method: 'post'
+        // }).then((response) => {
 
-            if (response.status === 200) {
-                // All went right
-                setHasLoaded(true);
-                SetSuccessFullActivation(true);
-            }
-        }).catch((err) => {
-            setHasLoaded(true);
-            SetSuccessFullActivation(false);
-            console.log(err);
-        });;
+        //     if (response.status === 200) {
+        //         // All went right
+        //         setHasLoaded(true);
+        //         SetSuccessFullActivation(true);
+        //     }
+        // }).catch((err) => {
+        //     setHasLoaded(true);
+        //     SetSuccessFullActivation(false);
+        //     console.log(err);
+        // });;
+        dispatch(activeAccount(uniqueString, setHasLoaded, SetSuccessFullActivation));
     }
 
 

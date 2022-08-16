@@ -14,6 +14,7 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import FeaturesPage from './components/FeaturesPage';
 import PricingPage from './components/PricingPage';
 import AccountActivatedPage from './components/AccountActivatedPage';
+import CheckEmailPage from './components/CheckEmailPage';
 
 function App() {
   UIkit.use(Icons);
@@ -29,6 +30,7 @@ function App() {
         <Route path="/features" element={<FeaturesPage />} />
         <Route path="/pricing" element={<PricingPage />} />
         <Route path='/account-activated/:uniqueString' element={<AccountActivatedPage />} />
+        <Route path='/check-email' element={<CheckEmailPage />} />
       </Routes>
     </BrowserRouter>
   );

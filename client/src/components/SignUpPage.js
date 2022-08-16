@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from 'react-redux';
+import { useNavigate, Link } from 'react-router-dom';
 import HeaderFrontPage from "./HeaderFrontPage";
 import Footer from "./Footer";
 import logo from "../images/invoice.svg";
+import { signup } from "../redux/actions/authActions";
 
 const SignUpPage = () => {
-    const [firstName, SetFirstName] = React.useState("");
-    const [lastName, SetLastName] = React.useState("");
-    const [email, SetEmail] = React.useState("");
-    const [password1, setPassword1] = React.useState("");
-    const [password2, setPassword2] = React.useState("");
-    const [acceptDataProctection, SetAcceptDataProctection] = React.useState(false);
+    const [firstName, SetFirstName] = useState("");
+    const [lastName, SetLastName] = useState("");
+    const [email, SetEmail] = useState("");
+    const [password1, setPassword1] = useState("");
+    const [password2, setPassword2] = useState("");
+    const [acceptDataProctection, SetAcceptDataProctection] = useState(false);
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleFirstNameChange = (event) => {
         SetFirstName(event.target.value);
@@ -36,7 +42,15 @@ const SignUpPage = () => {
     }
 
     const createAccount = () => {
-
+        const signUpData = {
+            firstname: firstName,
+            lastname: lastName,
+            email: email,
+            password1: password1,
+            password2: password2,
+            acceptDataProctection: acceptDataProctection
+        }
+        dispatch(signup(signUpData, navigate));
     }
 
     return (

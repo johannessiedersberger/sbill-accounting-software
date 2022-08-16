@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.post('/signup', signup);
 
-router.get('/verify/:uniqueString', verifyEmail);
+router.post('/verify/:uniqueString', verifyEmail);
 
 export default router;
 
