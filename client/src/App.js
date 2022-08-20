@@ -3,19 +3,19 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import FrontPage from "./components/FrontPage";
 import UIkit from 'uikit';
 import Icons from 'uikit/dist/js/uikit-icons';
-import LoginPage from './components/LoginPage';
-import SignUpPage from './components/SignUpPage';
-import PasswordResetPage from './components/PasswordResetPage';
-import SendPasswordResetEmail from './components/SendPasswordResetEmail';
+import LoginPage from './components/login/LoginPage';
+import SignUpPage from './components/login/SignUpPage';
+import PasswordResetPage from './components/login/PasswordResetPage';
+import SendPasswordResetEmail from './components/login/SendPasswordResetEmail';
 import 'uikit/dist/css/uikit.min.css';
 import 'uikit/dist/js/uikit-core.min.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import FeaturesPage from './components/FeaturesPage';
 import PricingPage from './components/PricingPage';
-import AccountActivatedPage from './components/AccountActivatedPage';
-import CheckEmailPage from './components/CheckEmailPage';
-import InvoicePage from './components/InvoicePage';
+import AccountActivatedPage from './components/login/AccountActivatedPage';
+import CheckEmailPage from './components/login/CheckEmailPage';
+import InvoicePage from './components/invoices/InvoicePage';
 
 function App() {
   UIkit.use(Icons);

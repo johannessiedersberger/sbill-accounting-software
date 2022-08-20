@@ -1,10 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import styled from "styled-components";
-import Footer from "./Footer";
-import HeaderFrontPage from "./HeaderFrontPage";
-import logo from '../images/invoice.svg';
-import { signin } from "../redux/actions/authActions";
+import Footer from "../Footer";
+import HeaderFrontPage from "../HeaderFrontPage";
+import logo from '../../images/invoice.svg';
+import { signin } from "../../redux/actions/authActions";
 import { useDispatch } from 'react-redux';
 
 const LoginPage = () => {

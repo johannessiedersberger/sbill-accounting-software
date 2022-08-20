@@ -1,7 +1,7 @@
 import React from "react";
-import Footer from './Footer';
-import HeaderFrontPage from "./HeaderFrontPage";
-import logo from '../images/invoice.svg';
+import Footer from '../Footer';
+import HeaderFrontPage from "../HeaderFrontPage";
+import logo from '../../images/invoice.svg';
 
 const SendPasswordResetEmail = (props) => {
     const [email, SetEmail] = React.useState("");

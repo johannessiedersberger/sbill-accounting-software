@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
-import HeaderFrontPage from "./HeaderFrontPage";
-import Footer from "./Footer";
-import logo from "../images/invoice.svg";
-import { signup } from "../redux/actions/authActions";
+import HeaderFrontPage from "../HeaderFrontPage";
+import Footer from "../Footer";
+import logo from "../../images/invoice.svg";
+import { signup } from "../../redux/actions/authActions";
 
 const SignUpPage = () => {
     const [firstName, SetFirstName] = useState("");

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Footer from './Footer';
-import logo from '../images/invoice.svg';
-import HeaderFrontPage from './HeaderFrontPage';
+import Footer from '../Footer';
+import logo from '../../images/invoice.svg';
+import HeaderFrontPage from '../HeaderFrontPage';
 
 const PasswordResetPage = (props) => {
 

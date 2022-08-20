@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Loading from "../images/loading.svg";
-import Logo from "../images/invoice.svg";
-import Footer from "./Footer";
+import Loading from "../../images/loading.svg";
+import Logo from "../../images/invoice.svg";
+import Footer from "../Footer";
 import { useParams } from "react-router-dom";
-import { activeAccount } from "../redux/actions/authActions";
-import { useDispatch } from 'react-redux'
-import HeaderFrontPage from "./HeaderFrontPage";
+import { activeAccount } from "../../redux/actions/authActions";
+import { useDispatch } from 'react-redux';
+import HeaderFrontPage from "../HeaderFrontPage";
 
 const AccountActivatedPage = () => {
     const params = useParams();

@@ -1,13 +1,26 @@
 import React, { useState } from "react";
-import HeaderAfterLogin from "./HeaderAfterLogin";
+import HeaderAfterLogin from "../HeaderAfterLogin";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Autocomplete from "./Autocomplete";
+import Position from "./Position";
 
 const InvoicePage = (props) => {
 
     const [startDate, setStartDate] = useState(new Date());
     const [dueDate, setDueDate] = useState(new Date());
+    const [positions, setPostions] = useState([{ key: 0 }]);
+
+    const addPosition = () => {
+        setPostions([...positions, { key: positions.length }]);
+    }
+
+    const deletePosition = (key) => {
+        var newPositions = positions.splice(key, 1);
+        //setPostions(newPositions);
+        //console.log(newPositions);
+        console.log(key);
+    }
 
     return (
         <div>
@@ -84,7 +97,6 @@ const InvoicePage = (props) => {
 
 
                         <div class="row uk-padding">
-
                             <div class="col-12">
                                 <table class="uk-table uk-table-hover uk-table-divider">
                                     <thead>
@@ -96,15 +108,11 @@ const InvoicePage = (props) => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td><input class="uk-input" type="text" placeholder="Description" /></td>
-                                            <td><input class="uk-input" type="number" placeholder="Quantity" /></td>
-                                            <td><input class="uk-input" type="number" min="1" step="any" placeholder="Price per Item" /></td>
-                                            <td><div style={{ marginTop: "8px" }}>1.000,00€</div></td>
-                                        </tr>
-
-
+                                        {positions.map((value, index) => {
+                                            return <Position key={index} callback={(k) => deletePosition(k)} />
+                                        })}
                                     </tbody>
+                                    <button class="uk-button uk-button-primary" onClick={addPosition}>Add item</button>
                                 </table>
                             </div>
 
