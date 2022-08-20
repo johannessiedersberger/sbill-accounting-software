@@ -16,16 +16,21 @@ var invoiceSchema = new Schema({
         require: true
     },
     client: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Client'
+    },
+    invoiceItems: [
+        {
+            description: String,
+            quantity: Number,
+            unitPrice: Number,
+        }
+    ],
+    invoiceAmount: {
+        type: Number,
         require: true
     },
-    invoiceItems: [{
-        description: String,
-        unitPrice: Number,
-        quantity: Number,
-        total: Number
-    }],
-    invoiceAmount: {
+    vatTax: {
         type: Number,
         require: true
     },
