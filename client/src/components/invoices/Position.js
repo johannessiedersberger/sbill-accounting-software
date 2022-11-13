@@ -2,11 +2,9 @@ import React from "react";
 import { FaTrashAlt } from "react-icons/fa";
 
 const Position = (props) => {
-    const deletePosition = () => {
-        const key = props.key;
-        console.log(key);
-        props.callback(key);
-    }
+    const ondelete = () => {
+        props.onDelete(props.index);
+    };
 
 
 
@@ -21,7 +19,7 @@ const Position = (props) => {
                         <div style={{ marginTop: "8px" }}>1.000,00€</div>
                     </div>
                     <div class="col">
-                        <FaTrashAlt style={{ marginTop: "10px", cursor: "pointer" }} onClick={() => props.callback(props.key)} />
+                        <FaTrashAlt style={{ marginTop: "10px", cursor: "pointer" }} onClick={ondelete} />
                     </div>
                 </div>
 

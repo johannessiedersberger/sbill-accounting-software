@@ -13,13 +13,16 @@ const InvoicePage = (props) => {
 
     const addPosition = () => {
         setPostions([...positions, { key: positions.length }]);
+        console.log(positions);
     }
 
-    const deletePosition = (key) => {
-        var newPositions = positions.splice(key, 1);
-        setPostions(newPositions);
-        //console.log(newPositions);
-        console.log(key);
+
+    const onDelete = (index) => {
+        console.log("index" + index);
+        let pos = [...positions];
+
+        pos.splice(index, 1);
+        setPostions(pos);
     }
 
     return (
@@ -95,7 +98,6 @@ const InvoicePage = (props) => {
                             </div>
                         </div>
 
-
                         <div class="row uk-padding">
                             <div class="col-12">
                                 <table class="uk-table uk-table-hover uk-table-divider">
@@ -109,7 +111,7 @@ const InvoicePage = (props) => {
                                     </thead>
                                     <tbody>
                                         {positions.map((value, index) => {
-                                            return <Position key={index} callback={(k) => deletePosition(k)} />
+                                            return <Position index={index} onDelete={onDelete} />
                                         })}
                                     </tbody>
                                     <button class="uk-button uk-button-primary" onClick={addPosition}>Add item</button>
