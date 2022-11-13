@@ -19,9 +19,11 @@ app.use((express.urlencoded({ limit: "30mb", extended: true })));
 app.use((cors()));
 
 const dbConnection = process.env.DB_CONNECTION;
-
 // Connect to DB
-mongoose.connect(dbConnection, { useNewUrlParser: true, useUnifiedTopology: true }, () => console.log('Connect to MongoDB Sucessfully!'));
+mongoose.connect(dbConnection, { useNewUrlParser: true, useUnifiedTopology: true, }).then(
+    () => { console.log("Connected to MongoDB Successfully") },
+    err => { console.log(err) }
+);
 
 import userRouter from './routes/users.js';
 

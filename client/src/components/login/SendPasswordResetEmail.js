@@ -1,6 +1,6 @@
 import React from "react";
-import Footer from '../Footer';
-import HeaderFrontPage from "../HeaderFrontPage";
+import Footer from '../frontpages/Footer';
+import HeaderFrontPage from "../frontpages/HeaderFrontPage";
 import logo from '../../images/invoice.svg';
 
 const SendPasswordResetEmail = (props) => {

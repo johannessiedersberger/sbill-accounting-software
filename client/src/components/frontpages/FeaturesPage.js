@@ -2,12 +2,12 @@ import React from "react";
 import { useState } from "react";
 import 'uikit/dist/css/uikit.min.css';
 import 'uikit/dist/js/uikit-core.min.js';
-import invoicePrint from '../images/invoice.svg';
-import invoice from '../images/invoice_payment.svg';
+import invoicePrint from '../../images/invoice.svg';
+import invoice from '../../images/invoice_payment.svg';
 import Footer from "./Footer";
-import Finance from '../images/finance.svg';
+import Finance from '../../images/finance.svg';
 import HeaderFrontPage from "./HeaderFrontPage";
-import Cancel from "../images/cancel.svg";
+import Cancel from "../../images/cancel.svg";
 
 const FeaturesPage = (props) => {
 

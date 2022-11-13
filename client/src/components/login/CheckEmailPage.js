@@ -1,7 +1,7 @@
 import React from 'react';
 import Logo from '../../images/invoice.svg';
-import Footer from '../Footer';
-import HeaderFrontPage from '../HeaderFrontPage';
+import Footer from '../frontpages/Footer';
+import HeaderFrontPage from '../frontpages/HeaderFrontPage';
 
 
 const CheckEmailPage = (props) => {

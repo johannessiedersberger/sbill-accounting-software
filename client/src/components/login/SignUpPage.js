@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
-import HeaderFrontPage from "../HeaderFrontPage";
-import Footer from "../Footer";
+import HeaderFrontPage from "../frontpages/HeaderFrontPage";
+import Footer from "../frontpages/Footer";
 import logo from "../../images/invoice.svg";
 import { signup } from "../../redux/actions/authActions";
 

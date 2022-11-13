@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import HeaderAfterLogin from "../HeaderAfterLogin";
+import HeaderAfterLogin from "../dashboard/HeaderAfterLogin";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Autocomplete from "./Autocomplete";
@@ -17,7 +17,7 @@ const InvoicePage = (props) => {
 
     const deletePosition = (key) => {
         var newPositions = positions.splice(key, 1);
-        //setPostions(newPositions);
+        setPostions(newPositions);
         //console.log(newPositions);
         console.log(key);
     }

@@ -1,8 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import styled from "styled-components";
-import Footer from "../Footer";
-import HeaderFrontPage from "../HeaderFrontPage";
+import Footer from "../frontpages/Footer";
+import HeaderFrontPage from "../frontpages/HeaderFrontPage";
 import logo from '../../images/invoice.svg';
 import { signin } from "../../redux/actions/authActions";
 import { useDispatch } from 'react-redux';
