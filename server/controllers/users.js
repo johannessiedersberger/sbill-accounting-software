@@ -2,9 +2,8 @@ import User from '../models/User.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import joi from 'joi';
-import { loginValidation } from '../validation.js';
 import { sendEmail, randString } from '../utils/email.js';
-import { getUserByEmail, doPasswordsMatch, hashPassword, registerValidation, createNewUser, sendConfirmationEmail, getUserByUniqueString, setUserValid, validatePasswordHash, createJWToken } from '../services/users.js';
+import { getUserByEmail, doPasswordsMatch, hashPassword, createNewUser, sendConfirmationEmail, getUserByUniqueString, setUserValid, validatePasswordHash, createJWToken, loginValidation, registerValidation } from '../services/users.js';
 
 export const signup = async (req, res) => {
     // validate the request data before we create a user

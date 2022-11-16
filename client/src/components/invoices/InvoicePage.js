@@ -58,7 +58,7 @@ const InvoicePage = (props) => {
                                 </div>
                                 <div class="row uk-margin">
                                     <p style={{ marginLeft: "-10px" }}>Address</p>
-                                    <textarea style={{ marginLeft: "0px", marginRight: "20px" }} class="uk-textarea col" rows="5" placeholder="Textarea"></textarea>
+                                    <textarea style={{ marginRight: "20px" }} class="uk-textarea col" rows="5" placeholder="Textarea"></textarea>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -121,19 +121,27 @@ const InvoicePage = (props) => {
                         </div>
 
                         <div class="row uk-padding">
-                            <div class="col-9" />
-                            <div class="col-3">
-                                <table class="uk-table uk-table-hover uk-table-divider uk-margin-left">
+
+                            <div class="col-12">
+                                <table class="uk-table uk-table-hover uk-table-divider">
                                     <thead>
                                         <tr>
-                                            <th>Tax</th>
-                                            <th>Total Price</th>
+                                            <th></th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><input class="uk-input" type="number" placeholder="19%" /></td>
+                                            <td>Gesamtsumme Netto</td>
                                             <td><div style={{ marginTop: "8px" }}>1.000,00€</div></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Umsatzsteuer 19%</td>
+                                            <td><div style={{ marginTop: "8px" }}>190,00€</div></td>
+                                        </tr>
+                                        <tr>
+                                            <td><bold>Gesamt 19%</bold></td>
+                                            <td><div style={{ marginTop: "8px" }}><bold>1.190,00€</bold></div></td>
                                         </tr>
                                     </tbody>
                                 </table>

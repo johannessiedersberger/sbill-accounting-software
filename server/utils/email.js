@@ -3,10 +3,6 @@ import nodemailer from 'nodemailer';
 import AWS from 'aws-sdk';
 dotenv.config();
 
-
-
-
-
 export const sendEmail = (mailOptions) => {
 
     AWS.config.update({

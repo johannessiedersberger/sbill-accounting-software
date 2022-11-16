@@ -26,8 +26,10 @@ mongoose.connect(dbConnection, { useNewUrlParser: true, useUnifiedTopology: true
 );
 
 import userRouter from './routes/users.js';
+import invoiceRouter from './routes/invoice.js';
 
 app.use('/api/users', userRouter);
+app.use('/api/invoices', invoiceRouter);
 
 app.listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
