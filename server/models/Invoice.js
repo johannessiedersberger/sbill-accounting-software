@@ -9,7 +9,7 @@ var invoiceSchema = new Schema({
     },
     createdDate: {
         type: Date,
-        default: Date.now
+        require: true
     },
     dueDate: {
         type: Date,

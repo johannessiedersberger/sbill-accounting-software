@@ -22,7 +22,7 @@ const HeaderFrontPage = (props) => {
                             <ul class="uk-nav uk-navbar-dropdown-nav">
                                 <li><a href="/dashboard">Dashboard</a></li>
                                 <li><a href="#">Quotes</a></li>
-                                <li><a href="#">Invoices</a></li>
+                                <li><a href="/invoices">Invoices</a></li>
                             </ul>
                         </div>
                     </li>

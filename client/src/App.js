@@ -16,6 +16,7 @@ import PricingPage from './components/frontpages/PricingPage';
 import AccountActivatedPage from './components/login/AccountActivatedPage';
 import CheckEmailPage from './components/login/CheckEmailPage';
 import InvoicePage from './components/invoices/InvoicePage';
+import InvoiceList from './components/invoices/InvoiceList';
 
 function App() {
   UIkit.use(Icons);
@@ -32,6 +33,7 @@ function App() {
         <Route path="/pricing" element={<PricingPage />} />
         <Route path='/account-activated/:uniqueString' element={<AccountActivatedPage />} />
         <Route path='/check-email' element={<CheckEmailPage />} />
+        <Route path='/invoices' element={<InvoiceList />} />
         <Route path='/invoice' element={<InvoicePage />} />
       </Routes>
     </BrowserRouter>
