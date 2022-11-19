@@ -10,51 +10,48 @@ const Position = (props) => {
         props.onDelete(props.index);
     };
 
-    const setData = () => {
-        props.setData({
-            description: description,
+    const descriptionChange = (e) => {
+        setDescription(e.target.value);
+        console.log(e.target.value);
+        setData({
+            description: e.target.value,
             quantity: quantity,
             princePerItem: princePerItem,
             index: props.index
         });
     }
 
-    const descriptionChange = (e) => {
-        setDescription(e.target.value);
-        setData();
-    }
-
     const quantityChange = (e) => {
         setQuantity(e.target.value);
-        setData();
+        setData({
+            description: description,
+            quantity: e.target.value,
+            princePerItem: princePerItem,
+            index: props.index
+        });
     }
 
     const pricePerItemChange = (e) => {
         setPricePerItem(e.target.value);
-        setData();
+        setData({
+            description: description,
+            quantity: quantity,
+            princePerItem: e.target.value,
+            index: props.index
+        });
     }
 
-
-
-
+    const setData = (data) => {
+        props.setData(data);
+    }
 
     return (
         <tr>
-            <td><input class="uk-input" type="text" placeholder="Description" onchange={(e) => descriptionChange(e)} /></td>
-            <td><input class="uk-input" type="number" placeholder="Quantity" onChange={(e) => quantityChange(e)} /></td>
-            <td><input class="uk-input" type="number" min="1" step="any" onChange={(e) => pricePerItemChange(e)} placeholder="Price per Item" /></td>
-            <td>
-                <div class="row">
-                    <div class="col">
-                        <div style={{ marginTop: "8px" }}>1.000,00€</div>
-                    </div>
-                    <div class="col">
-                        <FaTrashAlt style={{ marginTop: "10px", cursor: "pointer" }} onClick={ondelete} />
-                    </div>
-                </div>
-
-
-            </td>
+            <td><input class="uk-input" type="text" placeholder="Description" onInput={(e) => descriptionChange(e)} /></td>
+            <td><input class="uk-input" type="number" placeholder="Quantity" onChange={(e) => quantityChange(e)} value={quantity} /></td>
+            <td><input class="uk-input" type="number" step="0.01" min="1" onChange={(e) => pricePerItemChange(e)} value={princePerItem} placeholder="Price per Item" /></td>
+            <td><div style={{ marginTop: "8px" }}>{quantity * princePerItem}€</div></td>
+            <td><FaTrashAlt style={{ marginTop: "10px", cursor: "pointer" }} onClick={ondelete} /></td>
         </tr>
     )
 }

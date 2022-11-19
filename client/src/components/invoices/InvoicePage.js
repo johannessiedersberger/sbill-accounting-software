@@ -4,6 +4,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Autocomplete from "./Autocomplete";
 import Position from "./Position";
+import { es } from 'date-fns/esm/locale'
 
 const InvoicePage = (props) => {
 
@@ -44,7 +45,7 @@ const InvoicePage = (props) => {
         pos[data.index].princePerItem = data.princePerItem;
 
         setPostions(pos);
-        console.log(positions);
+        console.log(pos);
     }
 
     return (
@@ -123,7 +124,7 @@ const InvoicePage = (props) => {
                                         <DatePicker
                                             className="uk-input col"
                                             placeholderText="Select a date"
-                                            locale="es"
+                                            locale={es}
                                             selected={startDate} onChange={(date) => setStartDate(date)}
                                         />
                                     </div>
@@ -132,7 +133,7 @@ const InvoicePage = (props) => {
                                         <DatePicker
                                             className="uk-input col"
                                             placeholderText="Select a date"
-                                            locale="es"
+                                            locale={es}
                                             selected={dueDate} onChange={(date) => setDueDate(date)}
                                         />
                                     </div>
