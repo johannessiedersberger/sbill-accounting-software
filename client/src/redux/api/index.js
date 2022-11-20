@@ -13,3 +13,5 @@ API.interceptors.request.use((req) => {
 export const signIn = (formData) => API.post('/api/users/signin', formData);
 export const signUp = (formData) => API.post('/api/users/signup', formData);
 export const verifyEmail = (uniqueString) => API.post(`/api/users/verify/${uniqueString}`);
+
+export const postInvoice = (invoiceData) => API.post(`/api/invoices/`, invoiceData)

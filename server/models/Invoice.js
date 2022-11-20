@@ -15,9 +15,21 @@ var invoiceSchema = new Schema({
         type: Date,
         require: true
     },
+    // client: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'Client'
+    // },
     client: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Client'
+        type: String,
+        require: true
+    },
+    topic: {
+        type: String,
+        require: true
+    },
+    address: {
+        type: String,
+        require: true
     },
     invoiceItems: [
         {
@@ -26,14 +38,19 @@ var invoiceSchema = new Schema({
             unitPrice: Number,
         }
     ],
+    nettoSum: {
+        type: Number,
+        require: true
+    },
+    valueTax: {
+        type: Number,
+        require: true
+    },
     invoiceAmount: {
         type: Number,
         require: true
     },
-    vatTax: {
-        type: Number,
-        require: true
-    },
+
 
 });
 

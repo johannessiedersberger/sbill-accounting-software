@@ -11,6 +11,7 @@ class Autocomplete extends Component {
         suggestions: []
     };
 
+
     constructor(props) {
         super(props);
 
@@ -22,7 +23,9 @@ class Autocomplete extends Component {
             // Whether or not the suggestion list is shown
             showSuggestions: false,
             // What the user has entered
-            userInput: ""
+            userInput: "",
+
+            onUpdateClient: props.onUpdateClient
         };
     }
 
@@ -42,6 +45,8 @@ class Autocomplete extends Component {
             showSuggestions: true,
             userInput: e.currentTarget.value
         });
+        const { activeSuggestion, } = this.state;
+        this.state.onUpdateClient(filteredSuggestions[activeSuggestion]);
     };
 
     onClick = e => {
@@ -51,6 +56,8 @@ class Autocomplete extends Component {
             showSuggestions: false,
             userInput: e.currentTarget.innerText
         });
+        const { activeSuggestion, filteredSuggestions } = this.state;
+        this.state.onUpdateClient(filteredSuggestions[activeSuggestion]);
     };
 
     onKeyDown = e => {
@@ -63,6 +70,7 @@ class Autocomplete extends Component {
                 showSuggestions: false,
                 userInput: filteredSuggestions[activeSuggestion]
             });
+            this.state.onUpdateClient(filteredSuggestions[activeSuggestion]);
         }
         // User pressed the up arrow
         else if (e.keyCode === 38) {
@@ -71,6 +79,7 @@ class Autocomplete extends Component {
             }
 
             this.setState({ activeSuggestion: activeSuggestion - 1 });
+            this.state.onUpdateClient(filteredSuggestions[activeSuggestion]);
         }
         // User pressed the down arrow
         else if (e.keyCode === 40) {
@@ -79,6 +88,7 @@ class Autocomplete extends Component {
             }
 
             this.setState({ activeSuggestion: activeSuggestion + 1 });
+            this.state.onUpdateClient(filteredSuggestions[activeSuggestion]);
         }
     };
 

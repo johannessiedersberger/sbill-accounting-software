@@ -4,7 +4,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Autocomplete from "./Autocomplete";
 import Position from "./Position";
-import { es } from 'date-fns/esm/locale'
+import { de } from 'date-fns/esm/locale'
+import { uploadInvoice } from '../../redux/actions/invoiceActions';
+import { useDispatch } from "react-redux";
 
 const InvoicePage = (props) => {
 
@@ -12,12 +14,15 @@ const InvoicePage = (props) => {
     const [dueDate, setDueDate] = useState(new Date());
     const [positions, setPostions] = useState([{ key: 0 }]);
     const [invoiceNumber, setInvoiceNumber] = useState(0);
-    const [topic, setTopic] = useState(0);
+    const [topic, setTopic] = useState('');
     const [client, setClient] = useState('');
     const [address, setAddress] = useState('');
+
     const [nettoSum, setNettoSum] = useState(0);
     const [valueTax, setValueTax] = useState(0);
     const [totalValue, setTotalValue] = useState(0);
+
+    const dispatch = useDispatch();
 
     const addPosition = () => {
         setPostions([...positions, { key: positions.length, description: "", quantity: 0, princePerItem: 0 }]);
@@ -33,8 +38,25 @@ const InvoicePage = (props) => {
         setPostions(pos);
     }
 
+    const onUpdateClient = (client) => {
+        setClient(client);
+    }
+
     const saveInvoice = () => {
         // save stuff api
+        dispatch(uploadInvoice({
+            invoiceNumber: invoiceNumber,
+            createdDate: startDate,
+            dueDate: dueDate,
+            client: client,
+            address: address,
+            topic: topic,
+            invoiceItems: positions,
+            nettoSum: nettoSum,
+            valueTax: valueTax,
+            invoiceAmount: totalValue,
+
+        }))
     }
 
     const setData = (data) => {
@@ -46,6 +68,13 @@ const InvoicePage = (props) => {
 
         setPostions(pos);
         console.log(pos);
+
+        // Recalulate
+        const nettoSumLocal = data.quantity * data.princePerItem;
+        const valueTaxLocal = (data.quantity * data.princePerItem) * 0.19;
+        setNettoSum(nettoSumLocal);
+        setValueTax(valueTaxLocal);
+        setTotalValue(nettoSumLocal + valueTaxLocal);
     }
 
     return (
@@ -56,16 +85,16 @@ const InvoicePage = (props) => {
                     <div class="col-1" />
                     <div class="col-10" >
                         <div class="row">
-                            <div class="col-2">
-                                <button class="uk-button uk-button-danger uk-align-right" >Löschen</button>
+                            <div class="col-4">
+                                <button class="uk-button uk-button-danger uk-align-center" >Löschen</button>
                             </div>
-                            <div class="col-6" />
 
-                            <div class="col-2">
-                                <button class="uk-button uk-align-right" onClick={saveInvoice}>Speichern</button>
+
+                            <div class="col-4">
+                                <button class="uk-button uk-align-center" onClick={saveInvoice}>Speichern</button>
                             </div>
-                            <div class="col-2">
-                                <button class="uk-button uk-button-primary uk-align-right">Download</button>
+                            <div class="col-4">
+                                <button class="uk-button uk-button-primary uk-align-center">Download</button>
                             </div>
                         </div>
 
@@ -83,6 +112,7 @@ const InvoicePage = (props) => {
                                     <p style={{ marginLeft: "-10px" }}>Client</p>
                                     <div style={{ marginLeft: "-10px", marginRight: "10px" }}>
                                         <Autocomplete
+                                            onUpdateClient={onUpdateClient}
 
                                             suggestions={[
                                                 "Johannes Siedersberger",
@@ -101,18 +131,18 @@ const InvoicePage = (props) => {
                                 </div>
                                 <div class="row uk-margin">
                                     <p style={{ marginLeft: "-10px" }}>Address</p>
-                                    <textarea style={{ marginRight: "20px" }} class="uk-textarea col" rows="5" placeholder="Textarea"></textarea>
+                                    <textarea style={{ marginRight: "20px" }} onChange={(e) => setAddress(e.target.value)} class="uk-textarea col" rows="5" placeholder="Textarea"  ></textarea>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="row">
                                     <div class="col-6 ">
                                         <p>Topic</p>
-                                        <input class="uk-input col" type="text" placeholder="Input" />
+                                        <input class="uk-input col" type="text" onChange={(e) => setTopic(e.target.value)} placeholder="Input" />
                                     </div>
                                     <div class="col-6">
                                         <p>Invoice #</p>
-                                        <input class="uk-input col" type="text" placeholder="Input" />
+                                        <input class="uk-input col" type="text" onChange={(e) => setInvoiceNumber(e.target.value)} placeholder="Input" />
                                     </div>
                                 </div>
                                 <div class="row uk-margin">
@@ -124,7 +154,7 @@ const InvoicePage = (props) => {
                                         <DatePicker
                                             className="uk-input col"
                                             placeholderText="Select a date"
-                                            locale={es}
+                                            locale={de}
                                             selected={startDate} onChange={(date) => setStartDate(date)}
                                         />
                                     </div>
@@ -133,7 +163,7 @@ const InvoicePage = (props) => {
                                         <DatePicker
                                             className="uk-input col"
                                             placeholderText="Select a date"
-                                            locale={es}
+                                            locale={de}
                                             selected={dueDate} onChange={(date) => setDueDate(date)}
                                         />
                                     </div>
@@ -175,15 +205,15 @@ const InvoicePage = (props) => {
                                     <tbody>
                                         <tr>
                                             <td>Gesamtsumme Netto</td>
-                                            <td><div style={{ marginTop: "8px" }}>1.000,00€</div></td>
+                                            <td><div style={{ marginTop: "8px" }}>{nettoSum}€</div></td>
                                         </tr>
                                         <tr>
                                             <td>Umsatzsteuer 19%</td>
-                                            <td><div style={{ marginTop: "8px" }}>190,00€</div></td>
+                                            <td><div style={{ marginTop: "8px" }}>{valueTax}€</div></td>
                                         </tr>
                                         <tr>
-                                            <td><bold>Gesamt 19%</bold></td>
-                                            <td><div style={{ marginTop: "8px" }}><bold>1.190,00€</bold></div></td>
+                                            <td>Gesamt</td>
+                                            <td><div style={{ marginTop: "8px" }}>{totalValue}€</div></td>
                                         </tr>
                                     </tbody>
                                 </table>
