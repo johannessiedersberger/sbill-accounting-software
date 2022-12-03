@@ -7,12 +7,18 @@ import Position from "./Position";
 
 const InvoiceItem = (props) => {
 
+    const openInvoiceItem = () => {
 
+    }
 
 
     return (
         <div>
-
+            <tr onClick={openInvoiceItem}>
+                <td>{props.invoiceNumber}</td>
+                <td>{props.client}</td>
+                <td>{props.nettoSum}</td>
+            </tr>
         </div>
     );
 

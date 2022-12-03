@@ -5,8 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import Autocomplete from "./Autocomplete";
 import Position from "./Position";
 import { de } from 'date-fns/esm/locale'
-import { uploadInvoice } from '../../redux/actions/invoiceActions';
-import { useDispatch } from "react-redux";
+import { postInvoice } from "../../api";
 
 const InvoicePage = (props) => {
 
@@ -21,8 +20,6 @@ const InvoicePage = (props) => {
     const [nettoSum, setNettoSum] = useState(0);
     const [valueTax, setValueTax] = useState(0);
     const [totalValue, setTotalValue] = useState(0);
-
-    const dispatch = useDispatch();
 
     const addPosition = () => {
         setPostions([...positions, { key: positions.length, description: "", quantity: 0, princePerItem: 0 }]);
@@ -44,7 +41,7 @@ const InvoicePage = (props) => {
 
     const saveInvoice = () => {
         // save stuff api
-        dispatch(uploadInvoice({
+        postInvoice({
             invoiceNumber: invoiceNumber,
             createdDate: startDate,
             dueDate: dueDate,
@@ -55,8 +52,7 @@ const InvoicePage = (props) => {
             nettoSum: nettoSum,
             valueTax: valueTax,
             invoiceAmount: totalValue,
-
-        }))
+        });
     }
 
     const setData = (data) => {

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { useDispatch } from 'react-redux';
+import { useStore } from "../../App.js";
 
 
 const HeaderFrontPage = (props) => {
-    const dispatch = useDispatch();
 
+    const deleteUser = useStore(state => state.removeUser);
     const logout = () => {
-        dispatch({ type: 'LOGOUT' });
         window.location.href = "/login";
+        deleteUser();
     }
 
     return (

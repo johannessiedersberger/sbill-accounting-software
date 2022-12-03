@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import HeaderFrontPage from "../frontpages/HeaderFrontPage";
 import Footer from "../frontpages/Footer";
 import logo from "../../images/invoice.svg";
-import { signup } from "../../redux/actions/authActions";
 
 const SignUpPage = () => {
     const [firstName, SetFirstName] = useState("");
@@ -14,7 +12,6 @@ const SignUpPage = () => {
     const [password2, setPassword2] = useState("");
     const [acceptDataProctection, SetAcceptDataProctection] = useState(false);
 
-    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const handleFirstNameChange = (event) => {
@@ -50,7 +47,7 @@ const SignUpPage = () => {
             password2: password2,
             acceptDataProctection: acceptDataProctection
         }
-        dispatch(signup(signUpData, navigate));
+        //signup(signUpData, navigate);
     }
 
     return (

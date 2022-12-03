@@ -3,11 +3,11 @@ import { useState } from "react";
 import HeaderAfterLogin from "./HeaderAfterLogin";
 import styled from "styled-components";
 import Chart from "react-apexcharts";
+import { useStore } from "../../App.js";
 
 const MainDashboard = (props) => {
 
-    const user = JSON.parse(localStorage.getItem('profile'));
-
+    const user = useStore(state => state.user)
     if (!user) {
         window.location.href = "/login"
     }

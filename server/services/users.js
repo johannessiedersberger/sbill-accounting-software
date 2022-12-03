@@ -64,14 +64,7 @@ export const loginValidation = (data) => {
 export const createNewUser = async (data) => {
     // Create a new user
 
-    const user = new User({
-        email: data.email,
-        password: data.hashedPassword,
-        firstname: data.firstname,
-        lastname: data.lastname,
-        isValid: data.isValid,
-        uniqueString: data.uniqueString
-    });
+    const user = new User(data);
 
     const savedUser = await user.save();
     return savedUser;

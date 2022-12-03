@@ -17,6 +17,24 @@ import AccountActivatedPage from './components/login/AccountActivatedPage';
 import CheckEmailPage from './components/login/CheckEmailPage';
 import InvoicePage from './components/invoices/InvoicePage';
 import InvoiceList from './components/invoices/InvoiceList';
+import create from 'zustand';
+import { persist } from 'zustand/middleware';
+import { devtools } from 'zustand/middleware';
+
+// define the store
+let store = (set) => ({
+  user: null,
+  setUser: (currentUser) => set({ user: currentUser }),
+  removeUser: () => set({ user: null })
+});
+
+store = persist(store, { name: "auth" });
+
+store = devtools(store);
+
+export const useStore = create(store);
+
+
 
 function App() {
   UIkit.use(Icons);
@@ -34,7 +52,7 @@ function App() {
         <Route path='/account-activated/:uniqueString' element={<AccountActivatedPage />} />
         <Route path='/check-email' element={<CheckEmailPage />} />
         <Route path='/invoices' element={<InvoiceList />} />
-        <Route path='/invoice' element={<InvoicePage />} />
+        <Route path='/invoice/:id' element={<InvoicePage />} />
       </Routes>
     </BrowserRouter>
   );

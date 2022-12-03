@@ -4,8 +4,6 @@ import Loading from "../../images/loading.svg";
 import Logo from "../../images/invoice.svg";
 import Footer from "../frontpages/Footer";
 import { useParams } from "react-router-dom";
-import { activeAccount } from "../../redux/actions/authActions";
-import { useDispatch } from 'react-redux';
 import HeaderFrontPage from "../frontpages/HeaderFrontPage";
 
 const AccountActivatedPage = () => {
@@ -13,7 +11,7 @@ const AccountActivatedPage = () => {
     const uniqueString = params.uniqueString;
     const [hasLoaded, setHasLoaded] = useState(false);
     const [successFullActivation, SetSuccessFullActivation] = useState(false);
-    const dispatch = useDispatch();
+
     useEffect(() => {
         if (hasLoaded === false) {
             activateAccount();
@@ -21,7 +19,7 @@ const AccountActivatedPage = () => {
     });
 
     const activateAccount = () => {
-        dispatch(activeAccount(uniqueString, setHasLoaded, SetSuccessFullActivation));
+
     }
 
 

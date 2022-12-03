@@ -1,14 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HeaderAfterLogin from "../dashboard/HeaderAfterLogin";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Autocomplete from "./Autocomplete";
 import Position from "./Position";
+import * as api from '../../api';
 
 const InvoiceList = (props) => {
 
+
     const [invoiceList, setInvoiceList] = useState([]);
 
+    useEffect(() => {
+        getAllInvoices()
+    }, []);
+
+    const getAllInvoices = () => {
+        api.getAllInvoices().then((res) => {
+            setInvoiceList(res.data);
+            console.log(res.data);
+        });
+    }
+
+    const newInvoice = () => {
+        window.location.href = "/invoice";
+    }
 
     return (
         <div>
@@ -18,12 +34,10 @@ const InvoiceList = (props) => {
                     <div class="col-1" />
                     <div class="col-10" >
                         <div class="row">
-
                             <div class="col-9" />
 
-
                             <div class="col-3">
-                                <button class="uk-button uk-button-primary uk-align-right">Neue Rechnung</button>
+                                <button class="uk-button uk-button-primary uk-align-right" onClick={newInvoice}>Neue Rechnung</button>
                             </div>
                         </div>
 
@@ -43,21 +57,15 @@ const InvoiceList = (props) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Table Data</td>
-                                    <td>Table Data</td>
-                                    <td>Table Data</td>
-                                </tr>
-                                <tr>
-                                    <td>Table Data</td>
-                                    <td>Table Data</td>
-                                    <td>Table Data</td>
-                                </tr>
-                                <tr>
-                                    <td>Table Data</td>
-                                    <td>Table Data</td>
-                                    <td>Table Data</td>
-                                </tr>
+                                {
+                                    invoiceList?.map((value, index) => {
+                                        return (<tr>
+                                            <td>{value.invoiceNumber}</td>
+                                            <td>{value.client}</td>
+                                            <td>{value.nettoSum}</td>
+                                        </tr>)
+                                    })
+                                }
                             </tbody>
                         </table>
                     </div>

@@ -2,20 +2,20 @@ import User from '../models/User.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import joi from 'joi';
-import { sendEmail, randString } from '../utils/email.js';
-import { getUserByEmail, doPasswordsMatch, hashPassword, createNewUser, sendConfirmationEmail, getUserByUniqueString, setUserValid, validatePasswordHash, createJWToken, loginValidation, registerValidation } from '../services/users.js';
+import * as emailService from '../utils/email.js';
+import * as userService from '../services/users.js';
 
 export const signup = async (req, res) => {
     // validate the request data before we create a user
-    const { error } = registerValidation(req.body);
+    const { error } = userService.registerValidation(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
     // check if the user already exists in the database
-    const emailExists = getUserByEmail(req.body.email);
+    const emailExists = userService.getUserByEmail(req.body.email);
     if (emailExists) return res.status(400).send('Email already exists');
 
     // Check if the two new passwords match
-    const passwordMatch = doPasswordsMatch(req.body.password1, req.body.password2);
+    const passwordMatch = userService.doPasswordsMatch(req.body.password1, req.body.password2);
     if (!passwordMatch) return res.status(400).send('Passwords do not match');
 
     // Check if the data protection rule has been accepted
@@ -24,11 +24,11 @@ export const signup = async (req, res) => {
 
     try {
         // hash password
-        const hashedPassword = await hashPassword(req.body.password1);
+        const hashedPassword = await userService.hashPassword(req.body.password1);
         const isValid = false;
-        const uniqueString = randString();
+        const uniqueString = emailService.randString();
 
-        const savedUser = await createNewUser({
+        const savedUser = await userService.createNewUser({
             email: req.body.email,
             password: hashedPassword,
             firstname: req.body.firstname,
@@ -37,7 +37,7 @@ export const signup = async (req, res) => {
             uniqueString: uniqueString
         });
 
-        await sendConfirmationEmail(req.body.email, uniqueString);
+        await userService.sendConfirmationEmail(req.body.email, uniqueString);
 
         res.send(savedUser);
     } catch (err) {
@@ -54,7 +54,7 @@ export const verifyEmail = async (req, res) => {
     // getting the string
     const uniqueString = req.params.uniqueString;
     // Checking if the user with the uniqueId exists
-    const user = await getUserByUniqueString(uniqueString);
+    const user = await userService.getUserByUniqueString(uniqueString);
     if (!user) return res.status(400).send('Wrong ID');
 
     await setUserValid(user);
@@ -64,11 +64,11 @@ export const verifyEmail = async (req, res) => {
 
 export const signin = async (req, res) => {
     // Lets Validate the Data before we authenticate a user
-    const { error } = loginValidation(req.body);
+    const { error } = userService.loginValidation(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
     // Checking if the email exists
-    const user = await getUserByEmail(req.body.email);
+    const user = await userService.getUserByEmail(req.body.email);
     if (!user) return res.status(400).send('Email is wrong');
 
     // Checking if the user is valid and verified his email address
@@ -76,11 +76,11 @@ export const signin = async (req, res) => {
     if (!emailVerified) return res.status(400).send('User Email is not verified');
 
     // Checking if the password is correct
-    const validPass = validatePasswordHash(req.body.password, user.password);
+    const validPass = userService.validatePasswordHash(req.body.password, user.password);
     if (!validPass) return res.status(400).send('Wrong Password');
 
     // Create and assign a token
-    const token = createJWToken(user._id);
+    const token = userService.createJWToken(user._id);
 
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');

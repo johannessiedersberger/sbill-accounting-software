@@ -4,14 +4,18 @@ import styled from "styled-components";
 import Footer from "../frontpages/Footer";
 import HeaderFrontPage from "../frontpages/HeaderFrontPage";
 import logo from '../../images/invoice.svg';
-import { signin } from "../../redux/actions/authActions";
-import { useDispatch } from 'react-redux';
+import UIkit from "uikit";
+import * as api from '../../api';
+import { useStore } from '../../App.js';
 
 const LoginPage = () => {
-    const [email, SetEmail] = React.useState("");
-    const [password, SetPassword] = React.useState("");
-    const dispatch = useDispatch();
+    const [email, SetEmail] = useState("");
+    const [password, SetPassword] = useState("");
 
+    const user = useStore(state => state.user)
+    if (user) {
+        window.location.href = "/dashboard"
+    }
 
     const handleEmailChange = (event) => {
         SetEmail(event.target.value);
@@ -21,12 +25,29 @@ const LoginPage = () => {
         SetPassword(event.target.value);
     }
 
-    const login = () => {
+    const addUser = useStore(state => state.setUser);
+
+    const login = async () => {
         const loginData = {
             email: email,
             password: password
         }
-        dispatch(signin(loginData))
+        try {
+            const response = await api.signIn(loginData);
+            const data = response.data;
+
+            addUser(data);
+
+            window.location.href = "/dashboard";
+        } catch (err) {
+            UIkit.notification({
+                message: 'Error during Login: ' + err,
+                status: 'warning',
+                pos: 'top-right',
+                timeout: 5000
+            });
+        }
+
     }
 
     return (
