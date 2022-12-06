@@ -3,6 +3,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import HeaderFrontPage from "../frontpages/HeaderFrontPage";
 import Footer from "../frontpages/Footer";
 import logo from "../../images/invoice.svg";
+import * as api from '../../api';
+import UIkit from "uikit";
 
 const SignUpPage = () => {
     const [firstName, SetFirstName] = useState("");
@@ -38,7 +40,7 @@ const SignUpPage = () => {
         SetAcceptDataProctection(event.target.checked);
     }
 
-    const createAccount = () => {
+    const createAccount = async () => {
         const signUpData = {
             firstname: firstName,
             lastname: lastName,
@@ -47,7 +49,18 @@ const SignUpPage = () => {
             password2: password2,
             acceptDataProctection: acceptDataProctection
         }
-        //signup(signUpData, navigate);
+
+        try {
+            await api.signUp(signUpData);
+        } catch (err) {
+            UIkit.notification({
+                message: 'Error during SignUp: ' + err,
+                status: 'warning',
+                pos: 'top-right',
+                timeout: 5000
+            });
+        }
+
     }
 
     return (
