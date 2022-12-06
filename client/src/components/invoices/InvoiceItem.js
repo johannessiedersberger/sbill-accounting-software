@@ -8,18 +8,18 @@ import Position from "./Position";
 const InvoiceItem = (props) => {
 
     const openInvoiceItem = () => {
-
+        window.location.href = `/invoice/${props.invoice.invoiceNumber}`;
     }
 
 
     return (
-        <div>
-            <tr onClick={openInvoiceItem}>
-                <td>{props.invoiceNumber}</td>
-                <td>{props.client}</td>
-                <td>{props.nettoSum}</td>
-            </tr>
-        </div>
+
+        <tr onClick={openInvoiceItem} style={{ cursor: "pointer" }}>
+            <td>{props.invoice.invoiceNumber}</td>
+            <td>{props.invoice.client}</td>
+            <td>{props.invoice.nettoSum}</td>
+        </tr>
+
     );
 
 }
