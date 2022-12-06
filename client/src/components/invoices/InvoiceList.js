@@ -4,10 +4,10 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Autocomplete from "./Autocomplete";
 import Position from "./Position";
+import InvoiceItem from "./InvoiceItem";
 import * as api from '../../api';
 
 const InvoiceList = (props) => {
-
 
     const [invoiceList, setInvoiceList] = useState([]);
 
@@ -59,11 +59,9 @@ const InvoiceList = (props) => {
                             <tbody>
                                 {
                                     invoiceList?.map((value, index) => {
-                                        return (<tr>
-                                            <td>{value.invoiceNumber}</td>
-                                            <td>{value.client}</td>
-                                            <td>{value.nettoSum}</td>
-                                        </tr>)
+                                        return (
+                                            <InvoiceItem key={index} invoice={value} />
+                                        )
                                     })
                                 }
                             </tbody>
