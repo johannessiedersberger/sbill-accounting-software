@@ -33,9 +33,10 @@ var invoiceSchema = new Schema({
     },
     invoiceItems: [
         {
+            key: Number,
             description: String,
             quantity: Number,
-            unitPrice: Number,
+            princePerItem: Number,
         }
     ],
     nettoSum: {
