@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HeaderAfterLogin from "../dashboard/HeaderAfterLogin";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -6,6 +6,8 @@ import Autocomplete from "./Autocomplete";
 import Position from "./Position";
 import { de } from 'date-fns/esm/locale'
 import { postInvoice } from "../../api";
+import * as api from '../../api';
+import { useParams } from "react-router-dom";
 
 const InvoicePage = (props) => {
 
@@ -20,6 +22,19 @@ const InvoicePage = (props) => {
     const [nettoSum, setNettoSum] = useState(0);
     const [valueTax, setValueTax] = useState(0);
     const [totalValue, setTotalValue] = useState(0);
+
+    let { id } = useParams();
+
+    useEffect(() => {
+        loadInvoice();
+    }, []);
+
+    const loadInvoice = () => {
+
+        api.getInvoiceByInvoiceNumber(id).then((resp) => {
+            console.log(resp.data);
+        });
+    }
 
     const addPosition = () => {
         setPostions([...positions, { key: positions.length, description: "", quantity: 0, princePerItem: 0 }]);

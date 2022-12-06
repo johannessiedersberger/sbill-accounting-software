@@ -16,3 +16,4 @@ export const verifyEmail = (uniqueString) => API.post(`/api/users/verify/${uniqu
 
 export const postInvoice = (invoiceData) => API.post(`/api/invoices/`, invoiceData);
 export const getAllInvoices = () => API.get('/api/invoices');
+export const getInvoiceByInvoiceNumber = (id) => API.get(`/api/invoices/id/${id}`);
