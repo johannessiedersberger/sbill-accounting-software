@@ -30,9 +30,20 @@ const InvoicePage = (props) => {
     }, []);
 
     const loadInvoice = () => {
+        console.log(id);
 
         api.getInvoiceByInvoiceNumber(id).then((resp) => {
+
             console.log(resp.data);
+            setInvoiceNumber(resp.data[0].invoiceNumber);
+            setTopic(resp.data[0].topic);
+            setAddress(resp.data[0].address);
+            setNettoSum(resp.data[0].nettoSum);
+            setValueTax(resp.data[0].valueTax);
+            setTotalValue(resp.data[0].invoiceAmount);
+            setStartDate(new Date(resp.data[0].createdDate));
+            setDueDate(new Date(resp.data[0].dueDate));
+
         });
     }
 
@@ -142,19 +153,20 @@ const InvoicePage = (props) => {
                                 </div>
                                 <div class="row uk-margin">
                                     <p style={{ marginLeft: "-10px" }}>Address</p>
-                                    <textarea style={{ marginRight: "20px" }} onChange={(e) => setAddress(e.target.value)} class="uk-textarea col" rows="5" placeholder="Textarea"  ></textarea>
+                                    <textarea style={{ marginRight: "20px" }} value={address} onChange={(e) => setAddress(e.target.value)} class="uk-textarea col" rows="5" placeholder="Textarea"  ></textarea>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="row">
-                                    <div class="col-6 ">
-                                        <p>Topic</p>
-                                        <input class="uk-input col" type="text" onChange={(e) => setTopic(e.target.value)} placeholder="Input" />
-                                    </div>
                                     <div class="col-6">
                                         <p>Invoice #</p>
-                                        <input class="uk-input col" type="text" onChange={(e) => setInvoiceNumber(e.target.value)} placeholder="Input" />
+                                        <input class="uk-input col" type="text" value={invoiceNumber} onChange={(e) => setInvoiceNumber(e.target.value)} placeholder="Input" />
                                     </div>
+                                    <div class="col-6 ">
+                                        <p>Topic</p>
+                                        <input class="uk-input col" type="text" value={topic} onChange={(e) => setTopic(e.target.value)} placeholder="Input" />
+                                    </div>
+
                                 </div>
                                 <div class="row uk-margin">
                                     <div class="col-6">
@@ -195,7 +207,7 @@ const InvoicePage = (props) => {
                                     </thead>
                                     <tbody>
                                         {positions.map((value, index) => {
-                                            return <Position index={index} onDelete={onDelete} setData={setData} />
+                                            return <Position key={index} index={index} onDelete={onDelete} setData={setData} />
                                         })}
                                     </tbody>
                                     <button class="uk-button uk-button-primary" onClick={addPosition}>Add item</button>
