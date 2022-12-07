@@ -29,6 +29,26 @@ class Autocomplete extends Component {
         };
     }
 
+    setClient = (clientString) => {
+        const { suggestions } = this.props;
+        const userInput = clientString;
+
+        // Filter our suggestions that don't contain the user's input
+        const filteredSuggestions = suggestions.filter(
+            suggestion =>
+                suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1
+        );
+
+        this.setState({
+            activeSuggestion: 0,
+            filteredSuggestions,
+            showSuggestions: false,
+            userInput: clientString
+        });
+        const { activeSuggestion, } = this.state;
+        this.state.onUpdateClient(filteredSuggestions[activeSuggestion]);
+    }
+
     onChange = e => {
         const { suggestions } = this.props;
         const userInput = e.currentTarget.value;

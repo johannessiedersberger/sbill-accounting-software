@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import HeaderAfterLogin from "../dashboard/HeaderAfterLogin";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -25,6 +25,8 @@ const InvoicePage = (props) => {
 
     let { id } = useParams();
 
+    const childRef = useRef();
+
     useEffect(() => {
         loadInvoice();
     }, []);
@@ -43,7 +45,7 @@ const InvoicePage = (props) => {
             setTotalValue(resp.data[0].invoiceAmount);
             setStartDate(new Date(resp.data[0].createdDate));
             setDueDate(new Date(resp.data[0].dueDate));
-
+            onUpdateClientToAutocomplete(resp.data[0].client);
         });
     }
 
@@ -61,8 +63,12 @@ const InvoicePage = (props) => {
         setPostions(pos);
     }
 
-    const onUpdateClient = (client) => {
+    const onUpdateClientFromAutocomplete = (client) => {
         setClient(client);
+    }
+
+    const onUpdateClientToAutocomplete = (client) => {
+        childRef.current.setClient(client);
     }
 
     const saveInvoice = () => {
@@ -134,8 +140,8 @@ const InvoicePage = (props) => {
                                     <p style={{ marginLeft: "-10px" }}>Client</p>
                                     <div style={{ marginLeft: "-10px", marginRight: "10px" }}>
                                         <Autocomplete
-                                            onUpdateClient={onUpdateClient}
-
+                                            onUpdateClient={onUpdateClientFromAutocomplete}
+                                            ref={childRef}
                                             suggestions={[
                                                 "Johannes Siedersberger",
                                                 "Thomas Berger",
