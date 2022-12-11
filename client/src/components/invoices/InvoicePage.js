@@ -8,7 +8,7 @@ import { de } from 'date-fns/esm/locale'
 import { postInvoice } from "../../api";
 import * as api from '../../api';
 import { useParams } from "react-router-dom";
-
+import UIkit from "uikit";
 
 
 const InvoicePage = (props) => {
@@ -105,7 +105,7 @@ const InvoicePage = (props) => {
 
     const saveInvoice = () => {
         // save stuff api
-        postInvoice({
+        api.postInvoice({
             invoiceNumber: invoiceNumber,
             createdDate: startDate,
             dueDate: dueDate,
@@ -117,6 +117,38 @@ const InvoicePage = (props) => {
             valueTax: valueTax,
             invoiceAmount: totalValue,
         });
+    }
+
+    const updateInvoice = async () => {
+        try {
+            await api.updateInvoice(invoiceNumber, {
+                invoiceNumber: invoiceNumber,
+                createdDate: startDate,
+                dueDate: dueDate,
+                client: client,
+                address: address,
+                topic: topic,
+                invoiceItems: positions,
+                nettoSum: nettoSum,
+                valueTax: valueTax,
+                invoiceAmount: totalValue,
+            });
+
+            UIkit.notification({
+                message: 'Invoice Update Successfull',
+                status: 'success',
+                pos: 'top-right',
+                timeout: 5000
+            });
+        } catch (error) {
+            UIkit.notification({
+                message: 'Error during Saving: ' + error,
+                status: 'warning',
+                pos: 'top-right',
+                timeout: 5000
+            });
+        }
+
     }
 
     const setData = (data) => {
@@ -151,7 +183,7 @@ const InvoicePage = (props) => {
 
 
                             <div class="col-4">
-                                <button class="uk-button uk-align-center" onClick={saveInvoice}>Speichern</button>
+                                <button class="uk-button uk-align-center" onClick={updateInvoice}>Speichern</button>
                             </div>
                             <div class="col-4">
                                 <button class="uk-button uk-button-primary uk-align-center">Download</button>

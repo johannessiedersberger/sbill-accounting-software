@@ -15,5 +15,6 @@ export const signUp = (formData) => API.post('/api/users/signup', formData);
 export const verifyEmail = (uniqueString) => API.post(`/api/users/verify/${uniqueString}`);
 
 export const postInvoice = (invoiceData) => API.post(`/api/invoices/`, invoiceData);
+export const updateInvoice = (id, invoiceData) => API.put(`/api/invoices/id/${id}/`, invoiceData);
 export const getAllInvoices = () => API.get('/api/invoices');
 export const getInvoiceByInvoiceNumber = (id) => API.get(`/api/invoices/id/${id}`);
