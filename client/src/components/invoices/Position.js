@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Component, useEffect, useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 
 const Position = (props) => {
@@ -9,6 +9,12 @@ const Position = (props) => {
     const ondelete = () => {
         props.onDelete(props.index);
     };
+
+    useEffect(() => {
+        setDescription(props.description);
+        setQuantity(props.quantity);
+        setPricePerItem(props.princePerItem);
+    }, [props])
 
     const descriptionChange = (e) => {
         setDescription(e.target.value);
@@ -47,7 +53,7 @@ const Position = (props) => {
 
     return (
         <tr>
-            <td><input class="uk-input" type="text" placeholder="Description" onInput={(e) => descriptionChange(e)} /></td>
+            <td><input class="uk-input" type="text" placeholder="Description" onInput={(e) => descriptionChange(e)} value={description} /></td>
             <td><input class="uk-input" type="number" placeholder="Quantity" onChange={(e) => quantityChange(e)} value={quantity} /></td>
             <td><input class="uk-input" type="number" step="0.01" min="1" onChange={(e) => pricePerItemChange(e)} value={princePerItem} placeholder="Price per Item" /></td>
             <td><div style={{ marginTop: "8px" }}>{quantity * princePerItem}€</div></td>

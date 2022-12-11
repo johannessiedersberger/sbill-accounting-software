@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, createRef } from "react";
 import HeaderAfterLogin from "../dashboard/HeaderAfterLogin";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -9,11 +9,13 @@ import { postInvoice } from "../../api";
 import * as api from '../../api';
 import { useParams } from "react-router-dom";
 
+
+
 const InvoicePage = (props) => {
 
     const [startDate, setStartDate] = useState(new Date());
     const [dueDate, setDueDate] = useState(new Date());
-    const [positions, setPostions] = useState([{ key: 0 }]);
+    const [positions, setPostions] = useState([{ key: 0, description: "", princePerItem: 0, quantity: 0 }]);
     const [invoiceNumber, setInvoiceNumber] = useState(0);
     const [topic, setTopic] = useState('');
     const [client, setClient] = useState('');
@@ -25,11 +27,21 @@ const InvoicePage = (props) => {
 
     let { id } = useParams();
 
-    const childRef = useRef();
+    const childRefAutocomplete = useRef();
+
+    const referencesPositions = useRef([]);
+    referencesPositions.current = [];
+
+
+
 
     useEffect(() => {
         loadInvoice();
     }, []);
+
+
+
+
 
     const loadInvoice = () => {
         console.log(id);
@@ -46,7 +58,11 @@ const InvoicePage = (props) => {
             setStartDate(new Date(resp.data[0].createdDate));
             setDueDate(new Date(resp.data[0].dueDate));
             onUpdateClientToAutocomplete(resp.data[0].client);
+            onUpdatePositionsToAutocomplete(resp.data[0].invoiceItems);
+
         });
+
+
     }
 
     const addPosition = () => {
@@ -68,8 +84,24 @@ const InvoicePage = (props) => {
     }
 
     const onUpdateClientToAutocomplete = (client) => {
-        childRef.current.setClient(client);
+        childRefAutocomplete?.current?.setClient(client);
     }
+
+    const onUpdatePositionsToAutocomplete = (position) => {
+        setPostions(position);
+    }
+
+    const addToRefs = (el) => {
+        if (el && !referencesPositions.current.includes(el)) {
+            referencesPositions.current.push(el);
+        }
+        console.log(referencesPositions.current);
+    }
+
+
+    // you can access the elements with itemsRef.current[n]
+
+
 
     const saveInvoice = () => {
         // save stuff api
@@ -141,7 +173,8 @@ const InvoicePage = (props) => {
                                     <div style={{ marginLeft: "-10px", marginRight: "10px" }}>
                                         <Autocomplete
                                             onUpdateClient={onUpdateClientFromAutocomplete}
-                                            ref={childRef}
+                                            ref={childRefAutocomplete}
+
                                             suggestions={[
                                                 "Johannes Siedersberger",
                                                 "Thomas Berger",
@@ -213,11 +246,13 @@ const InvoicePage = (props) => {
                                     </thead>
                                     <tbody>
                                         {positions.map((value, index) => {
-                                            return <Position key={index} index={index} onDelete={onDelete} setData={setData} />
+                                            return <Position description={value.description} quantity={value.quantity} princePerItem={value.princePerItem} key={index} index={index} onDelete={onDelete} setData={setData} />
+
                                         })}
                                     </tbody>
-                                    <button class="uk-button uk-button-primary" onClick={addPosition}>Add item</button>
+
                                 </table>
+                                <button class="uk-button uk-button-primary" onClick={addPosition}>Add item</button>
                             </div>
 
                         </div>
