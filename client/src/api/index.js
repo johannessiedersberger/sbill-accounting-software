@@ -18,3 +18,4 @@ export const postInvoice = (invoiceData) => API.post(`/api/invoices/`, invoiceDa
 export const updateInvoice = (id, invoiceData) => API.put(`/api/invoices/id/${id}/`, invoiceData);
 export const getAllInvoices = () => API.get('/api/invoices');
 export const getInvoiceByInvoiceNumber = (id) => API.get(`/api/invoices/id/${id}`);
+export const getNewInvoiceNumber = () => API.get('/api/invoices/number');

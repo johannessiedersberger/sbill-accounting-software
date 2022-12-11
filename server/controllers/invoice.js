@@ -71,8 +71,9 @@ export const deleteInvoice = (req, res) => {
 
 export const getNextInvoiceNumber = async (req, res) => {
     try {
-        const numDocuments = await Invoice.countDocuments({});
-        return numDocuments + 1;
+        const newNumber = await invoiceService.getNextInvoiceNumber();
+        console.log(newNumber);
+        res.status(200).send({ newNumber: newNumber });
     } catch (err) {
         console.log(err);
         res.status(404).send(err);

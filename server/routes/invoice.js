@@ -7,6 +7,8 @@ router.get('/', invoiceController.getAllInvoices);
 
 router.get('/id/:invoiceId', invoiceController.getInvoice);
 
+router.get('/number', invoiceController.getNextInvoiceNumber);
+
 router.post('/', invoiceController.createNewInvoice);
 
 router.put('/id/:invoiceId', invoiceController.updateInvoice);

@@ -6,6 +6,7 @@ import Autocomplete from "./Autocomplete";
 import Position from "./Position";
 import InvoiceItem from "./InvoiceItem";
 import * as api from '../../api';
+import InvoicePage from "./InvoicePage";
 
 const InvoiceList = (props) => {
 
@@ -22,8 +23,30 @@ const InvoiceList = (props) => {
         });
     }
 
-    const newInvoice = () => {
-        window.location.href = "/invoice";
+    const newInvoice = async () => {
+        console.log("hello")
+        try {
+            const newNumber = await api.getNewInvoiceNumber();
+
+            await api.postInvoice({
+                invoiceNumber: parseInt(newNumber.data.newNumber),
+                createdDate: new Date(),
+                dueDate: new Date(),
+                client: "",
+                address: "",
+                topic: "",
+                invoiceItems: [],
+                nettoSum: 0,
+                valueTax: 0,
+                invoiceAmount: 0,
+            });
+
+            window.location.href = `/invoice/${newNumber.data.newNumber}`;
+        } catch (error) {
+            console.log("eee");
+            console.log(error);
+        }
+
     }
 
     return (

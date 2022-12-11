@@ -28,3 +28,8 @@ export const getInvoiceByInvoiceNumber = async (invoiceNumber) => {
     const invoice = await Invoice.find({ invoiceNumber: invoiceNumber });
     return invoice;
 }
+
+export const getNextInvoiceNumber = async () => {
+    const numDocuments = await Invoice.countDocuments({});
+    return numDocuments + 1;
+}
