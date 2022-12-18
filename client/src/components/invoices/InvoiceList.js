@@ -58,7 +58,6 @@ const InvoiceList = (props) => {
                     <div class="col-10" >
                         <div class="row">
                             <div class="col-9" />
-
                             <div class="col-3">
                                 <button class="uk-button uk-button-primary uk-align-right" onClick={newInvoice}>Neue Rechnung</button>
                             </div>
@@ -70,13 +69,14 @@ const InvoiceList = (props) => {
                 <div class="row">
                     <div class="col-1" />
                     <div class="col-10" >
-                        <h2 style={{ textAlign: "center" }}>Invoices</h2>
+                        <h2 style={{ textAlign: "center" }}>Rechnungen</h2>
                         <table class="uk-table uk-table-hover uk-table-divider">
                             <thead>
                                 <tr>
-                                    <th>Invoice Nr. </th>
-                                    <th>Customer Name / Topic </th>
-                                    <th>Amount</th>
+                                    <th>Nr.</th>
+                                    <th>Kunde</th>
+                                    <th>Betreff</th>
+                                    <th>Betrag (Netto)</th>
                                 </tr>
                             </thead>
                             <tbody>

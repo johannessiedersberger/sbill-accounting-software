@@ -17,6 +17,7 @@ const InvoiceItem = (props) => {
         <tr onClick={openInvoiceItem} style={{ cursor: "pointer" }}>
             <td>{props.invoice.invoiceNumber}</td>
             <td>{props.invoice.client}</td>
+            <td>{props.invoice.topic}</td>
             <td>{props.invoice.nettoSum}</td>
         </tr>
 

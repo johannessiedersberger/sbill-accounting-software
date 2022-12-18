@@ -91,33 +91,6 @@ const InvoicePage = (props) => {
         setPostions(position);
     }
 
-    const addToRefs = (el) => {
-        if (el && !referencesPositions.current.includes(el)) {
-            referencesPositions.current.push(el);
-        }
-        console.log(referencesPositions.current);
-    }
-
-
-    // you can access the elements with itemsRef.current[n]
-
-
-
-    const saveInvoice = () => {
-        // save stuff api
-        api.postInvoice({
-            invoiceNumber: invoiceNumber,
-            createdDate: startDate,
-            dueDate: dueDate,
-            client: client,
-            address: address,
-            topic: topic,
-            invoiceItems: positions,
-            nettoSum: nettoSum,
-            valueTax: valueTax,
-            invoiceAmount: totalValue,
-        });
-    }
 
     const updateInvoice = async () => {
         try {
@@ -135,14 +108,14 @@ const InvoicePage = (props) => {
             });
 
             UIkit.notification({
-                message: 'Invoice Update Successfull',
+                message: 'Invoice Update Erfolgreich',
                 status: 'success',
                 pos: 'top-right',
                 timeout: 5000
             });
         } catch (error) {
             UIkit.notification({
-                message: 'Error during Saving: ' + error,
+                message: 'Fehler beim Speichern der Rechnung',
                 status: 'warning',
                 pos: 'top-right',
                 timeout: 5000
@@ -169,6 +142,10 @@ const InvoicePage = (props) => {
         setTotalValue(nettoSumLocal + valueTaxLocal);
     }
 
+    const getPDF = async () => {
+        await api.getPDFInvoice(invoiceNumber);
+    }
+
     return (
         <div>
             <HeaderAfterLogin />
@@ -186,7 +163,7 @@ const InvoicePage = (props) => {
                                 <button class="uk-button uk-align-center" onClick={updateInvoice}>Speichern</button>
                             </div>
                             <div class="col-4">
-                                <button class="uk-button uk-button-primary uk-align-center">Download</button>
+                                <button class="uk-button uk-button-primary uk-align-center" onClick={getPDF}>Download</button>
                             </div>
                         </div>
 
@@ -196,12 +173,12 @@ const InvoicePage = (props) => {
                 <div class="row">
                     <div class="col-1" />
                     <div class="col-10 uk-padding uk-card uk-card-default uk-card-body">
-                        <h2 style={{ textAlign: "center" }}>Invoice</h2>
+                        <h2 style={{ textAlign: "center" }}>Rechnung</h2>
                         <hr class="uk-divider-icon"></hr>
                         <div class="row uk-padding">
                             <div class="col-md-6">
                                 <div class="row">
-                                    <p style={{ marginLeft: "-10px" }}>Client</p>
+                                    <p style={{ marginLeft: "-10px" }}>Kunde</p>
                                     <div style={{ marginLeft: "-10px", marginRight: "10px" }}>
                                         <Autocomplete
                                             onUpdateClient={onUpdateClientFromAutocomplete}
@@ -223,7 +200,7 @@ const InvoicePage = (props) => {
                                     </div>
                                 </div>
                                 <div class="row uk-margin">
-                                    <p style={{ marginLeft: "-10px" }}>Address</p>
+                                    <p style={{ marginLeft: "-10px" }}>Addresse</p>
                                     <textarea style={{ marginRight: "20px" }} value={address} onChange={(e) => setAddress(e.target.value)} class="uk-textarea col" rows="5" placeholder="Textarea"  ></textarea>
                                 </div>
                             </div>
@@ -244,7 +221,7 @@ const InvoicePage = (props) => {
                                         <div class="">
 
                                         </div>
-                                        <p >Creation Date</p>
+                                        <p >Erstellungsdatum</p>
                                         <DatePicker
                                             className="uk-input col"
                                             placeholderText="Select a date"
@@ -253,7 +230,7 @@ const InvoicePage = (props) => {
                                         />
                                     </div>
                                     <div class="col-6">
-                                        <p class="">Due Date</p>
+                                        <p class="">Fällig bis</p>
                                         <DatePicker
                                             className="uk-input col"
                                             placeholderText="Select a date"
@@ -270,16 +247,18 @@ const InvoicePage = (props) => {
                                 <table class="uk-table uk-table-hover uk-table-divider">
                                     <thead>
                                         <tr>
-                                            <th>Description</th>
-                                            <th>Quantity</th>
-                                            <th>Price per Item</th>
-                                            <th>Total Price</th>
+                                            <th>Beschreibung</th>
+                                            <th>Anzahl</th>
+                                            <th>Preis pro Stück</th>
+                                            <th>Gesamtpreis (Netto)</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {positions.map((value, index) => {
-                                            return <Position description={value.description} quantity={value.quantity} princePerItem={value.princePerItem} key={index} index={index} onDelete={onDelete} setData={setData} />
-
+                                            return <Position key={index} index={index}
+                                                description={value.description} quantity={value.quantity}
+                                                princePerItem={value.princePerItem}
+                                                onDelete={onDelete} setData={setData} />
                                         })}
                                     </tbody>
 
