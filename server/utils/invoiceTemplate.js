@@ -2,6 +2,14 @@ import dateFormat, { masks } from "dateformat";
 
 export const getInvoiceText = (client, address, invoiceNumber, topic, createdDate, dueDate, positions, nettoSum, ValueTax, TotalAmount) => {
 
+  const formatter = new Intl.NumberFormat('de-DE', {
+    style: 'currency',
+    currency: 'EUR',
+
+    // These options are needed to round to whole numbers if that's what you want.
+    //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+    //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+  });
 
   return (
     `
@@ -194,9 +202,9 @@ export const getInvoiceText = (client, address, invoiceNumber, topic, createdDat
                   <span class="text-inverse">${value.description}</span><br>
                     <small></small>
                 </td>
-                <td class="text-center">${value.princePerItem},00€</td>
+                <td class="text-center">${formatter.format(value.princePerItem)}</td>
                 <td class="text-center">${value.quantity}</td>
-                <td class="text-right">${(value.quantity) * (value.princePerItem)},00 €</td>
+                <td class="text-right">${formatter.format((value.quantity) * (value.princePerItem))}</td>
               </tr>`
       )
     })
@@ -212,19 +220,19 @@ export const getInvoiceText = (client, address, invoiceNumber, topic, createdDat
                   <div class="invoice-price-row">
                      <div class="sub-price">
                         <small>Netto Preis</small>
-                        <span class="text-inverse">${nettoSum}</span>
+                        <span class="text-inverse">${formatter.format(nettoSum)}</span>
                      </div>
                      <div class="sub-price">
                         <i class="fa fa-plus text-muted"></i>
                      </div>
                      <div class="sub-price">
                         <small>Mehrwertsteuer (19%)</small>
-                        <span class="text-inverse">${ValueTax}</span>
+                        <span class="text-inverse">${formatter.format(ValueTax)}</span>
                      </div>
                   </div>
                </div>
                <div class="invoice-price-right">
-                  <small>Gesamtpreis</small> <span class="f-w-600">${TotalAmount}</span>
+                  <small>Gesamtpreis</small> <span class="f-w-600">${formatter.format(TotalAmount)}</span>
                </div>
             </div>
             <!-- end invoice-price -->
@@ -238,12 +246,13 @@ export const getInvoiceText = (client, address, invoiceNumber, topic, createdDat
       <!-- begin invoice-footer -->
       <div class="invoice-footer">
         <p class="text-center m-b-5 f-w-600">
-          THANK YOU FOR YOUR BUSINESS
+          Danke für Ihr Vertrauen
         </p>
         <p class="text-center">
-          <span class="m-r-10"><i class="fa fa-fw fa-lg fa-globe"></i> matiasgallipoli.com</span>
-          <span class="m-r-10"><i class="fa fa-fw fa-lg fa-phone-volume"></i> T:016-18192302</span>
-          <span class="m-r-10"><i class="fa fa-fw fa-lg fa-envelope"></i> rtiemps@gmail.com</span>
+          <span class="m-r-10"><i class="fa fa-fw fa-lg fa-globe"></i> johannessiedersberger.com</span>
+          <span class="m-r-10"><i class="fa fa-fw fa-lg fa-phone-volume"></i> +123456789</span>
+          <span class="m-r-10"><i class="fa fa-fw fa-lg fa-envelope"></i> mail@johannessiedersberger.com</span>
+          <span class="m-r-10"><i class="fa fa-fw fa-lg fa-envelope"></i> DE12 34567 8910 11</span>
         </p>
       </div>
       <!-- end invoice-footer -->
