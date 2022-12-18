@@ -1,6 +1,6 @@
 import dateFormat, { masks } from "dateformat";
 
-export const getInvoiceText = (client, address, invoiceNumber, topic, createdDate, dueDate, positions, nettoSum, ValueTax, TotalAmount) => {
+export const getInvoiceText = (client, address, invoiceNumber, topic, createdDate, dueDate, positions, nettoSum, ValueTax, TotalAmount, note) => {
 
   const formatter = new Intl.NumberFormat('de-DE', {
     style: 'currency',
@@ -175,15 +175,15 @@ export const getInvoiceText = (client, address, invoiceNumber, topic, createdDat
                <small>Zahlbar bis</small>
                <div class="date text-inverse m-t-5">${dateFormat(dueDate, "dddd, mmmm dS")}
                </div>
-  <div class="invoice-detail">
-    #${invoiceNumber}<br>
-
-  </div>
+                <div class="invoice-detail">
+                  Rechnungs-Nr: 
+                  RE-${invoiceNumber}<br>
+                </div>
             </div >
          </div >
         
          <div class="invoice-content">
-            <!-- begin table-responsive -->
+            
             <div class="table-responsive">
                <table class="table table-invoice">
                   <thead>
@@ -237,17 +237,13 @@ export const getInvoiceText = (client, address, invoiceNumber, topic, createdDat
             </div>
             <!-- end invoice-price -->
          </div>
-         <!--end invoice - content-- >
-         < !--begin invoice - note-- >
+         
   <div class="invoice-note">
-    ${null}
+    ${note}
       </div>
       <!-- end invoice-note -->
       <!-- begin invoice-footer -->
       <div class="invoice-footer">
-        <p class="text-center m-b-5 f-w-600">
-          Danke für Ihr Vertrauen
-        </p>
         <p class="text-center">
           <span class="m-r-10"><i class="fa fa-fw fa-lg fa-globe"></i> johannessiedersberger.com</span>
           <span class="m-r-10"><i class="fa fa-fw fa-lg fa-phone-volume"></i> +123456789</span>

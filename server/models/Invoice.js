@@ -39,6 +39,10 @@ var invoiceSchema = new Schema({
             princePerItem: Number,
         }
     ],
+    note: {
+        type: String,
+        require: true
+    },
     nettoSum: {
         type: Number,
         require: true

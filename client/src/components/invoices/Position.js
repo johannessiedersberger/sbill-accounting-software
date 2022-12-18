@@ -1,5 +1,6 @@
 import React, { Component, useEffect, useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
+import { formatter } from "../../utils/Formatter";
 
 const Position = (props) => {
     const [description, setDescription] = useState("");
@@ -56,7 +57,7 @@ const Position = (props) => {
             <td><input class="uk-input" type="text" placeholder="Description" onInput={(e) => descriptionChange(e)} value={description} /></td>
             <td><input class="uk-input" type="number" placeholder="Quantity" onChange={(e) => quantityChange(e)} value={quantity} /></td>
             <td><input class="uk-input" type="number" step="0.01" min="1" onChange={(e) => pricePerItemChange(e)} value={princePerItem} placeholder="Price per Item" /></td>
-            <td><div style={{ marginTop: "8px" }}>{quantity * princePerItem}€</div></td>
+            <td><div style={{ marginTop: "8px" }}>{formatter.format(quantity * princePerItem)}</div></td>
             <td><FaTrashAlt style={{ marginTop: "10px", cursor: "pointer" }} onClick={ondelete} /></td>
         </tr>
     )

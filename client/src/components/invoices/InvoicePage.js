@@ -9,6 +9,7 @@ import { postInvoice } from "../../api";
 import * as api from '../../api';
 import { useParams } from "react-router-dom";
 import UIkit from "uikit";
+import { formatter } from "../../utils/Formatter";
 
 
 const InvoicePage = (props) => {
@@ -20,6 +21,8 @@ const InvoicePage = (props) => {
     const [topic, setTopic] = useState('');
     const [client, setClient] = useState('');
     const [address, setAddress] = useState('');
+
+    const [textField, setTextField] = useState('');
 
     const [nettoSum, setNettoSum] = useState(0);
     const [valueTax, setValueTax] = useState(0);
@@ -59,6 +62,7 @@ const InvoicePage = (props) => {
             setDueDate(new Date(resp.data[0].dueDate));
             onUpdateClientToAutocomplete(resp.data[0].client);
             onUpdatePositionsToAutocomplete(resp.data[0].invoiceItems);
+            setTextField(resp.data[0].note);
 
         });
 
@@ -102,6 +106,7 @@ const InvoicePage = (props) => {
                 address: address,
                 topic: topic,
                 invoiceItems: positions,
+                note: textField,
                 nettoSum: nettoSum,
                 valueTax: valueTax,
                 invoiceAmount: totalValue,
@@ -135,11 +140,14 @@ const InvoicePage = (props) => {
         console.log(pos);
 
         // Recalulate
-        const nettoSumLocal = data.quantity * data.princePerItem;
-        const valueTaxLocal = (data.quantity * data.princePerItem) * 0.19;
-        setNettoSum(nettoSumLocal);
+        let nettoSumCurrent = 0;
+        for (var i = 0; i < pos.length; i++) {
+            nettoSumCurrent += pos[i].quantity * pos[i].princePerItem;
+        }
+        const valueTaxLocal = (nettoSumCurrent) * 0.19;
+        setNettoSum(nettoSumCurrent);
         setValueTax(valueTaxLocal);
-        setTotalValue(nettoSumLocal + valueTaxLocal);
+        setTotalValue(nettoSumCurrent + valueTaxLocal);
     }
 
     const getPDF = async () => {
@@ -270,6 +278,13 @@ const InvoicePage = (props) => {
 
                         <div class="row uk-padding">
                             <div class="col-12">
+                                <textarea class="uk-textarea" rows="5" placeholder="Beschreibung" value={textField} onChange={(e) => setTextField(e.target.value)} aria-label="Textarea"></textarea>
+                            </div>
+
+                        </div>
+
+                        <div class="row uk-padding">
+                            <div class="col-12">
                                 <table class="uk-table uk-table-hover uk-table-divider">
                                     <thead>
                                         <tr>
@@ -280,15 +295,15 @@ const InvoicePage = (props) => {
                                     <tbody>
                                         <tr>
                                             <td>Gesamtsumme Netto</td>
-                                            <td><div style={{ marginTop: "8px" }}>{nettoSum}€</div></td>
+                                            <td><div style={{ marginTop: "8px" }}>{formatter.format(nettoSum)}</div></td>
                                         </tr>
                                         <tr>
                                             <td>Umsatzsteuer 19%</td>
-                                            <td><div style={{ marginTop: "8px" }}>{valueTax}€</div></td>
+                                            <td><div style={{ marginTop: "8px" }}>{formatter.format(valueTax)}</div></td>
                                         </tr>
                                         <tr>
                                             <td>Gesamt</td>
-                                            <td><div style={{ marginTop: "8px" }}>{totalValue}€</div></td>
+                                            <td><div style={{ marginTop: "8px" }}>{formatter.format(totalValue)}</div></td>
                                         </tr>
                                     </tbody>
                                 </table>

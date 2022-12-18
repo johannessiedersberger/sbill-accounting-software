@@ -4,6 +4,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Autocomplete from "./Autocomplete";
 import Position from "./Position";
+import { formatter } from "../../utils/Formatter";
 
 const InvoiceItem = (props) => {
 
@@ -18,7 +19,7 @@ const InvoiceItem = (props) => {
             <td>{props.invoice.invoiceNumber}</td>
             <td>{props.invoice.client}</td>
             <td>{props.invoice.topic}</td>
-            <td>{props.invoice.nettoSum}</td>
+            <td>{formatter.format(props.invoice.nettoSum)}</td>
         </tr>
 
     );

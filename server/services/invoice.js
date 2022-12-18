@@ -47,7 +47,7 @@ export const createPDFForInvoice = async (invoiceId) => {
         invoice.client, invoice.address,
         invoice.invoiceNumber, invoice.topic,
         invoice.createdDate, invoice.dueDate,
-        invoice.invoiceItems, invoice.nettoSum, invoice.valueTax, invoice.invoiceAmount
+        invoice.invoiceItems, invoice.nettoSum, invoice.valueTax, invoice.invoiceAmount, invoice.note
     );
     let file = { content: text };
 
