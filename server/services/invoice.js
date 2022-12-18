@@ -53,6 +53,6 @@ export const createPDFForInvoice = async (invoiceId) => {
 
     html_to_pdf.generatePdf(file, options).then(pdfBuffer => {
         console.log("PDF Buffer:-", pdfBuffer);
-        fs.writeFileSync('some.pdf', pdfBuffer);
+        fs.writeFileSync(`./utils/invoices/${invoice.topic}_${invoice.invoiceNumber}.pdf`, pdfBuffer);
     });
 }

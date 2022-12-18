@@ -165,13 +165,11 @@ const InvoicePage = (props) => {
                             <div class="col-4">
                                 <button class="uk-button uk-button-danger uk-align-center" >Löschen</button>
                             </div>
-
-
-                            <div class="col-4">
-                                <button class="uk-button uk-align-center" onClick={updateInvoice}>Speichern</button>
-                            </div>
                             <div class="col-4">
                                 <button class="uk-button uk-button-primary uk-align-center" onClick={getPDF}>Download</button>
+                            </div>
+                            <div class="col-4">
+                                <button class="uk-button uk-align-center" onClick={updateInvoice}>Speichern</button>
                             </div>
                         </div>
 
