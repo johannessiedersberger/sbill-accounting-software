@@ -2,13 +2,11 @@ import React, { useEffect, useState } from "react";
 import HeaderAfterLogin from "../dashboard/HeaderAfterLogin";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Autocomplete from "./Autocomplete";
 import Position from "./Position";
 import InvoiceItem from "./InvoiceItem";
 import * as api from '../../api';
-import InvoicePage from "./InvoicePage";
 
-const InvoiceList = (props) => {
+const InvoiceList = () => {
 
     const [invoiceList, setInvoiceList] = useState([]);
 
@@ -24,7 +22,7 @@ const InvoiceList = (props) => {
     }
 
     const newInvoice = async () => {
-        console.log("hello")
+
         try {
             const newNumber = await api.getNewInvoiceNumber();
 
@@ -52,25 +50,25 @@ const InvoiceList = (props) => {
     return (
         <div>
             <HeaderAfterLogin />
-            <div class="container-fluid uk-padding">
-                <div class="row">
-                    <div class="col-1" />
-                    <div class="col-10" >
-                        <div class="row">
-                            <div class="col-9" />
-                            <div class="col-3">
-                                <button class="uk-button uk-button-primary uk-align-right" onClick={newInvoice}>Neue Rechnung</button>
+            <div className="container-fluid uk-padding">
+                <div className="row">
+                    <div className="col-1" />
+                    <div className="col-10" >
+                        <div className="row">
+                            <div className="col-9" />
+                            <div className="col-3">
+                                <button className="uk-button uk-button-primary uk-align-right" onClick={newInvoice}>Neue Rechnung</button>
                             </div>
                         </div>
 
                     </div>
-                    <div class="col-1" />
+                    <div className="col-1" />
                 </div>
-                <div class="row">
-                    <div class="col-1" />
-                    <div class="col-10" >
+                <div className="row">
+                    <div className="col-1" />
+                    <div className="col-10" >
                         <h2 style={{ textAlign: "center" }}>Rechnungen</h2>
-                        <table class="uk-table uk-table-hover uk-table-divider">
+                        <table className="uk-table uk-table-hover uk-table-divider">
                             <thead>
                                 <tr>
                                     <th>Nr.</th>
@@ -90,7 +88,7 @@ const InvoiceList = (props) => {
                             </tbody>
                         </table>
                     </div>
-                    <div class="col-1" />
+                    <div className="col-1" />
                 </div>
             </div>
         </div>

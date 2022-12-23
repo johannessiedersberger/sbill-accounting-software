@@ -9,8 +9,7 @@ import Finance from '../../images/finance.svg';
 import HeaderFrontPage from "./HeaderFrontPage";
 import Cancel from "../../images/cancel.svg";
 
-const FeaturesPage = (props) => {
-
+const FeaturesPage = () => {
 
     return (
         <div>

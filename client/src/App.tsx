@@ -18,21 +18,32 @@ import CheckEmailPage from './components/login/CheckEmailPage';
 import InvoicePage from './components/invoices/InvoicePage';
 import InvoiceList from './components/invoices/InvoiceList';
 import create from 'zustand';
-import { persist } from 'zustand/middleware';
-import { devtools } from 'zustand/middleware';
+import { persist, devtools } from 'zustand/middleware';
 
-// define the store
-let store = (set) => ({
-  user: null,
-  setUser: (currentUser) => set({ user: currentUser }),
-  removeUser: () => set({ user: null })
-});
 
-store = persist(store, { name: "auth" });
+interface UserState {
+  user: Object | null,
+  setUser: (currentUser: object) => void,
+  removeUser: () => void
+}
 
-store = devtools(store);
+export const useStore = create<UserState>()(
+  devtools(
+    persist(
+      (set) => ({
+        user: null,
+        setUser: (currentUser) => set({ user: currentUser }),
+        removeUser: () => set({ user: null })
+      })
+    )
+  )
+)
 
-export const useStore = create(store);
+
+
+
+
+//export const useStore = create(store);
 
 
 

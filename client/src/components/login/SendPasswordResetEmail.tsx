@@ -1,13 +1,13 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import Footer from '../frontpages/Footer';
 import HeaderFrontPage from "../frontpages/HeaderFrontPage";
 import logo from '../../images/invoice.svg';
 
-const SendPasswordResetEmail = (props) => {
+const SendPasswordResetEmail = () => {
     const [email, SetEmail] = React.useState("");
 
 
-    const handleEmailChange = (event) => {
+    const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
         SetEmail(event.target.value);
     }
 

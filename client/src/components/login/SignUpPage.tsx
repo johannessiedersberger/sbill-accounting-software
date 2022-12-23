@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, ChangeEvent } from "react";
 import { useNavigate, Link } from 'react-router-dom';
 import HeaderFrontPage from "../frontpages/HeaderFrontPage";
 import Footer from "../frontpages/Footer";
@@ -16,27 +16,27 @@ const SignUpPage = () => {
 
     const navigate = useNavigate();
 
-    const handleFirstNameChange = (event) => {
+    const handleFirstNameChange = (event: ChangeEvent<HTMLInputElement>) => {
         SetFirstName(event.target.value);
     }
 
-    const handleLastNameChange = (event) => {
+    const handleLastNameChange = (event: ChangeEvent<HTMLInputElement>) => {
         SetLastName(event.target.value);
     }
 
-    const handleEmailChange = (event) => {
+    const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
         SetEmail(event.target.value);
     }
 
-    const handlePassword1Change = (event) => {
+    const handlePassword1Change = (event: ChangeEvent<HTMLInputElement>) => {
         setPassword1(event.target.value);
     }
 
-    const handlePassword2Change = (event) => {
+    const handlePassword2Change = (event: ChangeEvent<HTMLInputElement>) => {
         setPassword2(event.target.value);
     }
 
-    const handleAcceptDataProctectionChange = (event) => {
+    const handleAcceptDataProctectionChange = (event: ChangeEvent<HTMLInputElement>) => {
         SetAcceptDataProctection(event.target.checked);
     }
 
@@ -108,7 +108,7 @@ const SignUpPage = () => {
 
                                         <div className="uk-margin">
                                             <div className="uk-inline uk-width-1-1">
-                                                <label><input class="uk-checkbox" type="checkbox" value={acceptDataProctection} onChange={handleAcceptDataProctectionChange} /> I've read the <a target="_blank" href="https://johannessiedersberger.com/datenschutz/">Data Protection</a> and accepted it.*</label>
+                                                <label><input className="uk-checkbox" type="checkbox" checked={acceptDataProctection} onChange={handleAcceptDataProctectionChange} /> I've read the <a target="_blank" href="https://johannessiedersberger.com/datenschutz/">Data Protection</a> and accepted it.*</label>
                                             </div>
                                         </div>
                                         <div className="uk-margin">

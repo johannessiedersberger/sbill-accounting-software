@@ -4,7 +4,7 @@ import Footer from '../frontpages/Footer';
 import HeaderFrontPage from '../frontpages/HeaderFrontPage';
 
 
-const CheckEmailPage = (props) => {
+const CheckEmailPage = () => {
 
     return (
         <div>

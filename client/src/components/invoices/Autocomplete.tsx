@@ -2,7 +2,25 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-class Autocomplete extends Component {
+interface AutoCompleteProps {
+    onUpdateClient: (client: string) => void,
+    suggestions: string[],
+
+}
+
+interface AutoCompleteState {
+    activeSuggestion: number,
+    // The suggestions that match the user's input
+    filteredSuggestions: string[],
+    // Whether or not the suggestion list is shown
+    showSuggestions: boolean,
+    // What the user has entered
+    userInput: string,
+
+    onUpdateClient: (client: string) => void,
+}
+
+class Autocomplete extends Component<AutoCompleteProps, AutoCompleteState> {
     static propTypes = {
         suggestions: PropTypes.instanceOf(Array)
     };
@@ -12,7 +30,7 @@ class Autocomplete extends Component {
     };
 
 
-    constructor(props) {
+    constructor(props: AutoCompleteProps) {
         super(props);
 
         this.state = {
@@ -29,13 +47,13 @@ class Autocomplete extends Component {
         };
     }
 
-    setClient = (clientString) => {
-        const { suggestions } = this.props;
+    setClient = (clientString: string) => {
+        const { suggestions }: any = this.props;
         const userInput = clientString;
 
         // Filter our suggestions that don't contain the user's input
         const filteredSuggestions = suggestions.filter(
-            suggestion =>
+            (suggestion: string) =>
                 suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1
         );
 
@@ -45,17 +63,17 @@ class Autocomplete extends Component {
             showSuggestions: false,
             userInput: clientString
         });
-        const { activeSuggestion, } = this.state;
+        const { activeSuggestion, }: any = this.state;
         this.state.onUpdateClient(filteredSuggestions[activeSuggestion]);
     }
 
-    onChange = e => {
-        const { suggestions } = this.props;
+    onChange = (e: { currentTarget: { value: any; }; }) => {
+        const { suggestions }: any = this.props;
         const userInput = e.currentTarget.value;
 
         // Filter our suggestions that don't contain the user's input
         const filteredSuggestions = suggestions.filter(
-            suggestion =>
+            (suggestion: string) =>
                 suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1
         );
 
@@ -65,22 +83,22 @@ class Autocomplete extends Component {
             showSuggestions: true,
             userInput: e.currentTarget.value
         });
-        const { activeSuggestion, } = this.state;
+        const { activeSuggestion, }: any = this.state;
         this.state.onUpdateClient(filteredSuggestions[activeSuggestion]);
     };
 
-    onClick = e => {
+    onClick = (e: any) => {
         this.setState({
             activeSuggestion: 0,
             filteredSuggestions: [],
             showSuggestions: false,
             userInput: e.currentTarget.innerText
         });
-        const { activeSuggestion, filteredSuggestions } = this.state;
+        const { activeSuggestion, filteredSuggestions }: any = this.state;
         this.state.onUpdateClient(filteredSuggestions[activeSuggestion]);
     };
 
-    onKeyDown = e => {
+    onKeyDown = (e: any) => {
         const { activeSuggestion, filteredSuggestions } = this.state;
 
         // User pressed the enter key
@@ -130,7 +148,7 @@ class Autocomplete extends Component {
         if (showSuggestions && userInput) {
             if (filteredSuggestions.length) {
                 suggestionsListComponent = (
-                    <Suggestions class="uk-list uk-list-divider">
+                    <Suggestions className="uk-list uk-list-divider">
                         {filteredSuggestions.map((suggestion, index) => {
                             let className;
 
@@ -157,7 +175,7 @@ class Autocomplete extends Component {
                 );
             } else {
                 suggestionsListComponent = (
-                    <div class="no-suggestions">
+                    <div className="no-suggestions">
                         <em>This Client does not exist!</em>
                     </div>
                 );
@@ -167,7 +185,7 @@ class Autocomplete extends Component {
         return (
             <Fragment>
                 <input
-                    class="uk-input col"
+                    className="uk-input col"
                     type="text"
                     placeholder="Search Client"
                     onChange={onChange}

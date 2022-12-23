@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import Footer from '../frontpages/Footer';
 import logo from '../../images/invoice.svg';
 import HeaderFrontPage from '../frontpages/HeaderFrontPage';
 
-const PasswordResetPage = (props) => {
+const PasswordResetPage = () => {
 
     //const userId = props.match.params.userId;
     //const token = props.match.params.token;
@@ -12,11 +12,11 @@ const PasswordResetPage = (props) => {
     const [newPassword2, setnewPassword2] = useState("");
 
 
-    const handleNewPassword1Change = (event) => {
+    const handleNewPassword1Change = (event: ChangeEvent<HTMLInputElement>) => {
         setnewPassword1(event.target.value);
     }
 
-    const handleNewPassword2Change = (event) => {
+    const handleNewPassword2Change = (event: ChangeEvent<HTMLInputElement>) => {
         setnewPassword2(event.target.value);
     }
 

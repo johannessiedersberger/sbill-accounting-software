@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import 'uikit/dist/css/uikit.min.css';
 import 'uikit/dist/js/uikit-core.min.js';
 import logo from '../../images/invoice.svg';
@@ -8,8 +7,7 @@ import Footer from "./Footer";
 import Finance from '../../images/finance.svg';
 import HeaderFrontPage from "./HeaderFrontPage";
 
-const FrontPage = (props) => {
-
+const FrontPage = () => {
 
     return (
         <div>
@@ -21,7 +19,7 @@ const FrontPage = (props) => {
                     Create invoices & estimates and automate your accounting
                 </p>
                 <img src={logo} style={{ height: 300, margin: "auto", display: "block", marginTop: "30px" }} />
-                <button class="uk-button uk-button-primary uk-align-center uk-margin-medium">Get Started</button>
+                <button className="uk-button uk-button-primary uk-align-center uk-margin-medium">Get Started</button>
             </div>
 
             <div className="container" style={{ margin: "auto", display: "block", marginTop: "150px" }}>
@@ -31,7 +29,7 @@ const FrontPage = (props) => {
                         <img src={invoice} style={{ height: 300, margin: "auto", display: "block" }} />
                     </div>
                     <div className="col-md-4">
-                        <h2 style={{ textAlign: "" }}>Create professional <br /> invoices</h2>
+                        <h2 style={{ textAlign: "center" }}>Create professional <br /> invoices</h2>
                         <p>
                             You can create invoices and estimates with the SBill accounting program easily and intuitively.
                             You can print out your invoice with
@@ -47,7 +45,7 @@ const FrontPage = (props) => {
                     <div className="col-md-2" />
 
                     <div className="col-md-4">
-                        <h2 style={{ textAlign: "" }}>Simply do your own <br /> accounting</h2>
+                        <h2 style={{ textAlign: "center" }}>Simply do your own <br /> accounting</h2>
                         <p>
                             With SBill, you can digitally file your documents easily and clearly.
                             Our accounting software automatically creates a revenue-surplus invoice for you.

@@ -3,9 +3,9 @@ import { useState } from "react";
 import HeaderAfterLogin from "./HeaderAfterLogin";
 import styled from "styled-components";
 import Chart from "react-apexcharts";
-import { useStore } from "../../App.js";
+import { useStore } from "../../App.jsx";
 
-const MainDashboard = (props) => {
+const MainDashboard = () => {
 
     const user = useStore(state => state.user)
     if (!user) {
@@ -31,28 +31,28 @@ const MainDashboard = (props) => {
     return (
         <div>
             <HeaderAfterLogin />
-            <div class="container text-center">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="uk-card uk-card-default uk-card-body uk-margin">
-                            <h3 class="uk-card-title">477,680</h3>
+            <div className="container text-center">
+                <div className="row">
+                    <div className="col-md-4">
+                        <div className="uk-card uk-card-default uk-card-body uk-margin">
+                            <h3 className="uk-card-title">477,680</h3>
                             <p>Payments received</p>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="uk-card uk-card-default uk-card-body uk-margin">
-                            <h3 class="uk-card-title">12,000</h3>
+                    <div className="col-md-4">
+                        <div className="uk-card uk-card-default uk-card-body uk-margin">
+                            <h3 className="uk-card-title">12,000</h3>
                             <p>Outstanding payments</p>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="uk-card uk-card-default uk-card-body uk-margin">
-                            <h3 class="uk-card-title">489,680</h3>
+                    <div className="col-md-4">
+                        <div className="uk-card uk-card-default uk-card-body uk-margin">
+                            <h3 className="uk-card-title">489,680</h3>
                             <p>Total Amount</p>
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div className="row">
                     <Chart
                         options={options}
                         series={series}

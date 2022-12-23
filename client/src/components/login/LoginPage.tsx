@@ -1,12 +1,12 @@
 import React from "react";
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 import styled from "styled-components";
 import Footer from "../frontpages/Footer";
 import HeaderFrontPage from "../frontpages/HeaderFrontPage";
 import logo from '../../images/invoice.svg';
 import UIkit from "uikit";
 import * as api from '../../api';
-import { useStore } from '../../App.js';
+import { useStore } from '../../App.jsx';
 
 const LoginPage = () => {
     const [email, SetEmail] = useState("");
@@ -17,11 +17,11 @@ const LoginPage = () => {
         window.location.href = "/dashboard"
     }
 
-    const handleEmailChange = (event) => {
+    const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
         SetEmail(event.target.value);
     }
 
-    const handlePasswordChange = (event) => {
+    const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
         SetPassword(event.target.value);
     }
 

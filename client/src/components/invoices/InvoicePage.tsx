@@ -11,15 +11,32 @@ import { useParams } from "react-router-dom";
 import UIkit from "uikit";
 import { formatter } from "../../utils/Formatter";
 
+interface PositionProps {
+    key: number,
+    description: string,
+    princePerItem: number,
+    quantity: number
+}
 
-const InvoicePage = (props) => {
+export interface PositionData {
+    description: string,
+    quantity: number,
+    princePerItem: number,
+    index: number
+}
 
-    const [startDate, setStartDate] = useState(new Date());
-    const [dueDate, setDueDate] = useState(new Date());
-    const [positions, setPostions] = useState([{ key: 0, description: "", princePerItem: 0, quantity: 0 }]);
+interface AutoCompleteProps {
+    setClient: (client: String) => void
+}
+
+const InvoicePage = () => {
+
+    const [startDate, setStartDate] = useState<Date | null>(new Date());
+    const [dueDate, setDueDate] = useState<Date | null>(new Date());
+    const [positions, setPostions] = useState<PositionProps[]>([{ key: 0, description: "", princePerItem: 0, quantity: 0 }]);
     const [invoiceNumber, setInvoiceNumber] = useState(0);
     const [topic, setTopic] = useState('');
-    const [client, setClient] = useState('');
+    const [client, setClient] = useState<String>('');
     const [address, setAddress] = useState('');
 
     const [textField, setTextField] = useState('');
@@ -30,26 +47,18 @@ const InvoicePage = (props) => {
 
     let { id } = useParams();
 
-    const childRefAutocomplete = useRef();
+    const childRefAutocomplete = useRef<Autocomplete>(null);
 
     const referencesPositions = useRef([]);
     referencesPositions.current = [];
-
-
-
 
     useEffect(() => {
         loadInvoice();
     }, []);
 
-
-
-
-
     const loadInvoice = () => {
-        console.log(id);
 
-        api.getInvoiceByInvoiceNumber(id).then((resp) => {
+        api.getInvoiceByInvoiceNumber(Number(id)).then((resp) => {
 
             console.log(resp.data);
             setInvoiceNumber(resp.data[0].invoiceNumber);
@@ -75,23 +84,24 @@ const InvoicePage = (props) => {
     }
 
 
-    const onDelete = (index) => {
+    const onDelete = (index: number) => {
         console.log("index" + index);
-        let pos = [...positions];
+        let pos: PositionProps[] = [...positions];
 
         pos.splice(index, 1);
         setPostions(pos);
     }
 
-    const onUpdateClientFromAutocomplete = (client) => {
+    const onUpdateClientFromAutocomplete = (client: String) => {
         setClient(client);
     }
 
-    const onUpdateClientToAutocomplete = (client) => {
+    const onUpdateClientToAutocomplete = (client: string) => {
         childRefAutocomplete?.current?.setClient(client);
+
     }
 
-    const onUpdatePositionsToAutocomplete = (position) => {
+    const onUpdatePositionsToAutocomplete = (position: PositionProps[]) => {
         setPostions(position);
     }
 
@@ -129,7 +139,9 @@ const InvoicePage = (props) => {
 
     }
 
-    const setData = (data) => {
+
+
+    const setData = (data: PositionData) => {
         let pos = [...positions]
 
         pos[data.index].description = data.description;
@@ -157,33 +169,33 @@ const InvoicePage = (props) => {
     return (
         <div>
             <HeaderAfterLogin />
-            <div class="container-fluid uk-padding">
-                <div class="row">
-                    <div class="col-1" />
-                    <div class="col-10" >
-                        <div class="row">
-                            <div class="col-4">
-                                <button class="uk-button uk-button-danger uk-align-center" >Löschen</button>
+            <div className="container-fluid uk-padding">
+                <div className="row">
+                    <div className="col-1" />
+                    <div className="col-10" >
+                        <div className="row">
+                            <div className="col-4">
+                                <button className="uk-button uk-button-danger uk-align-center" >Löschen</button>
                             </div>
-                            <div class="col-4">
-                                <button class="uk-button uk-button-primary uk-align-center" onClick={getPDF}>Download</button>
+                            <div className="col-4">
+                                <button className="uk-button uk-button-primary uk-align-center" onClick={getPDF}>Download</button>
                             </div>
-                            <div class="col-4">
-                                <button class="uk-button uk-align-center" onClick={updateInvoice}>Speichern</button>
+                            <div className="col-4">
+                                <button className="uk-button uk-align-center" onClick={updateInvoice}>Speichern</button>
                             </div>
                         </div>
 
                     </div>
-                    <div class="col-1" />
+                    <div className="col-1" />
                 </div>
-                <div class="row">
-                    <div class="col-1" />
-                    <div class="col-10 uk-padding uk-card uk-card-default uk-card-body">
+                <div className="row">
+                    <div className="col-1" />
+                    <div className="col-10 uk-padding uk-card uk-card-default uk-card-body">
                         <h2 style={{ textAlign: "center" }}>Rechnung</h2>
-                        <hr class="uk-divider-icon"></hr>
-                        <div class="row uk-padding">
-                            <div class="col-md-6">
-                                <div class="row">
+                        <hr className="uk-divider-icon"></hr>
+                        <div className="row uk-padding">
+                            <div className="col-md-6">
+                                <div className="row">
                                     <p style={{ marginLeft: "-10px" }}>Kunde</p>
                                     <div style={{ marginLeft: "-10px", marginRight: "10px" }}>
                                         <Autocomplete
@@ -205,26 +217,26 @@ const InvoicePage = (props) => {
                                         />
                                     </div>
                                 </div>
-                                <div class="row uk-margin">
+                                <div className="row uk-margin">
                                     <p style={{ marginLeft: "-10px" }}>Addresse</p>
-                                    <textarea style={{ marginRight: "20px" }} value={address} onChange={(e) => setAddress(e.target.value)} class="uk-textarea col" rows="5" placeholder="Textarea"  ></textarea>
+                                    <textarea style={{ marginRight: "20px" }} value={address} onChange={(e) => setAddress(e.target.value)} className="uk-textarea col" rows={5} placeholder="Textarea"  ></textarea>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-6">
+                            <div className="col-md-6">
+                                <div className="row">
+                                    <div className="col-6">
                                         <p>Invoice #</p>
-                                        <input class="uk-input col" type="text" value={invoiceNumber} onChange={(e) => setInvoiceNumber(e.target.value)} placeholder="Input" />
+                                        <input className="uk-input col" type="number" value={invoiceNumber} onChange={(e) => setInvoiceNumber(Number(e.target.value))} placeholder="Input" />
                                     </div>
-                                    <div class="col-6 ">
+                                    <div className="col-6 ">
                                         <p>Topic</p>
-                                        <input class="uk-input col" type="text" value={topic} onChange={(e) => setTopic(e.target.value)} placeholder="Input" />
+                                        <input className="uk-input col" type="text" value={topic} onChange={(e) => setTopic(e.target.value)} placeholder="Input" />
                                     </div>
 
                                 </div>
-                                <div class="row uk-margin">
-                                    <div class="col-6">
-                                        <div class="">
+                                <div className="row uk-margin">
+                                    <div className="col-6">
+                                        <div className="">
 
                                         </div>
                                         <p >Erstellungsdatum</p>
@@ -235,8 +247,8 @@ const InvoicePage = (props) => {
                                             selected={startDate} onChange={(date) => setStartDate(date)}
                                         />
                                     </div>
-                                    <div class="col-6">
-                                        <p class="">Fällig bis</p>
+                                    <div className="col-6">
+                                        <p className="">Fällig bis</p>
                                         <DatePicker
                                             className="uk-input col"
                                             placeholderText="Select a date"
@@ -248,9 +260,9 @@ const InvoicePage = (props) => {
                             </div>
                         </div>
 
-                        <div class="row uk-padding">
-                            <div class="col-12">
-                                <table class="uk-table uk-table-hover uk-table-divider">
+                        <div className="row uk-padding">
+                            <div className="col-12">
+                                <table className="uk-table uk-table-hover uk-table-divider">
                                     <thead>
                                         <tr>
                                             <th>Beschreibung</th>
@@ -260,7 +272,7 @@ const InvoicePage = (props) => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {positions.map((value, index) => {
+                                        {positions.map((value: PositionProps, index: number) => {
                                             return <Position key={index} index={index}
                                                 description={value.description} quantity={value.quantity}
                                                 princePerItem={value.princePerItem}
@@ -269,21 +281,21 @@ const InvoicePage = (props) => {
                                     </tbody>
 
                                 </table>
-                                <button class="uk-button uk-button-primary" onClick={addPosition}>Add item</button>
+                                <button className="uk-button uk-button-primary" onClick={addPosition}>Add item</button>
                             </div>
 
                         </div>
 
-                        <div class="row uk-padding">
-                            <div class="col-12">
-                                <textarea class="uk-textarea" rows="5" placeholder="Beschreibung" value={textField} onChange={(e) => setTextField(e.target.value)} aria-label="Textarea"></textarea>
+                        <div className="row uk-padding">
+                            <div className="col-12">
+                                <textarea className="uk-textarea" rows={5} placeholder="Beschreibung" value={textField} onChange={(e) => setTextField(e.target.value)} aria-label="Textarea"></textarea>
                             </div>
 
                         </div>
 
-                        <div class="row uk-padding">
-                            <div class="col-12">
-                                <table class="uk-table uk-table-hover uk-table-divider">
+                        <div className="row uk-padding">
+                            <div className="col-12">
+                                <table className="uk-table uk-table-hover uk-table-divider">
                                     <thead>
                                         <tr>
                                             <th></th>
@@ -309,7 +321,7 @@ const InvoicePage = (props) => {
 
                         </div>
                     </div>
-                    <div class="col-1" />
+                    <div className="col-1" />
                 </div>
             </div>
         </div >
