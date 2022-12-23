@@ -3,7 +3,7 @@ import { useState } from "react";
 import HeaderAfterLogin from "./HeaderAfterLogin";
 import styled from "styled-components";
 import Chart from "react-apexcharts";
-import { useStore } from "../../App.jsx";
+import { useStore } from "../../App";
 
 const MainDashboard = () => {
 

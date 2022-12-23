@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useStore } from "../../App.jsx";
+import { useStore } from "../../App";
 
 
 const HeaderFrontPage = () => {

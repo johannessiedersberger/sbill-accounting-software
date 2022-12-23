@@ -1,10 +1,10 @@
-import axios from "axios";
+import axios, { AxiosRequestHeaders } from "axios";
 
 const API = axios.create({ baseURL: 'http://localhost:5000' });
 
-API.interceptors.request.use((req: Request) => {
+API.interceptors.request.use((req: any) => {
     if (localStorage.getItem('profile')) {
-        req.headers.authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`;
+        req.headers.authorization = `Bearer ${JSON.parse(localStorage.getItem('profile') || '{}').token}`;
     }
 
     return req;

@@ -6,7 +6,7 @@ import HeaderFrontPage from "../frontpages/HeaderFrontPage";
 import logo from '../../images/invoice.svg';
 import UIkit from "uikit";
 import * as api from '../../api';
-import { useStore } from '../../App.jsx';
+import { useStore } from '../../App';
 
 const LoginPage = () => {
     const [email, SetEmail] = useState("");
