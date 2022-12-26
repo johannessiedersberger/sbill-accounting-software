@@ -1,32 +1,31 @@
-import express from 'express';
+import express, { Application } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import mongoose from 'mongoose';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+
 dotenv.config();
 
-const app = express();
+const app: Application = express();
 
 app.set('port', process.env.PORT || 5000);
 console.log("++++++++++++++++" + app.get('port'));
 
-app.use((express.json({ limit: "30mb", extended: true })));
+app.use((express.json({ limit: "30mb" })));
 app.use((express.urlencoded({ limit: "30mb", extended: true })));
 app.use((cors()));
 
-const dbConnection = process.env.DB_CONNECTION;
+const dbConnection: string = process.env.DB_CONNECTION!;
 // Connect to DB
-mongoose.connect(dbConnection, { useNewUrlParser: true, useUnifiedTopology: true, }).then(
+mongoose.connect(dbConnection).then(
     () => { console.log("Connected to MongoDB Successfully") },
     err => { console.log(err) }
 );
 
-import userRouter from './routes/users.js';
-import invoiceRouter from './routes/invoice.js';
+import userRouter from './routes/users';
+import invoiceRouter from './routes/invoice';
 
 app.use('/api/users', userRouter);
 app.use('/api/invoices', invoiceRouter);

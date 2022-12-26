@@ -1,6 +1,26 @@
-import dateFormat, { masks } from "dateformat";
+import dateFormat, { masks } from 'dateformat';
 
-export const getInvoiceText = (client, address, invoiceNumber, topic, createdDate, dueDate, positions, nettoSum, ValueTax, TotalAmount, note) => {
+interface PDFInvoiceParams {
+  client: string,
+  address: string,
+  invoiceNumber: number,
+  topic: string,
+  createdDate: string,
+  dueDate: string,
+  positions: [],
+  nettoSum: number,
+  valueTax: number,
+  invoiceAmount: number,
+  note: string
+}
+
+interface PositionParams {
+  description: string,
+  quantity: number,
+  princePerItem: number
+}
+
+export const getInvoiceText = (invoiceParam: PDFInvoiceParams) => {
 
   const formatter = new Intl.NumberFormat('de-DE', {
     style: 'currency',
@@ -167,17 +187,17 @@ export const getInvoiceText = (client, address, invoiceNumber, topic, createdDat
             <div class="invoice-to">
                <small>An</small>
                <address class="m-t-5 m-b-5">
-                  <strong class="text-inverse">${client}</strong><br>
-                  ${address.toString().replace("\n", "<br>")}<br>
+                  <strong class="text-inverse">${invoiceParam.client}</strong><br>
+                  ${invoiceParam.address.toString().replace("\n", "<br>")}<br>
                </address>
             </div>
             <div class="invoice-date">
                <small>Zahlbar bis</small>
-               <div class="date text-inverse m-t-5">${dateFormat(dueDate, "dddd, mmmm dS")}
+               <div class="date text-inverse m-t-5">${/*dateFormat(invoiceParam.dueDate, "dddd, mmmm dS")*/1}
                </div>
                 <div class="invoice-detail">
                   Rechnungs-Nr: 
-                  RE-${invoiceNumber}<br>
+                  RE-${invoiceParam.invoiceNumber}<br>
                 </div>
             </div >
          </div >
@@ -195,7 +215,7 @@ export const getInvoiceText = (client, address, invoiceNumber, topic, createdDat
                      </tr>
                   </thead>
                   <tbody>
-                     ${positions.map((value, index) => {
+                     ${invoiceParam.positions.map((value: PositionParams, index) => {
       return (
         `<tr>
                 <td>
@@ -220,26 +240,26 @@ export const getInvoiceText = (client, address, invoiceNumber, topic, createdDat
                   <div class="invoice-price-row">
                      <div class="sub-price">
                         <small>Netto Preis</small>
-                        <span class="text-inverse">${formatter.format(nettoSum)}</span>
+                        <span class="text-inverse">${formatter.format(invoiceParam.nettoSum)}</span>
                      </div>
                      <div class="sub-price">
                         <i class="fa fa-plus text-muted"></i>
                      </div>
                      <div class="sub-price">
                         <small>Mehrwertsteuer (19%)</small>
-                        <span class="text-inverse">${formatter.format(ValueTax)}</span>
+                        <span class="text-inverse">${formatter.format(invoiceParam.valueTax)}</span>
                      </div>
                   </div>
                </div>
                <div class="invoice-price-right">
-                  <small>Gesamtpreis</small> <span class="f-w-600">${formatter.format(TotalAmount)}</span>
+                  <small>Gesamtpreis</small> <span class="f-w-600">${formatter.format(invoiceParam.invoiceAmount)}</span>
                </div>
             </div>
             <!-- end invoice-price -->
          </div>
          
   <div class="invoice-note">
-    ${note}
+    ${invoiceParam.note}
       </div>
       <!-- end invoice-note -->
       <!-- begin invoice-footer -->

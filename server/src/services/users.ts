@@ -1,29 +1,30 @@
-import User from '../models/User.js';
+import User from '../models/User';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { sendEmail, randString } from '../utils/email.js';
+import { sendEmail, randString } from '../utils/email';
 import Joi from 'joi';
+import { Mongoose, ObjectId, Types } from 'mongoose';
 
-export const getUserByEmail = async (email) => {
+export const getUserByEmail = async (email: string) => {
     return await User.findOne({ email: email });
 }
 
-export const getUserByUniqueString = async (uniqueString) => {
+export const getUserByUniqueString = async (uniqueString: string) => {
     return await User.findOne({ uniqueString: uniqueString })
 }
 
-export const doPasswordsMatch = (password1, password2) => {
+export const doPasswordsMatch = (password1: string, password2: string) => {
     return password1 === password2;
 }
 
-export const hashPassword = async (password) => {
+export const hashPassword = async (password: string) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     return hashedPassword;
 }
 
 // Register Validation 
-export const registerValidation = (data) => {
+export const registerValidation = (data: any) => {
     const schema = Joi.object({
         firstname: Joi.string()
             .min(1)
@@ -48,7 +49,7 @@ export const registerValidation = (data) => {
 
 }
 
-export const loginValidation = (data) => {
+export const loginValidation = (data: any) => {
     const schema = Joi.object({
         email: Joi.string()
             .min(1)
@@ -61,7 +62,16 @@ export const loginValidation = (data) => {
     return schema.validate(data);
 }
 
-export const createNewUser = async (data) => {
+interface NewUserParams {
+    email: string,
+    password: string,
+    firstname: string,
+    lastname: string,
+    isValid: boolean,
+    uniqueString: string
+}
+
+export const createNewUser = async (data: NewUserParams) => {
     // Create a new user
 
     const user = new User(data);
@@ -70,9 +80,9 @@ export const createNewUser = async (data) => {
     return savedUser;
 }
 
-export const sendConfirmationEmail = async (email, uniqueString) => {
+export const sendConfirmationEmail = async (email: string, uniqueString: string) => {
     var mailOptions = {
-        from: process.env.DEFAULT_MAIL_SENDER,
+        from: process.env.DEFAULT_MAIL_SENDER!,
         to: email,
         subject: 'Confirm your Email-Address',
         html: `Click <a href="${process.env.FRONTEND_URL}/account-activated/${uniqueString}">here</a> to activate your account.`
@@ -81,18 +91,18 @@ export const sendConfirmationEmail = async (email, uniqueString) => {
     await sendEmail(mailOptions);
 }
 
-export const setUserValid = async (user) => {
+export const setUserValid = async (user: any) => {
     user.isValid = true;
     await user.save();
 }
 
-export const validatePasswordHash = (actualPassword, hasheduserPassword) => {
+export const validatePasswordHash = (actualPassword: string, hasheduserPassword: string) => {
     const validPass = bcrypt.compare(actualPassword, hasheduserPassword);
     return validPass;
 }
 
-export const createJWToken = (userId) => {
-    return jwt.sign({ _id: userId }, process.env.TOKEN_SECRET)
+export const createJWToken = (userId: Types.ObjectId) => {
+    return jwt.sign({ _id: userId }, process.env.TOKEN_SECRET!)
 }
 
 

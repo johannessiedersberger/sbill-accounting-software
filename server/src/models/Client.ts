@@ -1,8 +1,16 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
+interface IClient {
+    firstName: string,
+    lastName: string,
+    email: string,
+    phone: string,
+    address: string
+}
+
 // Create Schema
-var clientSchema = new Schema({
+var clientSchema = new Schema<IClient>({
     firstName: {
         type: String,
         require: true
@@ -27,5 +35,5 @@ var clientSchema = new Schema({
 
 });
 
-const Client = mongoose.model("Client", clientSchema);
+const Client = mongoose.model<IClient>("Client", clientSchema);
 export default Client;

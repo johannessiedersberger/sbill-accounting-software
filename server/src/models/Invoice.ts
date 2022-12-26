@@ -1,8 +1,29 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
+interface IInvoice {
+    invoiceNumber: number,
+    createdDate: Date,
+    dueDate: Date,
+    client: string,
+    topic: string,
+    address: string,
+    invoiceItems: IInvoiceItems[],
+    note: string,
+    nettoSum: number,
+    valueTax: number,
+    invoiceAmount: number
+}
+
+interface IInvoiceItems {
+    key: number,
+    description: string,
+    quantity: number,
+    princePerItem: number,
+}
+
 // Create Schema
-var invoiceSchema = new Schema({
+var invoiceSchema = new Schema<IInvoice>({
     invoiceNumber: {
         type: Number,
         require: true
@@ -59,5 +80,5 @@ var invoiceSchema = new Schema({
 
 });
 
-const Invoice = mongoose.model("Invoice", invoiceSchema);
+const Invoice = mongoose.model<IInvoice>("Invoice", invoiceSchema);
 export default Invoice;

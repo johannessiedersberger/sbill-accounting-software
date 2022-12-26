@@ -1,17 +1,18 @@
-import User from '../models/User.js';
+import User from '../models/User';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import joi from 'joi';
-import * as emailService from '../utils/email.js';
-import * as userService from '../services/users.js';
+import * as emailService from '../utils/email';
+import * as userService from '../services/users';
+import { Request, Response } from 'express';
 
-export const signup = async (req, res) => {
+export const signup = async (req: Request, res: Response) => {
     // validate the request data before we create a user
     const { error } = userService.registerValidation(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
     // check if the user already exists in the database
-    const emailExists = userService.getUserByEmail(req.body.email);
+    const emailExists = await userService.getUserByEmail(req.body.email);
     if (emailExists) return res.status(400).send('Email already exists');
 
     // Check if the two new passwords match
@@ -46,7 +47,7 @@ export const signup = async (req, res) => {
     }
 }
 
-export const verifyEmail = async (req, res) => {
+export const verifyEmail = async (req: Request, res: Response) => {
     // Check if uniqueString is included
     if (req.params.uniqueString == undefined || req.params.uniqueString == ''
         || req.params.uniqueString == null) return res.status(400).send('No ID given');
@@ -57,12 +58,12 @@ export const verifyEmail = async (req, res) => {
     const user = await userService.getUserByUniqueString(uniqueString);
     if (!user) return res.status(400).send('Wrong ID');
 
-    await setUserValid(user);
+    await userService.setUserValid(user);
 
     res.send('User Registered Successfully');
 }
 
-export const signin = async (req, res) => {
+export const signin = async (req: Request, res: Response) => {
     // Lets Validate the Data before we authenticate a user
     const { error } = userService.loginValidation(req.body);
     if (error) return res.status(400).send(error.details[0].message);

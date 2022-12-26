@@ -1,10 +1,14 @@
-import Invoice from '../models/Invoice.js';
+import Invoice from '../models/Invoice';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import joi from 'joi';
-import * as invoiceService from '../services/invoice.js';
+import * as invoiceService from '../services/invoice';
+import { Request, Response } from 'express';
 
-export const createNewInvoice = async (req, res) => {
+
+
+
+export const createNewInvoice = async (req: Request, res: Response) => {
     try {
         const invoiceData = req.body;
         console.log(invoiceData);
@@ -20,6 +24,7 @@ export const createNewInvoice = async (req, res) => {
             nettoSum: invoiceData.nettoSum,
             valueTax: invoiceData.valueTax,
             invoiceAmount: invoiceData.invoiceAmount,
+            note: invoiceData.note
         });
 
         res.status(200).send(doc);
@@ -29,7 +34,7 @@ export const createNewInvoice = async (req, res) => {
     }
 }
 
-export const getAllInvoices = async (req, res) => {
+export const getAllInvoices = async (req: Request, res: Response) => {
     try {
         const allInvoices = await invoiceService.getAllInvoices();
         console.log(allInvoices);
@@ -40,9 +45,12 @@ export const getAllInvoices = async (req, res) => {
     }
 }
 
-export const getInvoice = async (req, res) => {
+export const getInvoice = async (req: Request, res: Response) => {
     try {
-        const invoice = await invoiceService.getInvoiceByInvoiceNumber(req.params.invoiceId);
+        if (!req.params.invoiceId) {
+            throw "Invoice ID Missing";
+        }
+        const invoice = await invoiceService.getInvoiceByInvoiceNumber(Number(req.params.invoiceId));
         res.status(200).send(invoice);
     } catch (err) {
         console.log(err);
@@ -50,7 +58,7 @@ export const getInvoice = async (req, res) => {
     }
 }
 
-export const updateInvoice = async (req, res) => {
+export const updateInvoice = async (req: Request, res: Response) => {
     try {
         const update = await invoiceService.updateInvoice(req.body);
 
@@ -61,7 +69,7 @@ export const updateInvoice = async (req, res) => {
     }
 }
 
-export const deleteInvoice = (req, res) => {
+export const deleteInvoice = (req: Request, res: Response) => {
     try {
 
     } catch (err) {
@@ -69,7 +77,7 @@ export const deleteInvoice = (req, res) => {
     }
 }
 
-export const getNextInvoiceNumber = async (req, res) => {
+export const getNextInvoiceNumber = async (req: Request, res: Response) => {
     try {
         const newNumber = await invoiceService.getNextInvoiceNumber();
         console.log(newNumber);
@@ -80,9 +88,9 @@ export const getNextInvoiceNumber = async (req, res) => {
     }
 }
 
-export const getPDFInvoice = async (req, res) => {
+export const getPDFInvoice = async (req: Request, res: Response) => {
     try {
-        const pdfBuffer = invoiceService.createPDFForInvoice(req.params.invoiceId);
+        const pdfBuffer = invoiceService.createPDFForInvoice(Number(req.params.invoiceId));
         res.status(200).send({});
     } catch (err) {
         console.log(err);

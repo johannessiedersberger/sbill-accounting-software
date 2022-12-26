@@ -3,7 +3,14 @@ import nodemailer from 'nodemailer';
 import AWS from 'aws-sdk';
 dotenv.config();
 
-export const sendEmail = (mailOptions) => {
+interface MailOptions {
+    from: string,
+    to: string,
+    subject: string,
+    html: string
+}
+
+export const sendEmail = (mailOptions: MailOptions) => {
 
     AWS.config.update({
         accessKeyId: process.env.AWS_ACCESS_KEY_ID,
