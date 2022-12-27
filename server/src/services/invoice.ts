@@ -1,6 +1,6 @@
 import Invoice from '../models/Invoice';
 import html_to_pdf from 'html-pdf-node';
-import fs from 'fs';
+import { promises as fsPromises } from 'fs';
 import * as invoiceTemplate from '../utils/invoiceTemplate';
 
 interface IInvoice {
@@ -83,11 +83,15 @@ export const createPDFForInvoice = async (invoiceId: number) => {
 
     let file = { content: text };
 
-    const savePDF = (pdfBuffer: any) => {
+    const pdfPath = `./src/utils/invoices/${invoice.topic}_${invoice.invoiceNumber}.pdf`;
+
+    const savePDF = async (pdfBuffer: any) => {
         console.log("PDF Buffer:-", pdfBuffer);
-        fs.writeFileSync(`./src/utils/invoices/${invoice.topic}_${invoice.invoiceNumber}.pdf`, pdfBuffer);
+        await fsPromises.writeFile(pdfPath, pdfBuffer);
     }
 
     html_to_pdf.generatePdf(file, options, (err: Error, buffer: Buffer) => savePDF(buffer));
+
+    return pdfPath;
 
 };

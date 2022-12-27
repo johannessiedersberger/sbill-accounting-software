@@ -10,6 +10,7 @@ import * as api from '../../api';
 import { useParams } from "react-router-dom";
 import UIkit from "uikit";
 import { formatter } from "../../utils/Formatter";
+import fileDownload from 'js-file-download';
 
 interface PositionProps {
     key: number,
@@ -163,7 +164,12 @@ const InvoicePage = () => {
     }
 
     const getPDF = async () => {
-        await api.getPDFInvoice(invoiceNumber);
+        await api.getPDFInvoice(invoiceNumber).then((response) => {
+            fileDownload(response.data, "file.pdf");
+        });
+
+
+
     }
 
     return (

@@ -90,8 +90,8 @@ export const getNextInvoiceNumber = async (req: Request, res: Response) => {
 
 export const getPDFInvoice = async (req: Request, res: Response) => {
     try {
-        const pdfBuffer = invoiceService.createPDFForInvoice(Number(req.params.invoiceId));
-        res.status(200).send({});
+        const pdfFilePath = await invoiceService.createPDFForInvoice(Number(req.params.invoiceId));
+        res.download(pdfFilePath);
     } catch (err) {
         console.log(err);
         res.status(404).send(err);
