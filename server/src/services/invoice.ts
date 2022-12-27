@@ -64,7 +64,7 @@ export const createPDFForInvoice = async (invoiceId: number) => {
     let options = { format: 'A4' };
     // Example of options with args //
     // let options = { format: 'A4', args: ['--no-sandbox', '--disable-setuid-sandbox'] };
-    const text = invoiceTemplate.getInvoiceText({
+    const text = await invoiceTemplate.getInvoiceText({
         client: invoice.client, address: invoice.address,
         invoiceNumber: invoice.invoiceNumber, topic: invoice.topic,
         createdDate: invoice.createdDate, dueDate: invoice.dueDate,
@@ -74,14 +74,11 @@ export const createPDFForInvoice = async (invoiceId: number) => {
 
     let file = { content: text };
 
-    const buffer = (pdfBuffer: any) => {
+    const savePDF = (pdfBuffer: any) => {
         console.log("PDF Buffer:-", pdfBuffer);
-        fs.writeFileSync(`./utils/invoices/${invoice.topic}_${invoice.invoiceNumber}.pdf`, pdfBuffer);
-    };
+        fs.writeFileSync(`./src/utils/invoices/${invoice.topic}_${invoice.invoiceNumber}.pdf`, pdfBuffer);
+    }
 
-    html_to_pdf.generatePdf(file, options, buffer);
-
-
-
+    html_to_pdf.generatePdf(file, options, (err: Error, buffer: Buffer) => savePDF(buffer));
 
 };

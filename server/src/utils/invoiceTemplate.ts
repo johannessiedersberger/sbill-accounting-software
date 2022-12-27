@@ -1,4 +1,4 @@
-import dateFormat, { masks } from 'dateformat';
+import { compareAsc, format } from 'date-fns'
 
 interface PDFInvoiceParams {
   client: string,
@@ -20,7 +20,7 @@ interface PositionParams {
   princePerItem: number
 }
 
-export const getInvoiceText = (invoiceParam: PDFInvoiceParams) => {
+export const getInvoiceText = async (invoiceParam: PDFInvoiceParams) => {
 
   const formatter = new Intl.NumberFormat('de-DE', {
     style: 'currency',
@@ -193,7 +193,7 @@ export const getInvoiceText = (invoiceParam: PDFInvoiceParams) => {
             </div>
             <div class="invoice-date">
                <small>Zahlbar bis</small>
-               <div class="date text-inverse m-t-5">${/*dateFormat(invoiceParam.dueDate, "dddd, mmmm dS")*/1}
+               <div class="date text-inverse m-t-5">${format(new Date(invoiceParam.dueDate), "yyyy-MM-dd")}
                </div>
                 <div class="invoice-detail">
                   Rechnungs-Nr: 
