@@ -39,6 +39,15 @@ export const saveNewInvoice = async (invoiceData: IInvoice) => {
 }
 
 export const updateInvoice = async (invoiceData: IInvoice) => {
+
+    const numberOfInvoices = await Invoice.count({ invoiceNumber: invoiceData.invoiceNumber });
+
+    if (numberOfInvoices > 1) {
+        throw "Invoice Exists more than once";
+    }
+    else if (numberOfInvoices == 0) {
+        throw "Invoice does not Exist with that number";
+    }
     const update = await Invoice.findOneAndUpdate({ invoiceNumber: invoiceData.invoiceNumber }, invoiceData);
     return update;
 }
