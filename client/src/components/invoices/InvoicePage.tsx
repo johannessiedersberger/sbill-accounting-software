@@ -226,7 +226,7 @@ const InvoicePage = () => {
                                 <div className="row">
                                     <div className="col-6">
                                         <p>Invoice #</p>
-                                        <input className="uk-input col" type="number" value={invoiceNumber} onChange={(e) => setInvoiceNumber(Number(e.target.value))} placeholder="Input" />
+                                        <input className="uk-input col" type="number" readOnly={true} disabled value={invoiceNumber} onChange={(e) => setInvoiceNumber(Number(e.target.value))} placeholder="Input" />
                                     </div>
                                     <div className="col-6 ">
                                         <p>Topic</p>
