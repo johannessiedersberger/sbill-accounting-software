@@ -85,13 +85,25 @@ export const createPDFForInvoice = async (invoiceId: number) => {
 
     const pdfPath = `./src/utils/invoices/${invoice.topic}_${invoice.invoiceNumber}.pdf`;
 
-    const savePDF = async (pdfBuffer: any) => {
-        console.log("PDF Buffer:-", pdfBuffer);
-        await fsPromises.writeFile(pdfPath, pdfBuffer);
-    }
-
-    html_to_pdf.generatePdf(file, options, (err: Error, buffer: Buffer) => savePDF(buffer));
+    const pdfBuffer = await CreatePDF(file, options);
+    await fsPromises.writeFile(pdfPath, pdfBuffer);
 
     return pdfPath;
 
+
 };
+
+const CreatePDF = async (file: any, options: any) => {
+    return new Promise<Buffer>(
+        (announcePDFisReady: any) => {
+            html_to_pdf.generatePdf(file, options, async (err: Error, buffer: Buffer) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log("Created PDF Successfully");
+                    announcePDFisReady(buffer);
+                }
+            });
+        }
+    )
+}
