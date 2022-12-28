@@ -63,8 +63,16 @@ export const getInvoiceByInvoiceNumber = async (invoiceNumber: number) => {
 }
 
 export const getNextInvoiceNumber = async () => {
-    const numDocuments = await Invoice.countDocuments({});
-    return numDocuments + 1;
+    const numDocuments: number = await Invoice.countDocuments({});
+    let currentNumber = numDocuments + 1;
+    while (await getNumDocumentsWithNumber(currentNumber) >= 1) {
+        currentNumber++;
+    }
+    return currentNumber;
+}
+
+const getNumDocumentsWithNumber = async (invoiceNum: number) => {
+    return await Invoice.countDocuments({ invoiceNumber: invoiceNum });
 }
 
 export const createPDFForInvoice = async (invoiceId: number) => {
@@ -106,4 +114,13 @@ const CreatePDF = async (file: any, options: any) => {
             });
         }
     )
+}
+
+export const delteInvoiceByNumber = async (invoiceNumber: number) => {
+    const invoice = await Invoice.find({ invoiceNumber: invoiceNumber });
+    if (!invoice) {
+        throw "Invoice with given Number does not Exist";
+    }
+    const result = await Invoice.deleteOne({ invoiceNumber: invoiceNumber });
+    return result;
 }

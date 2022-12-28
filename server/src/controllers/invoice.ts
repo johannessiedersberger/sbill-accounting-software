@@ -69,9 +69,10 @@ export const updateInvoice = async (req: Request, res: Response) => {
     }
 }
 
-export const deleteInvoice = (req: Request, res: Response) => {
+export const deleteInvoice = async (req: Request, res: Response) => {
     try {
-
+        const result = await invoiceService.delteInvoiceByNumber(Number(req.params.invoiceId));
+        res.status(200).send(result);
     } catch (err) {
         res.status(404).send(err);
     }

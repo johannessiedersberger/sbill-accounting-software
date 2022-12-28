@@ -26,10 +26,6 @@ export interface PositionData {
     index: number
 }
 
-interface AutoCompleteProps {
-    setClient: (client: String) => void
-}
-
 const InvoicePage = () => {
 
     const [startDate, setStartDate] = useState<Date | null>(new Date());
@@ -140,6 +136,30 @@ const InvoicePage = () => {
 
     }
 
+    const deleteInvoice = async () => {
+
+
+        try {
+            await api.deleteInvoice(invoiceNumber);
+            window.location.href = `/invoices/`;
+
+            UIkit.notification({
+                message: 'Rechnung Erfolgreich Gelöscht',
+                status: 'success',
+                pos: 'top-right',
+                timeout: 5000
+            });
+
+        } catch (error) {
+            UIkit.notification({
+                message: 'Fehler beim Löschen der Rechnung',
+                status: 'warning',
+                pos: 'top-right',
+                timeout: 5000
+            });
+        }
+    }
+
 
 
     const setData = (data: PositionData) => {
@@ -181,7 +201,7 @@ const InvoicePage = () => {
                     <div className="col-10" >
                         <div className="row">
                             <div className="col-4">
-                                <button className="uk-button uk-button-danger uk-align-center" >Löschen</button>
+                                <button className="uk-button uk-button-danger uk-align-center" onClick={deleteInvoice} >Löschen</button>
                             </div>
                             <div className="col-4">
                                 <button className="uk-button uk-button-primary uk-align-center" onClick={getPDF}>Download</button>
