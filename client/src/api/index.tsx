@@ -21,3 +21,6 @@ export const getInvoiceByInvoiceNumber = (id: number) => API.get(`/api/invoices/
 export const getNewInvoiceNumber = () => API.get('/api/invoices/number');
 export const getPDFInvoice = (id: number) => API.get(`/api/invoices/pdf/${id}`, { responseType: "blob" });
 export const deleteInvoice = (id: number) => API.delete(`/api/invoices/id/${id}`);
+
+export const getAllCustomers = () => API.get('/api/customers/');
+export const createCustomer = (formData: any) => API.post('/api/customers', formData);

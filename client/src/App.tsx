@@ -19,6 +19,7 @@ import InvoicePage from './components/invoices/InvoicePage';
 import InvoiceList from './components/invoices/InvoiceList';
 import create from 'zustand';
 import { persist, devtools } from 'zustand/middleware';
+import CustomerList from './components/customers/CustomerList';
 
 
 interface UserState {
@@ -51,6 +52,7 @@ function App() {
   UIkit.use(Icons);
   return (
     <BrowserRouter>
+      <div id="app-modal" />
       <Routes>
         <Route path="/dashboard" element={<MainDashboard />} />
         <Route path="/login" element={<LoginPage />} />
@@ -64,6 +66,7 @@ function App() {
         <Route path='/check-email' element={<CheckEmailPage />} />
         <Route path='/invoices' element={<InvoiceList />} />
         <Route path='/invoice/:id' element={<InvoicePage />} />
+        <Route path='/clients' element={<CustomerList />} />
       </Routes>
     </BrowserRouter>
   );

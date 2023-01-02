@@ -26,9 +26,11 @@ mongoose.connect(dbConnection).then(
 
 import userRouter from './routes/users';
 import invoiceRouter from './routes/invoice';
+import customerRouter from './routes/customer';
 
 app.use('/api/users', userRouter);
 app.use('/api/invoices', invoiceRouter);
+app.use('/api/customers', customerRouter);
 
 app.listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));

@@ -1,21 +1,22 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
-interface IClient {
-    firstName: string,
-    lastName: string,
+interface ICustomer {
+    customerNumber: number,
+    name: string,
     email: string,
     phone: string,
-    address: string
+    address: string,
+    //customerNumber: number
 }
 
 // Create Schema
-var clientSchema = new Schema<IClient>({
-    firstName: {
-        type: String,
+var customerSchema = new Schema<ICustomer>({
+    customerNumber: {
+        type: Number,
         require: true
     },
-    lastName: {
+    name: {
         type: String,
         require: true
     },
@@ -31,9 +32,7 @@ var clientSchema = new Schema<IClient>({
         type: String,
         require: true
     }
-
-
 });
 
-const Client = mongoose.model<IClient>("Client", clientSchema);
+const Client = mongoose.model<ICustomer>("Customer", customerSchema);
 export default Client;

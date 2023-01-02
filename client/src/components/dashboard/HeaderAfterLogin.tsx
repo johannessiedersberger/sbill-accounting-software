@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useStore } from "../../App";
+import * as api from '../../api';
 
 
 const HeaderFrontPage = () => {
@@ -22,7 +23,7 @@ const HeaderFrontPage = () => {
                                 <li><a href="/invoices">Rechnungen</a></li>
                                 <li><a href="#">Angebote</a></li>
 
-                                <li><a href="#">Kunden</a></li>
+                                <li><a href="/clients">Kunden</a></li>
                                 <li><a href="#">Belege</a></li>
                             </ul>
                         </div>
