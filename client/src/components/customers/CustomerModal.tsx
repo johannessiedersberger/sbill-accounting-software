@@ -14,11 +14,11 @@ const CustomerModal = (props: CustomerModalProps) => {
     const [email, setEMail] = useState('');
     const [phone, setPhone] = useState('');
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
 
         console.log("show");
         try {
-            api.createCustomer({
+            await api.createCustomer({
                 name: name,
                 address: address,
                 email: email,
@@ -30,9 +30,9 @@ const CustomerModal = (props: CustomerModalProps) => {
                 pos: 'top-right',
                 timeout: 5000
             });
-        } catch (err) {
+        } catch (err: any) {
             UIkit.notification({
-                message: 'Fehler beim erstellen des Kunden',
+                message: 'Fehler beim erstellen des Kunden: ' + err.response.data,
                 status: 'warning',
                 pos: 'top-right',
                 timeout: 5000
@@ -44,6 +44,7 @@ const CustomerModal = (props: CustomerModalProps) => {
     return (
         <ReactPortal wrapperId={props.id}>
             <div className="uk-modal-dialog uk-modal-body">
+                <h2 className="uk-margin">Kunden erstellen</h2>
                 <input type="text" name="name" className="uk-input" placeholder="Vor-und Nachname" value={name} onChange={(e) => setName(e.target.value)} />
                 <input style={{ marginTop: "10px" }} type="text" name="address" className="uk-input" placeholder="Addresse" value={address} onChange={(e) => setAddress(e.target.value)} />
                 <input style={{ marginTop: "10px" }} type="text" name="phone" className="uk-input" placeholder="Telefon-Nr" value={phone} onChange={(e) => setPhone(e.target.value)} />

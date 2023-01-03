@@ -1,6 +1,4 @@
 import React from "react";
-import 'uikit/dist/css/uikit.min.css';
-import 'uikit/dist/js/uikit-core.min.js';
 import logo from '../../images/invoice.svg';
 import invoice from '../../images/invoice_payment.svg';
 import Footer from "./Footer";

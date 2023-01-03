@@ -2,13 +2,11 @@ import MainDashboard from './components/dashboard/MainDashboard';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import FrontPage from "./components/frontpages/FrontPage";
 import UIkit from 'uikit';
-import Icons from 'uikit/dist/js/uikit-icons';
+import Icons from 'uikit/dist/js/uikit-icons'
 import LoginPage from './components/login/LoginPage';
 import SignUpPage from './components/login/SignUpPage';
 import PasswordResetPage from './components/login/PasswordResetPage';
 import SendPasswordResetEmail from './components/login/SendPasswordResetEmail';
-import 'uikit/dist/css/uikit.min.css';
-import 'uikit/dist/js/uikit-core.min.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import FeaturesPage from './components/frontpages/FeaturesPage';
@@ -20,6 +18,7 @@ import InvoiceList from './components/invoices/InvoiceList';
 import create from 'zustand';
 import { persist, devtools } from 'zustand/middleware';
 import CustomerList from './components/customers/CustomerList';
+import { useEffect } from 'react';
 
 
 interface UserState {
@@ -35,8 +34,10 @@ export const useStore = create<UserState>()(
         user: null,
         setUser: (currentUser) => set({ user: currentUser }),
         removeUser: () => set({ user: null })
-      })
-    )
+      }), {
+      name: 'user', // name of the item in the storage (must be unique)
+      getStorage: () => localStorage, // (optional) by default, 'localStorage' is used
+    })
   )
 )
 
@@ -47,12 +48,13 @@ export const useStore = create<UserState>()(
 //export const useStore = create(store);
 
 
-
+UIkit.use(Icons);
 function App() {
-  UIkit.use(Icons);
+
+
   return (
     <BrowserRouter>
-      <div id="app-modal" />
+
       <Routes>
         <Route path="/dashboard" element={<MainDashboard />} />
         <Route path="/login" element={<LoginPage />} />

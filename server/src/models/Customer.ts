@@ -7,7 +7,6 @@ interface ICustomer {
     email: string,
     phone: string,
     address: string,
-    //customerNumber: number
 }
 
 // Create Schema

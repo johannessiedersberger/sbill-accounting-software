@@ -6,6 +6,7 @@ import UIkit from "uikit";
 import CustomerModal from "./CustomerModal";
 
 interface CustomerItemProps {
+    customerNumber: number,
     name: string,
     address: string,
     phone: string,
@@ -59,17 +60,20 @@ const CustomerList = () => {
                         <table className="uk-table uk-table-hover uk-table-divider">
                             <thead>
                                 <tr>
+                                    <th>Nr. </th>
                                     <th>Name</th>
                                     <th>Addresse</th>
                                     <th>Telefon</th>
                                     <th>Email</th>
+                                    <th></th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {
                                     customerList?.map((value: CustomerItemProps, index) => {
                                         return (
-                                            <CustomerItem key={index} name={value.name} email={value.email} address={value.address} phone={value.phone} />
+                                            <CustomerItem key={index} customerNumber={value.customerNumber} name={value.name} email={value.email} address={value.address} phone={value.phone} />
                                         );
                                     })
                                 }
