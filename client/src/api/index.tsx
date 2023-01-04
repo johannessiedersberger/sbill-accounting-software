@@ -25,3 +25,4 @@ export const deleteInvoice = (id: number) => API.delete(`/api/invoices/id/${id}`
 export const getAllCustomers = () => API.get('/api/customers/');
 export const createCustomer = (formData: any) => API.post('/api/customers', formData);
 export const updateCustomer = (id: number, customerData: any) => API.put(`/api/customers/${id}`, customerData);
+export const deleteCustomer = (id: number) => API.delete(`/api/customers/delete/${id}`);

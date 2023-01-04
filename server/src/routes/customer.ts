@@ -11,7 +11,7 @@ router.post('/', customerController.createCustomer);
 
 router.put('/:id', customerController.updateCustomerById);
 
-//router.delete('/:id', customerController.deleteCustomerById)
+router.delete('/delete/:id', customerController.deleteCustomerById);
 
 
 

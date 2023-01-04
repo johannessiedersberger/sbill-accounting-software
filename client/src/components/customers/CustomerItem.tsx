@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { formatter } from "../../utils/Formatter";
 import UIkit from "uikit";
 import EditCustomerModal from "./EditCustomerModal";
+import * as api from '../../api';
 
 interface CustomerItemProps {
     customerNumber: number,
@@ -20,6 +21,26 @@ const CustomerItem = (props: CustomerItemProps) => {
         UIkit.modal('#editcustomermodal' + props.customerNumber).show();
     }
 
+    const deleteCustomerItem = async () => {
+        try {
+            await api.deleteCustomer(props.customerNumber);
+            UIkit.notification({
+                message: 'Kunde Erfolgreich Gelöscht',
+                status: 'success',
+                pos: 'top-right',
+                timeout: 5000
+            });
+        } catch (err: any) {
+            UIkit.notification({
+                message: 'Fehler beim Löschen des Kunden: ' + err.response.data,
+                status: 'warning',
+                pos: 'top-right',
+                timeout: 5000
+            });
+        }
+
+    }
+
     return (
         <tr>
             <td>{props.customerNumber}</td>
@@ -28,7 +49,7 @@ const CustomerItem = (props: CustomerItemProps) => {
             <td>{props.phone}</td>
             <td>{props.email}</td>
             <td><span uk-icon="pencil" onClick={openCustomerItem} style={{ cursor: "pointer" }}></span></td>
-            <td>{<span uk-icon="trash"></span>}</td>
+            <td>{<span uk-icon="trash" onClick={deleteCustomerItem} style={{ cursor: "pointer" }}></span>}</td>
             {
                 <EditCustomerModal id={'editcustomermodal' + props.customerNumber}
                     customerNumber={props.customerNumber}

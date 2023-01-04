@@ -55,3 +55,16 @@ export const updateCustomerById = async (req: Request, res: Response) => {
         res.status(500).send(err);
     }
 }
+
+export const deleteCustomerById = async (req: Request, res: Response) => {
+    try {
+        if (!req.params.id) return res.status(400).send('No Customer Id Provided');
+
+        const response = await customerService.deleteCustomerById(Number(req.params.id));
+        res.status(200).send(response);
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+}

@@ -85,3 +85,8 @@ export const updateCustomerById = async (id: number, customerData: CustomerData)
     const update = await Customer.findOneAndUpdate({ customerNumber: id }, customerData);
     return update;
 }
+
+export const deleteCustomerById = async (id: number) => {
+    const deleted = await Customer.deleteOne({ customerNumber: id });
+    return deleted;
+}
