@@ -3,7 +3,7 @@ import HeaderAfterLogin from "../dashboard/HeaderAfterLogin";
 import * as api from '../../api';
 import CustomerItem from "./CustomerItem";
 import UIkit from "uikit";
-import CustomerModal from "./CustomerModal";
+import NewCustomerModal from "./NewCustomerModal";
 
 interface CustomerItemProps {
     customerNumber: number,
@@ -19,12 +19,11 @@ const CustomerList = () => {
 
     useEffect(() => {
         getAllCustomers()
-    }, []);
+    }, []); // TODO: Remove [] to call all the time
 
     const getAllCustomers = () => {
         api.getAllCustomers().then((res) => {
             setCustomerList(res.data);
-            console.log(res.data);
         });
     }
 
@@ -36,7 +35,7 @@ const CustomerList = () => {
         <div>
             <HeaderAfterLogin />
 
-            <CustomerModal id={'modalNewCustomer'} />
+            <NewCustomerModal id={'modalNewCustomer'} />
 
 
             <div className="container-fluid uk-padding">

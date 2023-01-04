@@ -1,8 +1,6 @@
 import MainDashboard from './components/dashboard/MainDashboard';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import FrontPage from "./components/frontpages/FrontPage";
-import UIkit from 'uikit';
-import Icons from 'uikit/dist/js/uikit-icons'
 import LoginPage from './components/login/LoginPage';
 import SignUpPage from './components/login/SignUpPage';
 import PasswordResetPage from './components/login/PasswordResetPage';
@@ -18,7 +16,6 @@ import InvoiceList from './components/invoices/InvoiceList';
 import create from 'zustand';
 import { persist, devtools } from 'zustand/middleware';
 import CustomerList from './components/customers/CustomerList';
-import { useEffect } from 'react';
 
 
 interface UserState {
@@ -39,16 +36,8 @@ export const useStore = create<UserState>()(
       getStorage: () => localStorage, // (optional) by default, 'localStorage' is used
     })
   )
-)
+);
 
-
-
-
-
-//export const useStore = create(store);
-
-
-UIkit.use(Icons);
 function App() {
 
 

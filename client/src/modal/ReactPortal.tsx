@@ -26,7 +26,7 @@ const ReactPortal = ({ children, wrapperId }: ReactPortalProps) => {
             created = true;
             const wrapper = document.createElement('div');
             wrapper.setAttribute("id", wrapperId);
-            wrapper.setAttribute('uk-modal', 'bg-close: false');
+            wrapper.setAttribute('uk-modal', 'bg-close: true, escClose: true, modal: true, keyboard:false');
             document.body.appendChild(wrapper);
             element = wrapper;
         }
