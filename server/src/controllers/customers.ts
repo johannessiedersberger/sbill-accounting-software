@@ -27,7 +27,7 @@ export const createCustomer = async (req: Request, res: Response) => {
     try {
         const customer = req.body;
 
-        const { error } = customerService.CustomerDataValidation(customer);
+        const { error } = customerService.createCustomerDataValidation(customer);
         if (error) return res.status(400).send(error.details[0].message);
 
         customer.customerNumber = await customerService.getNextCustomerNumber();
@@ -36,5 +36,22 @@ export const createCustomer = async (req: Request, res: Response) => {
         res.status(200).send(response);
     } catch (err) {
         res.status(404).send(err);
+    }
+}
+
+export const updateCustomerById = async (req: Request, res: Response) => {
+    try {
+        if (!req.params.id) return res.status(400).send('No Customer Id Provided');
+
+        const customer = req.body;
+
+        const { error } = customerService.updateCustomerDataValidation(customer);
+        if (error) return res.status(400).send(error.details[0].message);
+
+        const response = await customerService.updateCustomerById(Number(req.params.id), customer);
+        res.status(200).send(response);
+
+    } catch (err) {
+        res.status(500).send(err);
     }
 }

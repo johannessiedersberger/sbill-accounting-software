@@ -9,6 +9,10 @@ router.get('/:id', customerController.getCustomerById);
 
 router.post('/', customerController.createCustomer);
 
+router.put('/:id', customerController.updateCustomerById);
+
+//router.delete('/:id', customerController.deleteCustomerById)
+
 
 
 

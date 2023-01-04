@@ -23,14 +23,15 @@ const EditCustomerModal = (props: EditCustomerModalProps) => {
 
         console.log("show");
         try {
-            // await api.createCustomer({
-            //     name: name,
-            //     address: address,
-            //     email: email,
-            //     phone: phone
-            // });
+            await api.updateCustomer(props.customerNumber, {
+                customerNumber: props.customerNumber,
+                name: name,
+                address: address,
+                email: email,
+                phone: phone
+            });
             UIkit.notification({
-                message: 'Kunde Erfolgreich Erstellt',
+                message: 'Kunde Erfolgreich Aktualisiert',
                 status: 'success',
                 pos: 'top-right',
                 timeout: 5000
