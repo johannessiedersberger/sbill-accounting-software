@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useStore } from "../../App";
-import * as api from '../../api';
+
 
 
 const HeaderFrontPage = () => {
@@ -12,7 +12,7 @@ const HeaderFrontPage = () => {
     }
 
     return (
-        <nav className="uk-navbar-container uk-margin" uk-navbar="mode: click">
+        <nav className="uk-navbar-container uk-margin" uk-navbar="mode: hover">
             <div className="uk-navbar-left">
                 <ul className="uk-navbar-nav">
                     <li>
@@ -25,6 +25,7 @@ const HeaderFrontPage = () => {
 
                                 <li><a href="/clients">Kunden</a></li>
                                 <li><a href="#">Belege</a></li>
+                                <li><a href="/settings">Einstellungen</a></li>
                             </ul>
                         </div>
                     </li>

@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 export const getAllCustomers = async (req: Request, res: Response) => {
     try {
         const allCustomers = await customerService.getAllCustomers();
-        console.log(allCustomers);
+
         res.status(200).send(allCustomers);
 
     } catch (err) {

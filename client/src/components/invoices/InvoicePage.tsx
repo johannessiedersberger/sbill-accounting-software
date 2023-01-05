@@ -11,6 +11,7 @@ import { useParams } from "react-router-dom";
 import UIkit from "uikit";
 import { formatter } from "../../utils/Formatter";
 import fileDownload from 'js-file-download';
+import CustomerList from "../customers/CustomerList";
 
 interface PositionProps {
     key: number,
@@ -26,6 +27,14 @@ export interface PositionData {
     index: number
 }
 
+interface CustomerData {
+    customerNumber: number,
+    name: string,
+    address: string,
+    phone: string,
+    email: string
+}
+
 const InvoicePage = () => {
 
     const [startDate, setStartDate] = useState<Date | null>(new Date());
@@ -34,6 +43,7 @@ const InvoicePage = () => {
     const [invoiceNumber, setInvoiceNumber] = useState(0);
     const [topic, setTopic] = useState('');
     const [client, setClient] = useState<String>('');
+    const [customers, setCustomerList] = useState<string[]>([]);
     const [address, setAddress] = useState('');
 
     const [textField, setTextField] = useState('');
@@ -51,6 +61,7 @@ const InvoicePage = () => {
 
     useEffect(() => {
         loadInvoice();
+        loadCustomers();
     }, []);
 
     const loadInvoice = () => {
@@ -71,8 +82,18 @@ const InvoicePage = () => {
             setTextField(resp.data[0].note);
 
         });
+    }
 
+    const loadCustomers = () => {
+        api.getAllCustomers().then((res) => {
 
+            const customerList: [] = res.data;
+            let customerStrings: Array<string> = [];
+            customerList.map((value: CustomerData, index: number) => {
+                customerStrings.push(value.name);
+            })
+            setCustomerList(customerStrings);
+        });
     }
 
     const addPosition = () => {
@@ -187,9 +208,6 @@ const InvoicePage = () => {
         await api.getPDFInvoice(invoiceNumber).then((response) => {
             fileDownload(response.data, "file.pdf");
         });
-
-
-
     }
 
     return (
@@ -227,19 +245,7 @@ const InvoicePage = () => {
                                         <Autocomplete
                                             onUpdateClient={onUpdateClientFromAutocomplete}
                                             ref={childRefAutocomplete}
-
-                                            suggestions={[
-                                                "Johannes Siedersberger",
-                                                "Thomas Berger",
-                                                "Harald Schmidt",
-                                                "Peter Meier",
-                                                "Karl Meier",
-                                                "Markus Lutz",
-                                                "Thomas Lutz",
-                                                "Markus Meier",
-                                                "Xi Ching Ping",
-                                                "Vladimir Putin",
-                                            ]}
+                                            suggestions={customers}
                                         />
                                     </div>
                                 </div>

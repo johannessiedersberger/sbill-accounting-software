@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as api from '../../api';
 import UIkit from "uikit";
-import ReactPortal from "../../modal/ReactPortal";
+import ReactPortal from "../modal/ReactPortal";
 
 interface EditCustomerModalProps {
     id: string,
@@ -38,7 +38,7 @@ const EditCustomerModal = (props: EditCustomerModalProps) => {
             });
         } catch (err: any) {
             UIkit.notification({
-                message: 'Fehler beim erstellen des Kunden: ' + err.response.data,
+                message: 'Fehler beim updaten des Kunden: ' + err.response.data,
                 status: 'warning',
                 pos: 'top-right',
                 timeout: 5000

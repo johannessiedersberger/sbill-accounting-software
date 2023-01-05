@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as api from '../../api';
 import UIkit from "uikit";
-import ReactPortal from "../../modal/ReactPortal";
+import ReactPortal from "../modal/ReactPortal";
 
 interface CustomerModalProps {
     id: string

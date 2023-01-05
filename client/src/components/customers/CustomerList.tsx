@@ -19,7 +19,7 @@ const CustomerList = () => {
 
     useEffect(() => {
         getAllCustomers()
-    }, []); // TODO: Remove [] to call all the time
+    });
 
     const getAllCustomers = () => {
         api.getAllCustomers().then((res) => {
