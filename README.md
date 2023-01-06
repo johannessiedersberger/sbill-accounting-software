@@ -32,11 +32,11 @@
 
 
 ### Build with
-- [React](https://reactjs.org/)
-- [Express](https://expressjs.com/)
-- [MongoDB](https://www.mongodb.com/)
-- [Typescript](https://www.typescriptlang.org/)
-- [UiKit](https://getuikit.com/)
-- [Bootstrap](https://getbootstrap.com/)
+- [React](https://reactjs.org/) as a frontend library
+- [Express](https://expressjs.com/) as a backend-framework to create a rest api
+- [MongoDB](https://www.mongodb.com/) as a database
+- [Typescript](https://www.typescriptlang.org/) for types
+- [UiKit](https://getuikit.com/) for ui-components
+- [Bootstrap](https://getbootstrap.com/) as a grid-system
 
  
