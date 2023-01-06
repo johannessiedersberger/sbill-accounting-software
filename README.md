@@ -3,7 +3,7 @@
  
  ### Features
 - [Login with user-authentication](#login-with-user-authentication)
-- [Dasboard with Data-Visualization](#dashboard-with-data-visualization)
+- [Dashboard with Data-Visualization](#dashboard-with-data-visualization)
 - [Create invoices](#create-invoices)
 - [Generate PDF-Files from invoices](#generate-pdf-files-from-invoices)
 - [Mange your client list](#mange-your-client-list)
@@ -18,7 +18,7 @@
 ### Login with user-authentication
 ![login](https://i.imgur.com/fLY0GXz.png)
 
-### Dasboard with Data-Visualization
+### Dashboard with Data-Visualization
 ![dashboard](https://i.imgur.com/13yXEnF.png)
 
 ### Create Invoices
@@ -30,5 +30,13 @@
 ### Mange your client list
 ![clientlist](https://i.imgur.com/Epyv02m.png)
 
+
+### Build with
+- [React](https://reactjs.org/)
+- [Express](https://expressjs.com/)
+- [MongoDB](https://www.mongodb.com/)
+- [Typescript](https://www.typescriptlang.org/)
+- [UiKit](https://getuikit.com/)
+- [Bootstrap](https://getbootstrap.com/)
 
  
