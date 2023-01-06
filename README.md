@@ -1,6 +1,14 @@
 # sbill-accounting-software
  This is a simple accounting software to write invoices and manage expenses. 
  
+ ### Build with
+- [React](https://reactjs.org/) as a frontend library
+- [Express](https://expressjs.com/) as a backend-framework to create a rest api
+- [MongoDB](https://www.mongodb.com/) as a database
+- [Typescript](https://www.typescriptlang.org/) for types
+- [UiKit](https://getuikit.com/) for ui-components
+- [Bootstrap](https://getbootstrap.com/) as a grid-system
+ 
  ### Features
 - [Login with user-authentication](#login-with-user-authentication)
 - [Dashboard with Data-Visualization](#dashboard-with-data-visualization)
@@ -31,12 +39,6 @@
 ![clientlist](https://i.imgur.com/Epyv02m.png)
 
 
-### Build with
-- [React](https://reactjs.org/) as a frontend library
-- [Express](https://expressjs.com/) as a backend-framework to create a rest api
-- [MongoDB](https://www.mongodb.com/) as a database
-- [Typescript](https://www.typescriptlang.org/) for types
-- [UiKit](https://getuikit.com/) for ui-components
-- [Bootstrap](https://getbootstrap.com/) as a grid-system
+
 
  
