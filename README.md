@@ -35,8 +35,6 @@
 ### Generate PDF-Files from invoices
 ![invoicepdf](https://i.imgur.com/coliYkV.jpg)
 
-### Mange your client list
-![clientlist](https://i.imgur.com/Epyv02m.png)
 
 
 
