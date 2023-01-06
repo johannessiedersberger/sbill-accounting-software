@@ -30,7 +30,7 @@
 ![dashboard](https://i.imgur.com/13yXEnF.png)
 
 ### Create Invoices
-![invoice](https://i.imgur.com/gCDPqXa.png)
+![invoice](https://i.imgur.com/LXFppYS.png)
 
 ### Generate PDF-Files from invoices
 ![invoicepdf](https://i.imgur.com/coliYkV.jpg)
