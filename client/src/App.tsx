@@ -18,7 +18,6 @@ import { persist, devtools } from 'zustand/middleware';
 import CustomerList from './components/customers/CustomerList';
 import CompanySettings from './components/settings/CompanySettings';
 
-
 interface UserState {
   user: Object | null,
   setUser: (currentUser: object) => void,
@@ -41,10 +40,8 @@ export const useStore = create<UserState>()(
 
 function App() {
 
-
   return (
     <BrowserRouter>
-
       <Routes>
         <Route path="/dashboard" element={<MainDashboard />} />
         <Route path="/login" element={<LoginPage />} />
