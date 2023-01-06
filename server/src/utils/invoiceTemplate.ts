@@ -1,4 +1,14 @@
-import { compareAsc, format } from 'date-fns'
+import { compareAsc, format } from 'date-fns';
+import * as companyService from './../services/company'
+
+interface CompanyData {
+  name: string,
+  address: string,
+  email: string,
+  phone: string,
+  bankAccountNumber: string,
+  valueTaxNumber: string
+}
 
 interface PDFInvoiceParams {
   client: string,
@@ -30,6 +40,8 @@ export const getInvoiceText = async (invoiceParam: PDFInvoiceParams) => {
     //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
     //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
   });
+
+  const company: CompanyData | null = await companyService.getCompany()!;
 
   return (
     `
@@ -145,6 +157,10 @@ export const getInvoiceText = async (invoiceParam: PDFInvoiceParams) => {
       margin-top: 80px;
       font-size: 85%
   }
+
+  .invoice-sender {
+    font-size: 50%
+  }
   
   .invoice>div:not(.invoice-footer) {
       margin-bottom: 20px
@@ -171,21 +187,14 @@ export const getInvoiceText = async (invoiceParam: PDFInvoiceParams) => {
             <span class="pull-right hidden-print">
             
             </span>
-            SBill, Inc
+            ${company?.name}
          </div>
          <!-- end invoice-company -->
          <!-- begin invoice-header -->
          <div class="invoice-header">
-            <div class="invoice-from">
-               <small>Von</small>
-               <address class="m-t-5 m-b-5">
-                  <strong class="text-inverse">Johannes Siedersberger IT-Beratung</strong><br>
-                  Bergfeldstr. 3<br>
-                  82281 Egenhofen<br> 
-               </address>
-            </div>
+            
             <div class="invoice-to">
-               <small>An</small>
+               <small class="invoice-sender">${company?.name}, ${company?.address.toString()}</small>
                <address class="m-t-5 m-b-5">
                   <strong class="text-inverse">${invoiceParam.client}</strong><br>
                   ${invoiceParam.address.toString().replace("\n", "<br>")}<br>
@@ -265,10 +274,10 @@ export const getInvoiceText = async (invoiceParam: PDFInvoiceParams) => {
       <!-- begin invoice-footer -->
       <div class="invoice-footer">
         <p class="text-center">
-          <span class="m-r-10"><i class="fa fa-fw fa-lg fa-globe"></i> johannessiedersberger.com</span>
-          <span class="m-r-10"><i class="fa fa-fw fa-lg fa-phone-volume"></i> +123456789</span>
-          <span class="m-r-10"><i class="fa fa-fw fa-lg fa-envelope"></i> mail@johannessiedersberger.com</span>
-          <span class="m-r-10"><i class="fa fa-fw fa-lg fa-envelope"></i> DE12 34567 8910 11</span>
+          <span class="m-r-10"><i class="fa fa-fw fa-lg fa-globe"></i> USt.-ID: ${company?.valueTaxNumber}</span>
+          <span class="m-r-10"><i class="fa fa-fw fa-lg fa-phone-volume"></i>E-Mail: ${company?.email}</span>
+          <span class="m-r-10"><i class="fa fa-fw fa-lg fa-envelope"></i>Tel-Nr.: ${company?.phone}</span>
+          <span class="m-r-10"><i class="fa fa-fw fa-lg fa-envelope"></i>IBAN: ${company?.bankAccountNumber}</span>
         </p>
       </div>
       <!-- end invoice-footer -->

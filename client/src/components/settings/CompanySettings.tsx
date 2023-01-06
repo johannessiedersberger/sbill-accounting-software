@@ -8,8 +8,8 @@ interface CompanyData {
     address: string,
     email: string,
     phone: string,
-    bankAccountNumber: string
-
+    bankAccountNumber: string,
+    valueTaxNumber: string
 }
 
 const CompanySettings = () => {
@@ -19,6 +19,7 @@ const CompanySettings = () => {
     const [companyEmail, SetCompanyEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [IBAN, setIBAN] = useState('');
+    const [valueTaxNumber, SetValueTaxNumber] = useState('');
 
     useEffect(() => {
         getCompanyData();
@@ -32,6 +33,7 @@ const CompanySettings = () => {
             SetAddress(companyData.address);
             setPhone(companyData.phone);
             setIBAN(companyData.bankAccountNumber);
+            SetValueTaxNumber(companyData.valueTaxNumber);
         });
     }
 
@@ -41,7 +43,8 @@ const CompanySettings = () => {
             address: address,
             email: companyEmail,
             phone: phone,
-            bankAccountNumber: IBAN
+            bankAccountNumber: IBAN,
+            valueTaxNumber: valueTaxNumber
         }
         try {
             await api.setCompany(companyData);
@@ -87,6 +90,9 @@ const CompanySettings = () => {
                         </div>
                         <div className="uk-margin">
                             <input className="uk-input" type="text" placeholder="IBAN" aria-label="Input" value={IBAN} onChange={(e) => setIBAN(e.target.value)} />
+                        </div>
+                        <div className="uk-margin">
+                            <input className="uk-input" type="text" placeholder="Ust.-Id" aria-label="Input" value={valueTaxNumber} onChange={(e) => SetValueTaxNumber(e.target.value)} />
                         </div>
                         <div className="uk-margin">
                             <button className="uk-button uk-align-center" onClick={updateCompanyData}>Speichern</button>

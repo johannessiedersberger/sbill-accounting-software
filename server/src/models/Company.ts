@@ -6,7 +6,8 @@ interface ICompany {
     address: string,
     email: string,
     phone: string,
-    bankAccountNumber: string
+    bankAccountNumber: string,
+    valueTaxNumber: string
 }
 
 // Create Schema
@@ -28,6 +29,10 @@ var companySchema = new Schema<ICompany>({
         require: true
     },
     bankAccountNumber: {
+        type: String,
+        require: true
+    },
+    valueTaxNumber: {
         type: String,
         require: true
     }

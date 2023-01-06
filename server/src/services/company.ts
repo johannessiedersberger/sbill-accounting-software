@@ -43,6 +43,9 @@ export const createCompanyDataValidation = (data: CompanyData) => {
             .required(),
         bankAccountNumber: Joi.string()
             .min(1)
+            .required(),
+        valueTaxNumber: Joi.string()
+            .min(1)
             .required()
     });
     return schema.validate(data);
