@@ -35,8 +35,6 @@
 - Automated Testing E2E using Cypress 
 - API Testing
 
-### Screenshot
-![dashboard](https://i.imgur.com/13yXEnF.png)
 
 
 
