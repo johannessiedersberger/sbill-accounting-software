@@ -10,11 +10,11 @@
 - [Bootstrap](https://getbootstrap.com/) as a grid-system
  
  ### Features
-- [Login with user-authentication](#login-with-user-authentication)
-- [Dashboard with Data-Visualization](#dashboard-with-data-visualization)
-- [Create invoices](#create-invoices)
-- [Generate PDF-Files from invoices](#generate-pdf-files-from-invoices)
-- [Mange your client list](#mange-your-client-list)
+- Login with user-authentication
+- Dashboard with Data-Visualization
+- Create invoices
+- Generate PDF-Files from invoices
+- Mange your client list
 
 ### Upcoming Features
 - Create Expenses
@@ -23,17 +23,9 @@
 - Automated Testing E2E using Cypress 
 - API Testing
 
-### Login with user-authentication
-![login](https://i.imgur.com/fLY0GXz.png)
-
-### Dashboard with Data-Visualization
+### Screenshot
 ![dashboard](https://i.imgur.com/13yXEnF.png)
 
-### Create Invoices
-![invoice](https://i.imgur.com/LXFppYS.png)
-
-### Generate PDF-Files from invoices
-![invoicepdf](https://i.imgur.com/coliYkV.jpg)
 
 
 
