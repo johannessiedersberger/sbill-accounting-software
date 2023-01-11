@@ -31,12 +31,8 @@
 ### Upcoming Features
 - Create Expenses
 - Scan Bills using OCR
-- Add Dashboard data calulation
 - Automated Testing E2E using Cypress 
 - API Testing
-
-### Image
-![image](https://i.imgur.com/g9pBVh1.jpg)
 
 
 
