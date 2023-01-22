@@ -4,6 +4,7 @@
   "private": true,
   "homepage": ".",
   "dependencies": {
+    "@cyntler/react-doc-viewer": "^1.10.3",
     "apexcharts": "^3.35.4",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
@@ -17,7 +18,9 @@
     "react-apexcharts": "^1.4.0",
     "react-bootstrap": "^2.4.0",
     "react-datepicker": "^4.8.0",
+    "react-doc-viewer": "^0.1.5",
     "react-dom": "^18.2.0",
+    "react-file-viewer": "^1.2.1",
     "react-helmet": "^6.1.0",
     "react-icons": "^4.4.0",
     "react-redux": "^8.0.5",

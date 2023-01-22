@@ -17,6 +17,8 @@ import create from 'zustand';
 import { persist, devtools } from 'zustand/middleware';
 import CustomerList from './components/customers/CustomerList';
 import CompanySettings from './components/settings/CompanySettings';
+import ReceiptsList from './components/receipts/ReceiptsList';
+import ReceiptPage from './components/receipts/ReceiptPage';
 
 interface UserState {
   user: Object | null,
@@ -57,6 +59,8 @@ function App() {
         <Route path='/invoice/:id' element={<InvoicePage />} />
         <Route path='/clients' element={<CustomerList />} />
         <Route path='/settings' element={<CompanySettings />} />
+        <Route path='/receipts' element={<ReceiptsList />} />
+        <Route path='/receipt' element={<ReceiptPage />} />
       </Routes>
     </BrowserRouter>
   );

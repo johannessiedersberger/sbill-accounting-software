@@ -24,7 +24,7 @@ const HeaderFrontPage = () => {
                                 <li><a href="#">Angebote</a></li>
 
                                 <li><a href="/clients">Kunden</a></li>
-                                <li><a href="#">Belege</a></li>
+                                <li><a href="/receipts">Belege</a></li>
                                 <li><a href="/settings">Einstellungen</a></li>
                             </ul>
                         </div>
