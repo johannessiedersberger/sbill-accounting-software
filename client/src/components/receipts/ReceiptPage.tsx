@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState, createRef, ChangeEvent } from "react";
 import HeaderAfterLogin from "../dashboard/HeaderAfterLogin";
 import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
+import * as api from '../../api';
+import UIkit from "uikit";
 
 const ReceiptPage = () => {
     const [selectedDocs, setSelectedDocs] = useState<File[]>([]);
@@ -8,14 +10,47 @@ const ReceiptPage = () => {
     const [supplier, setSupplier] = useState<string>("");
     const [category, setCategory] = useState<string>("");
     const [description, setDescription] = useState<string>("");
-    const [amount, setAmount] = useState<number>(0);
+    const [receiptAmount, setReceiptAmount] = useState<number>(0);
 
     const deleteFile = () => {
         setSelectedDocs([]);
     }
 
-    const saveReceiptChanges = () => {
+    const save = async () => {
+        const data = {
+            receiptNumber: receiptNumber,
+            supplier: supplier,
+            category: category,
+            description: description,
+            receiptAmount: receiptAmount
+        }
 
+        const formData = new FormData();
+        formData.append(
+            "file",
+            selectedDocs[0],
+            selectedDocs[0].name
+        );
+
+        try {
+            console.log(formData);
+            const result = await api.postReceipt(formData);
+            console.log(result);
+            UIkit.notification({
+                message: 'Beleg Erfolgreich Gespeichert',
+                status: 'success',
+                pos: 'top-right',
+                timeout: 5000
+            });
+
+        } catch (err) {
+            UIkit.notification({
+                message: 'Fehler beim Speichern des Belegs: ' + err,
+                status: 'warning',
+                pos: 'top-right',
+                timeout: 5000
+            });
+        }
     }
 
     return (
@@ -82,11 +117,11 @@ const ReceiptPage = () => {
                             <div className="row uk-margin">
                                 <div className="col-12">
                                     <p>Betrag</p>
-                                    <input className="uk-input col" type="Number" value={amount} onChange={(e) => setAmount(Number(e.target.value))} placeholder="Betrag" />
+                                    <input className="uk-input col" type="Number" value={receiptAmount} onChange={(e) => setReceiptAmount(Number(e.target.value))} placeholder="Betrag" />
                                 </div>
                             </div>
                             <div className="">
-                                <button className="uk-button uk-button-primary" onClick={deleteFile}>Speichern</button>
+                                <button className="uk-button uk-button-primary" onClick={save}>Speichern</button>
                             </div>
                         </div>
                         <div className="col-1" />

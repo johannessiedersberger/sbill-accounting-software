@@ -5,9 +5,6 @@ import joi from 'joi';
 import * as invoiceService from '../services/invoice';
 import { Request, Response } from 'express';
 
-
-
-
 export const createNewInvoice = async (req: Request, res: Response) => {
     try {
         const invoiceData = req.body;

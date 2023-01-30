@@ -36,10 +36,6 @@ var invoiceSchema = new Schema<IInvoice>({
         type: Date,
         require: true
     },
-    // client: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'Client'
-    // },
     client: {
         type: String,
         require: true

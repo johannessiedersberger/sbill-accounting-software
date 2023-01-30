@@ -30,4 +30,4 @@ export const deleteCustomer = (id: number) => API.delete(`/api/customers/delete/
 export const getCompany = () => API.get('/api/company');
 export const setCompany = (companyData: any) => API.post('/api/company', companyData);
 
-export const getInvoiceData = (data: any) => API.post('/api/receipts', data);
+export const postReceipt = (formData: any) => API.post('/api/receipts', formData);
