@@ -4,6 +4,7 @@ import { AnalyzeExpenseCommand } from "@aws-sdk/client-textract";
 import { TextractClient } from "@aws-sdk/client-textract";
 import dotenv from 'dotenv';
 import Receipt from '../models/Receipt';
+import Crypto from 'crypto';
 dotenv.config();
 
 export const getAllReceipts = async () => {
@@ -16,11 +17,20 @@ export const getReceiptByID = async (id: any) => {
     return receipt;
 }
 
+export const getReceiptByFileName = async (fileName: string) => {
+    const receipts = await Receipt.find({ fileName: fileName });
+    return receipts;
+}
+
 export const createNewReceipt = async (receiptData: any) => {
     const newReceipt = new Receipt(receiptData);
     const newReceiptSaved = await newReceipt.save();
     return newReceiptSaved;
 
+}
+
+export const createUUIDForReceiptFile = () => {
+    return Crypto.randomBytes(16).toString("hex");
 }
 
 export const uploadFileToS3Bucket = async (data: any, name: string) => {
@@ -36,7 +46,7 @@ export const uploadFileToS3Bucket = async (data: any, name: string) => {
     var params = {
         Bucket: 'sbill-accounting-bucket',
         Key: name,
-        Body: data
+        Body: data,
     };
 
     s3.putObject(params, function (err, data) {

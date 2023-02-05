@@ -30,4 +30,5 @@ export const deleteCustomer = (id: number) => API.delete(`/api/customers/delete/
 export const getCompany = () => API.get('/api/company');
 export const setCompany = (companyData: any) => API.post('/api/company', companyData);
 
-export const postReceipt = (formData: any) => API.post('/api/receipts', formData);
+export const postReceiptFile = (formData: any) => API.post('/api/receipts', formData);
+export const postReceiptData = (data: any) => API.post('/api/receipts/data', data);

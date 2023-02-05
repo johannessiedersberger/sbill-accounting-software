@@ -2,35 +2,40 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 interface IReceipt {
-    receiptNumber: number,
+    receiptNumber: string,
     supplier: string,
     description: string,
     category: string,
-    invoiceAmount: number
+    receiptAmount: number,
+    fileName: string,
 }
 
 // Create Schema
 var receiptSchema = new Schema<IReceipt>({
     receiptNumber: {
-        type: Number,
-        required: true
+        type: String,
+        required: false
     },
     supplier: {
         type: String,
-        required: true
+        required: false
     },
     description: {
         type: String,
-        required: true
+        required: false
     },
     category: {
         type: String,
-        required: true
+        required: false
     },
-    invoiceAmount: {
+    receiptAmount: {
         type: Number,
-        required: true
+        required: false
     },
+    fileName: {
+        type: String,
+        required: false
+    }
 });
 
 const Invoice = mongoose.model<IReceipt>("Receipt", receiptSchema);

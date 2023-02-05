@@ -4,6 +4,15 @@ import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
 import * as api from '../../api';
 import UIkit from "uikit";
 
+interface IReceipt {
+    receiptNumber: string,
+    supplier: string,
+    description: string,
+    category: string,
+    receiptAmount: number,
+    fileName: string,
+}
+
 const ReceiptPage = () => {
     const [selectedDocs, setSelectedDocs] = useState<File[]>([]);
     const [receiptNumber, setReceiptNumber] = useState<string>("");
@@ -11,19 +20,13 @@ const ReceiptPage = () => {
     const [category, setCategory] = useState<string>("");
     const [description, setDescription] = useState<string>("");
     const [receiptAmount, setReceiptAmount] = useState<number>(0);
+    const [fileName, setFileName] = useState<string>("");
 
     const deleteFile = () => {
         setSelectedDocs([]);
     }
 
     const save = async () => {
-        const data = {
-            receiptNumber: receiptNumber,
-            supplier: supplier,
-            category: category,
-            description: description,
-            receiptAmount: receiptAmount
-        }
 
         const formData = new FormData();
         formData.append(
@@ -32,10 +35,32 @@ const ReceiptPage = () => {
             selectedDocs[0].name
         );
 
+
+
         try {
-            console.log(formData);
-            const result = await api.postReceipt(formData);
-            console.log(result);
+
+            if (true) {
+                const response: any = await api.postReceiptFile(formData);
+                const fileName = response.data.newFileName;
+
+                const receiptData: IReceipt = {
+                    receiptNumber: receiptNumber,
+                    supplier: supplier,
+                    category: category,
+                    description: description,
+                    receiptAmount: receiptAmount,
+                    fileName: fileName
+                }
+
+                await api.postReceiptData(receiptData);
+
+
+
+            } else {
+
+            }
+
+
             UIkit.notification({
                 message: 'Beleg Erfolgreich Gespeichert',
                 status: 'success',
@@ -72,6 +97,7 @@ const ReceiptPage = () => {
                                                 onChange={(el) =>
                                                     el.target.files?.length &&
                                                     setSelectedDocs(Array.from(el.target.files))
+                                                    //fileChange(Array.from(el.target.files))
                                                 }
                                             />
                                         ) : (

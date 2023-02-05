@@ -2,8 +2,6 @@ import { Request, Response } from 'express';
 import * as receiptService from '../services/receipts';
 import fs from 'fs/promises';
 
-
-
 interface IFile {
     name: string,
     data: Buffer,
@@ -15,40 +13,77 @@ interface IFile {
     md5: string,
 }
 
-export const getAllReceipts = async (req: Request, res: Response) => {
+interface IReceipt {
+    receiptNumber: string,
+    supplier: string,
+    description: string,
+    category: string,
+    receiptAmount: number,
+    fileName: string,
+}
 
+export const getAllReceipts = async (req: Request, res: Response) => {
+    try {
+
+        const allReceipts = await receiptService.getAllReceipts();
+
+        res.status(200).send(allReceipts);
+    } catch (err) {
+        console.log(err);
+        res.status(404).send(err);
+    }
 }
 
 export const getReceipt = async (req: Request, res: Response) => {
 
 }
 
-export const createNewReceipt = async (req: Request, res: Response) => {
-    //console.log(req);
+export const uploadReceiptFile = async (req: Request, res: Response) => {
+
     try {
+
+        console.log(req.files)
 
         if (!req.files) {
             throw "No Files Uploaded"
         }
-
 
         const fileArray: any = req.files;
         const uploadFile: IFile = fileArray.file;
 
         const uploadedData = await fs.readFile(uploadFile.tempFilePath);
 
-        await receiptService.uploadFileToS3Bucket(uploadedData, uploadFile.name);
+        const uuid = receiptService.createUUIDForReceiptFile();
+
+        const fileExtension = uploadFile.name.split('.').slice(1).join('.');
+
+        const newFileName = uuid + "." + fileExtension;
+
+        await receiptService.uploadFileToS3Bucket(uploadedData, newFileName);
 
         await fs.unlink(uploadFile.tempFilePath);
 
+        res.status(200).send({ newFileName: newFileName });
+    } catch (err) {
+        console.log(err);
+        res.status(404).send(err);
+    }
+}
 
+export const createNewReceipt = async (req: Request, res: Response) => {
+    try {
 
+        const receiptData: IReceipt = req.body;
 
+        // Check if file already exists
+        const receiptsWithFileName = await receiptService.getReceiptByFileName(receiptData.fileName);
+        if (!receiptsWithFileName) {
+            throw "Filename already exists";
+        }
 
+        const response = await receiptService.createNewReceipt(receiptData);
 
-        const doc = "X";//await receiptService.createNewReceipt(receiptData);
-
-        res.status(200).send(doc);
+        res.status(200).send(response);
     } catch (err) {
         console.log(err);
         res.status(404).send(err);

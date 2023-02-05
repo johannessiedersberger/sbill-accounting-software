@@ -11,7 +11,9 @@ router.get('/', receiptController.getAllReceipts);
 
 router.get('/id/:invoiceId', receiptController.getReceipt);
 
-router.post('/', receiptController.createNewReceipt);
+router.post('/', receiptController.uploadReceiptFile);
+
+router.post('/data', receiptController.createNewReceipt)
 
 router.put('/id/:invoiceId', receiptController.updateReceipt);
 
