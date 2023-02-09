@@ -15,6 +15,7 @@ interface IFile {
 
 interface IReceipt {
     receiptNumber: string,
+    uuid: string,
     supplier: string,
     description: string,
     category: string,
@@ -63,7 +64,7 @@ export const uploadReceiptFile = async (req: Request, res: Response) => {
 
         await fs.unlink(uploadFile.tempFilePath);
 
-        res.status(200).send({ newFileName: newFileName });
+        res.status(200).send({ newFileName: newFileName, uuid: uuid });
     } catch (err) {
         console.log(err);
         res.status(404).send(err);

@@ -6,6 +6,7 @@ import UIkit from "uikit";
 
 interface IReceipt {
     receiptNumber: string,
+    uuid: string,
     supplier: string,
     description: string,
     category: string,
@@ -16,6 +17,7 @@ interface IReceipt {
 const ReceiptPage = () => {
     const [selectedDocs, setSelectedDocs] = useState<File[]>([]);
     const [receiptNumber, setReceiptNumber] = useState<string>("");
+    const [uuid, setUuid] = useState<string>("");
     const [supplier, setSupplier] = useState<string>("");
     const [category, setCategory] = useState<string>("");
     const [description, setDescription] = useState<string>("");
@@ -42,9 +44,11 @@ const ReceiptPage = () => {
             if (true) {
                 const response: any = await api.postReceiptFile(formData);
                 const fileName = response.data.newFileName;
+                const uuid = response.data.uuid;
 
                 const receiptData: IReceipt = {
                     receiptNumber: receiptNumber,
+                    uuid: uuid,
                     supplier: supplier,
                     category: category,
                     description: description,

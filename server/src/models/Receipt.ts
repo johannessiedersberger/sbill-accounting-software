@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 interface IReceipt {
     receiptNumber: string,
+    uuid: string,
     supplier: string,
     description: string,
     category: string,
@@ -15,6 +16,10 @@ var receiptSchema = new Schema<IReceipt>({
     receiptNumber: {
         type: String,
         required: false
+    },
+    uuid: {
+        type: String,
+        required: false,
     },
     supplier: {
         type: String,

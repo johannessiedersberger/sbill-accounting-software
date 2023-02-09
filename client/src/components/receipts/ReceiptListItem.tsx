@@ -6,18 +6,20 @@ import { formatter } from "../../utils/Formatter";
 
 interface ReceiptProps {
     receipt: {
-        receiptNumber: number,
+        receiptNumber: string,
+        uuid: string,
         supplier: string,
         description: string,
         category: string,
-        invoiceAmount: number
+        receiptAmount: number,
+        fileName: string,
     }
 }
 
 const ReceiptListItem = (props: ReceiptProps) => {
 
     const openInvoiceItem = () => {
-        window.location.href = `/receipt/${props.receipt.receiptNumber}`;
+        window.location.href = `/receipt/${props.receipt.uuid}`;
     }
 
 
@@ -26,7 +28,8 @@ const ReceiptListItem = (props: ReceiptProps) => {
         <tr onClick={openInvoiceItem} style={{ cursor: "pointer" }}>
             <td>{props.receipt.receiptNumber}</td>
             <td>{props.receipt.supplier}</td>
-            <td>{formatter.format(Number(props.receipt.invoiceAmount))}</td>
+            <td>{props.receipt.description}</td>
+            <td>{formatter.format(Number(props.receipt.receiptAmount))}</td>
         </tr>
 
     );

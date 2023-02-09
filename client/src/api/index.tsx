@@ -32,3 +32,4 @@ export const setCompany = (companyData: any) => API.post('/api/company', company
 
 export const postReceiptFile = (formData: any) => API.post('/api/receipts', formData);
 export const postReceiptData = (data: any) => API.post('/api/receipts/data', data);
+export const getAllReceipts = () => API.get('/api/receipts/');
