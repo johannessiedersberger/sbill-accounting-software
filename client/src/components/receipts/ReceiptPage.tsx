@@ -1,8 +1,12 @@
 import React, { useEffect, useRef, useState, createRef, ChangeEvent } from "react";
+import { useParams } from "react-router-dom";
 import HeaderAfterLogin from "../dashboard/HeaderAfterLogin";
 import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
 import * as api from '../../api';
 import UIkit from "uikit";
+import { read, readFileSync } from 'fs';
+import path from 'path';
+import axios from "axios";
 
 interface IReceipt {
     receiptNumber: string,
@@ -14,15 +18,50 @@ interface IReceipt {
     fileName: string,
 }
 
+interface IUriInterface {
+    uri: string
+}
+
 const ReceiptPage = () => {
     const [selectedDocs, setSelectedDocs] = useState<File[]>([]);
     const [receiptNumber, setReceiptNumber] = useState<string>("");
-    const [uuid, setUuid] = useState<string>("");
     const [supplier, setSupplier] = useState<string>("");
     const [category, setCategory] = useState<string>("");
     const [description, setDescription] = useState<string>("");
     const [receiptAmount, setReceiptAmount] = useState<number>(0);
     const [fileName, setFileName] = useState<string>("");
+
+    const [signedFileUrl, setSignedFileUrl] = useState<string>("");
+    const [docs, setDocs] = useState<IUriInterface[]>([]);
+
+    let { uuid } = useParams();
+
+    useEffect(() => {
+        if (uuid) loadReceipt();
+    }, []);
+
+    const loadReceipt = () => {
+        api.getReceipt(uuid!.toString()).then((response) => {
+            const receipt: IReceipt = response.data;
+
+            setReceiptNumber(receipt.receiptNumber);
+            setSupplier(receipt.supplier);
+            setCategory(receipt.category);
+            setDescription(receipt.description);
+            setReceiptAmount(receipt.receiptAmount);
+            setFileName(receipt.fileName);
+
+            api.getReceiptFileSignedUrl(receipt.fileName).then((response) => {
+                const signedUrl = response.data.signedUrl;
+                setSignedFileUrl(signedUrl);
+                const arr = [];
+                arr.push({ uri: signedUrl, fileType: "pdf" });
+                setDocs(arr);
+            })
+        });
+    }
+
+
 
     const deleteFile = () => {
         setSelectedDocs([]);
@@ -41,7 +80,7 @@ const ReceiptPage = () => {
 
         try {
 
-            if (true) {
+            if (!uuid) {
                 const response: any = await api.postReceiptFile(formData);
                 const fileName = response.data.newFileName;
                 const uuid = response.data.uuid;
@@ -58,10 +97,10 @@ const ReceiptPage = () => {
 
                 await api.postReceiptData(receiptData);
 
-
+                window.location.href = `/receipt/${uuid}`;
 
             } else {
-
+                // TODO: Update Invoice Data
             }
 
 
@@ -82,6 +121,10 @@ const ReceiptPage = () => {
         }
     }
 
+    const openFileUrl = () => {
+        window.open(signedFileUrl);
+    }
+
     return (
         <div>
             <HeaderAfterLogin />
@@ -93,11 +136,11 @@ const ReceiptPage = () => {
                             <div>
                                 <div className="uk-margin">
                                     {
-                                        selectedDocs.length == 0 ? (
+                                        !uuid ? (
                                             <input
                                                 type="file"
                                                 accept=".pdf,.png,.jpeg"
-                                                multiple
+
                                                 onChange={(el) =>
                                                     el.target.files?.length &&
                                                     setSelectedDocs(Array.from(el.target.files))
@@ -108,13 +151,11 @@ const ReceiptPage = () => {
                                             <div>
                                                 <button className="uk-button uk-button-danger" onClick={deleteFile}>Delete File</button>
                                                 <DocViewer
-                                                    documents={selectedDocs.map((file) => ({
-                                                        uri: window.URL.createObjectURL(file),
-                                                        fileName: file.name,
-                                                    }))}
+                                                    documents={docs}
+
                                                     pluginRenderers={DocViewerRenderers}
                                                 />
-
+                                                <button className="uk-button uk-button-primary" onClick={openFileUrl}>{fileName}</button>
                                             </div>
                                         )
                                     }

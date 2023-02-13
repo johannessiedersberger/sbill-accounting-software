@@ -17,6 +17,11 @@ export const getReceiptByID = async (id: any) => {
     return receipt;
 }
 
+export const getReceiptByUuid = async (uuid: any) => {
+    const receipt = await Receipt.findOne({ uuid: uuid });
+    return receipt;
+}
+
 export const getReceiptByFileName = async (fileName: string) => {
     const receipts = await Receipt.find({ fileName: fileName });
     return receipts;
@@ -47,6 +52,7 @@ export const uploadFileToS3Bucket = async (data: any, name: string) => {
         Bucket: 'sbill-accounting-bucket',
         Key: name,
         Body: data,
+        ContentType: "application/pdf"
     };
 
     s3.putObject(params, function (err, data) {
@@ -58,7 +64,27 @@ export const uploadFileToS3Bucket = async (data: any, name: string) => {
     });
 }
 
-export const getReceiptData = async (awsBuketFileName: string) => {
+export const getSignedUrlFromFileS3 = async (fileName: string) => {
+    AWS.config.update({
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+        region: process.env.AWS_REGION,
+    });
+
+    var s3 = new AWS.S3();
+
+    var params = {
+        Bucket: 'sbill-accounting-bucket',
+        Key: fileName,
+    };
+
+    const result = await s3.getSignedUrlPromise('getObject', params);
+    return result;
+
+
+}
+
+export const extractReceiptDataOCR = async (awsBuketFileName: string) => {
 
     console.log(awsBuketFileName);
 

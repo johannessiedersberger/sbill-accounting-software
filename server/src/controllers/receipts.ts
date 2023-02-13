@@ -36,7 +36,19 @@ export const getAllReceipts = async (req: Request, res: Response) => {
 }
 
 export const getReceipt = async (req: Request, res: Response) => {
+    try {
 
+        if (!req.params.uuid) {
+            throw "UUID is missing";
+        }
+
+        const receipt = await receiptService.getReceiptByUuid(req.params.uuid);
+
+        res.status(200).send(receipt);
+    } catch (err) {
+        console.log(err);
+        res.status(404).send(err);
+    }
 }
 
 export const uploadReceiptFile = async (req: Request, res: Response) => {
@@ -65,6 +77,24 @@ export const uploadReceiptFile = async (req: Request, res: Response) => {
         await fs.unlink(uploadFile.tempFilePath);
 
         res.status(200).send({ newFileName: newFileName, uuid: uuid });
+    } catch (err) {
+        console.log(err);
+        res.status(404).send(err);
+    }
+}
+
+export const getReceiptSignedUrl = async (req: Request, res: Response) => {
+    try {
+
+        if (!req.params.fileName) {
+            throw "No Filename Given"
+        }
+
+        const signedUrl = await receiptService.getSignedUrlFromFileS3(req.params.fileName);
+        console.log(signedUrl);
+
+        res.status(200).send({ signedUrl: signedUrl });
+
     } catch (err) {
         console.log(err);
         res.status(404).send(err);

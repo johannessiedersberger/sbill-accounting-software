@@ -9,15 +9,17 @@ const router: Router = express.Router();
 
 router.get('/', receiptController.getAllReceipts);
 
-router.get('/id/:invoiceId', receiptController.getReceipt);
+router.get('/id/:uuid', receiptController.getReceipt);
 
-router.post('/', receiptController.uploadReceiptFile);
+router.post('/file', receiptController.uploadReceiptFile);
+
+router.get('/file/:fileName', receiptController.getReceiptSignedUrl);
 
 router.post('/data', receiptController.createNewReceipt)
 
-router.put('/id/:invoiceId', receiptController.updateReceipt);
+router.put('/id/:uuid', receiptController.updateReceipt);
 
-router.delete('/id/:invoiceId', receiptController.deleteReceipt);
+router.delete('/id/:uuid', receiptController.deleteReceipt);
 
 
 export default router;
