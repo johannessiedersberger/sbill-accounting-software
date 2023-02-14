@@ -30,8 +30,12 @@ export const deleteCustomer = (id: number) => API.delete(`/api/customers/delete/
 export const getCompany = () => API.get('/api/company');
 export const setCompany = (companyData: any) => API.post('/api/company', companyData);
 
-export const postReceiptFile = (formData: any) => API.post('/api/receipts/file', formData);
-export const postReceiptData = (data: any) => API.post('/api/receipts/data', data);
+
 export const getAllReceipts = () => API.get('/api/receipts/');
-export const getReceipt = (uuid: string) => API.get(`/api/receipts/id/${uuid}`);
+export const getReceipt = (id: string) => API.get(`/api/receipts/id/${id}`);
+
+export const postReceiptFile = (formData: any, id: string) => API.post(`/api/receipts/file/${id}`, formData);
+export const postReceipt = (data: any) => API.post('/api/receipts/data', data);
 export const getReceiptFileSignedUrl = (fileName: string) => API.get(`/api/receipts/file/${fileName}`);
+
+export const deleteFileFromReceipt = (fileName: string) => API.delete(`/api/receipts/file/delete/${fileName}`);

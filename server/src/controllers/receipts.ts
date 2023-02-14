@@ -15,7 +15,6 @@ interface IFile {
 
 interface IReceipt {
     receiptNumber: string,
-    uuid: string,
     supplier: string,
     description: string,
     category: string,
@@ -38,11 +37,11 @@ export const getAllReceipts = async (req: Request, res: Response) => {
 export const getReceipt = async (req: Request, res: Response) => {
     try {
 
-        if (!req.params.uuid) {
+        if (!req.params.id) {
             throw "UUID is missing";
         }
 
-        const receipt = await receiptService.getReceiptByUuid(req.params.uuid);
+        const receipt = await receiptService.getReceiptByID(req.params.id);
 
         res.status(200).send(receipt);
     } catch (err) {
@@ -61,22 +60,29 @@ export const uploadReceiptFile = async (req: Request, res: Response) => {
             throw "No Files Uploaded"
         }
 
+
+        if (!req.params.id) {
+            throw "No Id given"
+        }
+
         const fileArray: any = req.files;
         const uploadFile: IFile = fileArray.file;
 
         const uploadedData = await fs.readFile(uploadFile.tempFilePath);
 
-        const uuid = receiptService.createUUIDForReceiptFile();
+        const id = req.params.id;
 
         const fileExtension = uploadFile.name.split('.').slice(1).join('.');
 
-        const newFileName = uuid + "." + fileExtension;
+        const newFileName = id + "." + fileExtension;
 
         await receiptService.uploadFileToS3Bucket(uploadedData, newFileName);
 
+        await receiptService.updateFileNameInReceipt(newFileName, id);
+
         await fs.unlink(uploadFile.tempFilePath);
 
-        res.status(200).send({ newFileName: newFileName, uuid: uuid });
+        res.status(200).send({ newFileName: newFileName });
     } catch (err) {
         console.log(err);
         res.status(404).send(err);
@@ -106,13 +112,10 @@ export const createNewReceipt = async (req: Request, res: Response) => {
 
         const receiptData: IReceipt = req.body;
 
-        // Check if file already exists
-        const receiptsWithFileName = await receiptService.getReceiptByFileName(receiptData.fileName);
-        if (!receiptsWithFileName) {
-            throw "Filename already exists";
-        }
+        // TODO: Validate Receipt Data
 
         const response = await receiptService.createNewReceipt(receiptData);
+        console.log(response);
 
         res.status(200).send(response);
     } catch (err) {
@@ -127,6 +130,23 @@ export const updateReceipt = async (req: Request, res: Response) => {
 
 export const deleteReceipt = async (req: Request, res: Response) => {
 
+}
+
+export const deleteReceiptFile = async (req: Request, res: Response) => {
+    try {
+
+        if (!req.params.fileName) {
+            throw "No file given to Delete!";
+        }
+
+        const response = await receiptService.deleteFileFromReceipt(req.params.fileName);
+        const response2 = await receiptService.deleteFileFromS3Bucket(req.params.fileName);
+
+        res.status(200).send(response);
+    } catch (err) {
+        console.log(err);
+        res.status(404).send(err);
+    }
 }
 
 export const readReceiptByOCR = async (req: Request, res: Response) => {

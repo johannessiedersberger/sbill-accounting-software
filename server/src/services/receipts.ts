@@ -17,11 +17,6 @@ export const getReceiptByID = async (id: any) => {
     return receipt;
 }
 
-export const getReceiptByUuid = async (uuid: any) => {
-    const receipt = await Receipt.findOne({ uuid: uuid });
-    return receipt;
-}
-
 export const getReceiptByFileName = async (fileName: string) => {
     const receipts = await Receipt.find({ fileName: fileName });
     return receipts;
@@ -36,6 +31,30 @@ export const createNewReceipt = async (receiptData: any) => {
 
 export const createUUIDForReceiptFile = () => {
     return Crypto.randomBytes(16).toString("hex");
+}
+
+export const deleteFileFromReceipt = async (fileName: string) => {
+    const result = await Receipt.updateOne({ fileName: fileName }, { $set: { fileName: "" } });
+    return result;
+}
+
+export const deleteFileFromS3Bucket = async (fileName: string) => {
+
+    AWS.config.update({
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+        region: process.env.AWS_REGION,
+    });
+
+    var s3 = new AWS.S3();
+
+    var params = {
+        Bucket: 'sbill-accounting-bucket',
+        Key: fileName,
+    };
+
+    const result = await s3.deleteObject(params).promise();
+    return result;
 }
 
 export const uploadFileToS3Bucket = async (data: any, name: string) => {
@@ -62,6 +81,11 @@ export const uploadFileToS3Bucket = async (data: any, name: string) => {
             console.log("Successfully uploaded data to sbill-accounting-bucket " + data);
         }
     });
+}
+
+export const updateFileNameInReceipt = async (fileName: string, id: string) => {
+    const result = await Receipt.updateOne({ _id: id }, { $set: { fileName: fileName } });
+    return result;
 }
 
 export const getSignedUrlFromFileS3 = async (fileName: string) => {

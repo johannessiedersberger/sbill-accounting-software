@@ -7,7 +7,7 @@ import { formatter } from "../../utils/Formatter";
 interface ReceiptProps {
     receipt: {
         receiptNumber: string,
-        uuid: string,
+        _id: string,
         supplier: string,
         description: string,
         category: string,
@@ -19,7 +19,7 @@ interface ReceiptProps {
 const ReceiptListItem = (props: ReceiptProps) => {
 
     const openInvoiceItem = () => {
-        window.location.href = `/receipt/${props.receipt.uuid}`;
+        window.location.href = `/receipt/${props.receipt._id}`;
     }
 
 

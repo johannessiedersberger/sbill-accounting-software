@@ -10,7 +10,6 @@ import axios from "axios";
 
 interface IReceipt {
     receiptNumber: string,
-    uuid: string,
     supplier: string,
     description: string,
     category: string,
@@ -30,18 +29,17 @@ const ReceiptPage = () => {
     const [description, setDescription] = useState<string>("");
     const [receiptAmount, setReceiptAmount] = useState<number>(0);
     const [fileName, setFileName] = useState<string>("");
-
     const [signedFileUrl, setSignedFileUrl] = useState<string>("");
     const [docs, setDocs] = useState<IUriInterface[]>([]);
 
-    let { uuid } = useParams();
+    let { id } = useParams();
 
     useEffect(() => {
-        if (uuid) loadReceipt();
+        if (id) loadReceipt();
     }, []);
 
     const loadReceipt = () => {
-        api.getReceipt(uuid!.toString()).then((response) => {
+        api.getReceipt(id!.toString()).then((response) => {
             const receipt: IReceipt = response.data;
 
             setReceiptNumber(receipt.receiptNumber);
@@ -51,53 +49,81 @@ const ReceiptPage = () => {
             setReceiptAmount(receipt.receiptAmount);
             setFileName(receipt.fileName);
 
-            api.getReceiptFileSignedUrl(receipt.fileName).then((response) => {
-                const signedUrl = response.data.signedUrl;
-                setSignedFileUrl(signedUrl);
-                const arr = [];
-                arr.push({ uri: signedUrl, fileType: "pdf" });
-                setDocs(arr);
-            })
+            if (receipt.fileName) {
+                api.getReceiptFileSignedUrl(receipt.fileName).then((response) => {
+                    const signedUrl = response.data.signedUrl;
+                    setSignedFileUrl(signedUrl);
+                    const arr = [];
+                    arr.push({ uri: signedUrl, fileType: "pdf" });
+                    setDocs(arr);
+                })
+            }
+
         });
     }
 
 
 
     const deleteFile = () => {
+        api.deleteFileFromReceipt(fileName);
         setSelectedDocs([]);
+        setDocs([]);
+        setSignedFileUrl("");
+        setFileName("");
     }
 
     const save = async () => {
-
-        const formData = new FormData();
-        formData.append(
-            "file",
-            selectedDocs[0],
-            selectedDocs[0].name
-        );
+        const receiptData: IReceipt = {
+            receiptNumber: receiptNumber,
+            supplier: supplier,
+            category: category,
+            description: description,
+            receiptAmount: receiptAmount,
+            fileName: fileName
+        }
 
 
 
         try {
 
-            if (!uuid) {
-                const response: any = await api.postReceiptFile(formData);
-                const fileName = response.data.newFileName;
-                const uuid = response.data.uuid;
+            // Create new Receipt
+            if (!id) {
 
-                const receiptData: IReceipt = {
-                    receiptNumber: receiptNumber,
-                    uuid: uuid,
-                    supplier: supplier,
-                    category: category,
-                    description: description,
-                    receiptAmount: receiptAmount,
-                    fileName: fileName
+                console.log(receiptData);
+
+                const result = await api.postReceipt(receiptData);
+                console.log(result.data);
+                const resultId = result.data._id;
+
+                if (selectedDocs.length >= 1) {
+                    const formData = new FormData();
+                    formData.append(
+                        "file",
+                        selectedDocs[0],
+                        selectedDocs[0].name
+                    );
+                    const postFileResponse: any = await api.postReceiptFile(formData, resultId);
+                    const fileName = postFileResponse.data.newFileName;
+
+                    const responseFileSignedUrl = await api.getReceiptFileSignedUrl(fileName);
+                    const signedUrl = responseFileSignedUrl.data.signedUrl;
+                    setSignedFileUrl(signedUrl);
+                    const arr = [];
+                    arr.push({ uri: signedUrl, fileType: "pdf" });
+                    setDocs(arr);
+
+                    // await api.getReceiptFileSignedUrl(fileName).then((response) => {
+                    //     const signedUrl = response.data.signedUrl;
+                    //     setSignedFileUrl(signedUrl);
+                    //     const arr = [];
+                    //     arr.push({ uri: signedUrl, fileType: "pdf" });
+                    //     setDocs(arr);
+                    // })
+
+
                 }
 
-                await api.postReceiptData(receiptData);
-
-                window.location.href = `/receipt/${uuid}`;
+                window.history.replaceState(null, "New Page Title", `/receipt/${resultId}`);
 
             } else {
                 // TODO: Update Invoice Data
@@ -136,7 +162,7 @@ const ReceiptPage = () => {
                             <div>
                                 <div className="uk-margin">
                                     {
-                                        !uuid ? (
+                                        docs.length == 0 ? (
                                             <input
                                                 type="file"
                                                 accept=".pdf,.png,.jpeg"
@@ -152,7 +178,6 @@ const ReceiptPage = () => {
                                                 <button className="uk-button uk-button-danger" onClick={deleteFile}>Delete File</button>
                                                 <DocViewer
                                                     documents={docs}
-
                                                     pluginRenderers={DocViewerRenderers}
                                                 />
                                                 <button className="uk-button uk-button-primary" onClick={openFileUrl}>{fileName}</button>

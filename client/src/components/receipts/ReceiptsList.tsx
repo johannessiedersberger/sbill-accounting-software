@@ -17,7 +17,12 @@ const ReceiptsList = (props: any) => {
     const getAllReceipts = () => {
         api.getAllReceipts().then((res) => {
             setReceiptList(res.data);
+            console.log(res.data);
         });
+    }
+
+    const openNewReceiptForm = () => {
+        window.location.href = `/receipt/`;
     }
 
 
@@ -31,7 +36,7 @@ const ReceiptsList = (props: any) => {
                         <div className="row">
                             <div className="col-9" />
                             <div className="col-3">
-                                <button className="uk-button uk-button-primary uk-align-right" >Ausgabe Erfassen</button>
+                                <button className="uk-button uk-button-primary uk-align-right" onClick={openNewReceiptForm}>Ausgabe Erfassen</button>
                             </div>
                         </div>
 

@@ -60,7 +60,7 @@ function App() {
         <Route path='/clients' element={<CustomerList />} />
         <Route path='/settings' element={<CompanySettings />} />
         <Route path='/receipts' element={<ReceiptsList />} />
-        <Route path='/receipt/:uuid' element={<ReceiptPage />} />
+        <Route path='/receipt/:id' element={<ReceiptPage />} />
         <Route path='/receipt/' element={<ReceiptPage />} />
       </Routes>
     </BrowserRouter>
