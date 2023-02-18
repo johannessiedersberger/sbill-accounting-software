@@ -126,6 +126,23 @@ export const createNewReceipt = async (req: Request, res: Response) => {
 
 export const updateReceipt = async (req: Request, res: Response) => {
 
+    try {
+
+        if (!req.params.id) {
+            throw "No id given to update!";
+        }
+
+        const receiptData: IReceipt = req.body;
+
+        const response = await receiptService.updateReceipt(req.params.id, receiptData);
+
+        res.status(200).send(response);
+
+    } catch (err) {
+        console.log(err);
+        res.status(404).send(err);
+    }
+
 }
 
 export const deleteReceipt = async (req: Request, res: Response) => {

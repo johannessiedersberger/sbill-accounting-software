@@ -7,6 +7,15 @@ import Receipt from '../models/Receipt';
 import Crypto from 'crypto';
 dotenv.config();
 
+interface IReceipt {
+    receiptNumber: string,
+    supplier: string,
+    description: string,
+    category: string,
+    receiptAmount: number,
+    fileName: string,
+}
+
 export const getAllReceipts = async () => {
     const allReceipts = await Receipt.find({});
     return allReceipts;
@@ -35,6 +44,11 @@ export const createUUIDForReceiptFile = () => {
 
 export const deleteFileFromReceipt = async (fileName: string) => {
     const result = await Receipt.updateOne({ fileName: fileName }, { $set: { fileName: "" } });
+    return result;
+}
+
+export const updateReceipt = async (id: string, data: IReceipt) => {
+    const result = await Receipt.updateOne({ _id: id }, { $set: data });
     return result;
 }
 

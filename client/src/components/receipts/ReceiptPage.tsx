@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, createRef, ChangeEvent } from "react";
+import React, { useEffect, useRef, useReducer, useState, createRef, ChangeEvent } from "react";
 import { useParams } from "react-router-dom";
 import HeaderAfterLogin from "../dashboard/HeaderAfterLogin";
 import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
@@ -7,6 +7,7 @@ import UIkit from "uikit";
 import { read, readFileSync } from 'fs';
 import path from 'path';
 import axios from "axios";
+import useForceUpdate from 'use-force-update';
 
 interface IReceipt {
     receiptNumber: string,
@@ -32,6 +33,12 @@ const ReceiptPage = () => {
     const [signedFileUrl, setSignedFileUrl] = useState<string>("");
     const [docs, setDocs] = useState<IUriInterface[]>([]);
 
+    const [filesChanged, setFilesChanged] = useState(false);
+
+    const [number, setNumber] = useState(0);
+
+    const forceUpdate = useForceUpdate();
+
     let { id } = useParams();
 
     useEffect(() => {
@@ -47,21 +54,13 @@ const ReceiptPage = () => {
             setCategory(receipt.category);
             setDescription(receipt.description);
             setReceiptAmount(receipt.receiptAmount);
-            setFileName(receipt.fileName);
 
             if (receipt.fileName) {
-                api.getReceiptFileSignedUrl(receipt.fileName).then((response) => {
-                    const signedUrl = response.data.signedUrl;
-                    setSignedFileUrl(signedUrl);
-                    const arr = [];
-                    arr.push({ uri: signedUrl, fileType: "pdf" });
-                    setDocs(arr);
-                })
+                setNewFile(receipt.fileName);
             }
 
         });
     }
-
 
 
     const deleteFile = () => {
@@ -82,52 +81,37 @@ const ReceiptPage = () => {
             fileName: fileName
         }
 
-
-
         try {
 
             // Create new Receipt
             if (!id) {
-
-                console.log(receiptData);
-
                 const result = await api.postReceipt(receiptData);
-                console.log(result.data);
                 const resultId = result.data._id;
 
                 if (selectedDocs.length >= 1) {
-                    const formData = new FormData();
-                    formData.append(
-                        "file",
-                        selectedDocs[0],
-                        selectedDocs[0].name
-                    );
+                    const formData = buildFormData();
                     const postFileResponse: any = await api.postReceiptFile(formData, resultId);
                     const fileName = postFileResponse.data.newFileName;
-
-                    const responseFileSignedUrl = await api.getReceiptFileSignedUrl(fileName);
-                    const signedUrl = responseFileSignedUrl.data.signedUrl;
-                    setSignedFileUrl(signedUrl);
-                    const arr = [];
-                    arr.push({ uri: signedUrl, fileType: "pdf" });
-                    setDocs(arr);
-
-                    // await api.getReceiptFileSignedUrl(fileName).then((response) => {
-                    //     const signedUrl = response.data.signedUrl;
-                    //     setSignedFileUrl(signedUrl);
-                    //     const arr = [];
-                    //     arr.push({ uri: signedUrl, fileType: "pdf" });
-                    //     setDocs(arr);
-                    // })
-
-
+                    setNewFile(fileName);
                 }
 
                 window.history.replaceState(null, "New Page Title", `/receipt/${resultId}`);
+                //window.location.reload();
+                forceUpdate();
 
             } else {
-                // TODO: Update Invoice Data
+                await api.updateReceipt(id, receiptData);
+                if (filesChanged) {
+                    const formData = buildFormData();
+                    const postFileResponse: any = await api.postReceiptFile(formData, id);
+                    const fileName = postFileResponse.data.newFileName;
+                    setNewFile(fileName);
+                    setFilesChanged(false);
+                    //window.location.reload();
+                    forceUpdate();
+                }
             }
+
 
 
             UIkit.notification({
@@ -147,8 +131,35 @@ const ReceiptPage = () => {
         }
     }
 
+    const setNewFile = async (newFileName: string) => {
+        const responseFileSignedUrl = await api.getReceiptFileSignedUrl(newFileName);
+        setFileName(newFileName);
+        const signedUrl = responseFileSignedUrl.data.signedUrl;
+        setSignedFileUrl(signedUrl);
+        const arr = [];
+        arr.push({ uri: signedUrl, fileType: "pdf" });
+        setDocs(arr);
+        const newNumber = number + 1;
+        setNumber(newNumber);
+    }
+
+    const buildFormData = () => {
+        const formData = new FormData();
+        formData.append(
+            "file",
+            selectedDocs[0],
+            selectedDocs[0].name
+        );
+        return formData;
+    }
+
     const openFileUrl = () => {
         window.open(signedFileUrl);
+    }
+
+    const fileChange = (files: any) => {
+        setSelectedDocs(Array.from(files));
+        setFilesChanged(true);
     }
 
     return (
@@ -169,17 +180,24 @@ const ReceiptPage = () => {
 
                                                 onChange={(el) =>
                                                     el.target.files?.length &&
-                                                    setSelectedDocs(Array.from(el.target.files))
-                                                    //fileChange(Array.from(el.target.files))
+
+                                                    fileChange(Array.from(el.target.files))
                                                 }
                                             />
                                         ) : (
                                             <div>
                                                 <button className="uk-button uk-button-danger" onClick={deleteFile}>Delete File</button>
+
                                                 <DocViewer
+
+                                                    key={Math.random()}
                                                     documents={docs}
                                                     pluginRenderers={DocViewerRenderers}
+
+
                                                 />
+
+
                                                 <button className="uk-button uk-button-primary" onClick={openFileUrl}>{fileName}</button>
                                             </div>
                                         )
