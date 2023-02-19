@@ -40,3 +40,4 @@ export const getReceiptFileSignedUrl = (fileName: string) => API.get(`/api/recei
 
 export const deleteFileFromReceipt = (fileName: string) => API.delete(`/api/receipts/file/delete/${fileName}`);
 export const updateReceipt = (id: string, receiptData: any) => API.put(`/api/receipts/id/${id}`, receiptData);
+export const deleteReceipt = (id: any) => API.delete(`/api/receipts/id/${id}`);

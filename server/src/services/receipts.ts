@@ -47,6 +47,11 @@ export const deleteFileFromReceipt = async (fileName: string) => {
     return result;
 }
 
+export const deleteReceipt = async (id: string) => {
+    const result = await Receipt.deleteOne({ id_: id });
+    return result;
+}
+
 export const updateReceipt = async (id: string, data: IReceipt) => {
     const result = await Receipt.updateOne({ _id: id }, { $set: data });
     return result;

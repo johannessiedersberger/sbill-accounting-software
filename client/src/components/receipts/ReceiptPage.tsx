@@ -35,10 +35,6 @@ const ReceiptPage = () => {
 
     const [filesChanged, setFilesChanged] = useState(false);
 
-    const [number, setNumber] = useState(0);
-
-    const forceUpdate = useForceUpdate();
-
     let { id } = useParams();
 
     useEffect(() => {
@@ -96,8 +92,8 @@ const ReceiptPage = () => {
                 }
 
                 window.history.replaceState(null, "New Page Title", `/receipt/${resultId}`);
-                //window.location.reload();
-                forceUpdate();
+                window.location.reload();
+
 
             } else {
                 await api.updateReceipt(id, receiptData);
@@ -107,8 +103,7 @@ const ReceiptPage = () => {
                     const fileName = postFileResponse.data.newFileName;
                     setNewFile(fileName);
                     setFilesChanged(false);
-                    //window.location.reload();
-                    forceUpdate();
+                    window.location.reload();
                 }
             }
 
@@ -137,10 +132,8 @@ const ReceiptPage = () => {
         const signedUrl = responseFileSignedUrl.data.signedUrl;
         setSignedFileUrl(signedUrl);
         const arr = [];
-        arr.push({ uri: signedUrl, fileType: "pdf" });
+        arr.push({ uri: signedUrl, fileType: "application/pdf" });
         setDocs(arr);
-        const newNumber = number + 1;
-        setNumber(newNumber);
     }
 
     const buildFormData = () => {
@@ -160,6 +153,31 @@ const ReceiptPage = () => {
     const fileChange = (files: any) => {
         setSelectedDocs(Array.from(files));
         setFilesChanged(true);
+    }
+
+    const deleteReceipt = async () => {
+        try {
+            if (id) {
+                await api.deleteReceipt(id);
+                window.location.href = `/receipts/`;
+
+                UIkit.notification({
+                    message: 'Rechnung Erfolgreich Gelöscht',
+                    status: 'success',
+                    pos: 'top-right',
+                    timeout: 5000
+                });
+            }
+
+
+        } catch (error) {
+            UIkit.notification({
+                message: 'Fehler beim Löschen des Belegs',
+                status: 'warning',
+                pos: 'top-right',
+                timeout: 5000
+            });
+        }
     }
 
     return (
@@ -189,11 +207,9 @@ const ReceiptPage = () => {
                                                 <button className="uk-button uk-button-danger" onClick={deleteFile}>Delete File</button>
 
                                                 <DocViewer
-
                                                     key={Math.random()}
                                                     documents={docs}
                                                     pluginRenderers={DocViewerRenderers}
-
 
                                                 />
 
@@ -234,9 +250,12 @@ const ReceiptPage = () => {
                                     <input className="uk-input col" type="Number" value={receiptAmount} onChange={(e) => setReceiptAmount(Number(e.target.value))} placeholder="Betrag" />
                                 </div>
                             </div>
-                            <div className="">
+                            <div className="uk-margin">
                                 <button className="uk-button uk-button-primary" onClick={save}>Speichern</button>
                             </div>
+                            {
+                                id ? (<button className="uk-button uk-button-danger" onClick={deleteReceipt}>Löschen</button>) : (<div></div>)
+                            }
                         </div>
                         <div className="col-1" />
                     </div>

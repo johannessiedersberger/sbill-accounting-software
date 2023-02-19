@@ -21,8 +21,6 @@ const HeaderFrontPage = () => {
                             <ul className="uk-nav uk-navbar-dropdown-nav">
                                 <li><a href="/dashboard">Dashboard</a></li>
                                 <li><a href="/invoices">Rechnungen</a></li>
-                                <li><a href="#">Angebote</a></li>
-
                                 <li><a href="/clients">Kunden</a></li>
                                 <li><a href="/receipts">Belege</a></li>
                                 <li><a href="/settings">Einstellungen</a></li>

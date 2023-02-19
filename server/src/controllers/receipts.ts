@@ -146,7 +146,28 @@ export const updateReceipt = async (req: Request, res: Response) => {
 }
 
 export const deleteReceipt = async (req: Request, res: Response) => {
+    try {
 
+        if (!req.params.id) {
+            throw "No file-Id given to Delete!";
+        }
+
+        const receipt: any = await receiptService.getReceiptByID(req.params.id);
+
+        if (!receipt) {
+            throw "Receipt with given Id does not exist"
+        }
+
+
+        const response = await receiptService.deleteFileFromReceipt(receipt.fileName);
+        const response2 = await receiptService.deleteReceipt(req.params.id);
+
+
+        res.status(200).send(response);
+    } catch (err) {
+        console.log(err);
+        res.status(404).send(err);
+    }
 }
 
 export const deleteReceiptFile = async (req: Request, res: Response) => {
