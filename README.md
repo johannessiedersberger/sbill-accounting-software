@@ -27,9 +27,10 @@
 - Create invoices
 - Generate PDF-Files from invoices
 - Mange your client list
+- Create Expenses
 
 ### Upcoming Features
-- Create Expenses
+
 - Scan Bills using OCR
 - Automated Testing E2E using Cypress 
 - API Testing
