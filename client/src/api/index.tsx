@@ -3,8 +3,10 @@ import axios, { AxiosRequestHeaders } from "axios";
 const API = axios.create({ baseURL: 'http://localhost:5000' });
 
 API.interceptors.request.use((req: any) => {
-    if (localStorage.getItem('profile')) {
-        req.headers.authorization = `Bearer ${JSON.parse(localStorage.getItem('profile') || '{}').token}`;
+
+    if (localStorage.getItem('user')) {
+        const baerer = `Bearer ${JSON.parse(localStorage.getItem('user') || '{}').state.user.token}`;
+        req.headers.authorization = baerer;
     }
 
     return req;

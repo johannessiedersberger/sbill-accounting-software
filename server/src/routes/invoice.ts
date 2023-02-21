@@ -1,20 +1,21 @@
 import express from 'express';
 import * as invoiceController from '../controllers/invoice';
+import * as verifyToken from '../middleware/verifyToken';
 
 const router = express.Router();
 
-router.get('/', invoiceController.getAllInvoices);
+router.get('/', verifyToken.verifyUser, invoiceController.getAllInvoices);
 
-router.get('/id/:invoiceId', invoiceController.getInvoice);
+router.get('/id/:invoiceId', verifyToken.verifyUser, invoiceController.getInvoice);
 
-router.get('/number', invoiceController.getNextInvoiceNumber);
+router.get('/number', verifyToken.verifyUser, invoiceController.getNextInvoiceNumber);
 
-router.get('/pdf/:invoiceId', invoiceController.getPDFInvoice);
+router.get('/pdf/:invoiceId', verifyToken.verifyUser, invoiceController.getPDFInvoice);
 
-router.post('/', invoiceController.createNewInvoice);
+router.post('/', verifyToken.verifyUser, invoiceController.createNewInvoice);
 
-router.put('/id/:invoiceId', invoiceController.updateInvoice);
+router.put('/id/:invoiceId', verifyToken.verifyUser, invoiceController.updateInvoice);
 
-router.delete('/id/:invoiceId', invoiceController.deleteInvoice);
+router.delete('/id/:invoiceId', verifyToken.verifyUser, invoiceController.deleteInvoice);
 
 export default router;
