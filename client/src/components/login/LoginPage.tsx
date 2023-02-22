@@ -65,17 +65,17 @@ const LoginPage = () => {
                                         <div className="uk-margin">
                                             <div className="uk-inline uk-width-1-1">
                                                 <span className="uk-form-icon" uk-icon="icon: mail"></span>
-                                                <input className="uk-input uk-form-large" type="text" placeholder="Deine E-Mail Adresse" value={email} onChange={handleEmailChange} />
+                                                <input className="uk-input uk-form-large" type="text" placeholder="Deine E-Mail Adresse" value={email} onChange={handleEmailChange} id="email-input" />
                                             </div>
                                         </div>
                                         <div className="uk-margin">
                                             <div className="uk-inline uk-width-1-1">
                                                 <span className="uk-form-icon" uk-icon="icon: lock"></span>
-                                                <input className="uk-input uk-form-large" type="password" placeholder="Dein Passwort" value={password} onChange={handlePasswordChange} />
+                                                <input className="uk-input uk-form-large" type="password" placeholder="Dein Passwort" value={password} onChange={handlePasswordChange} id="password-input" />
                                             </div>
                                         </div>
                                         <div className="uk-margin">
-                                            <a className="uk-button uk-button-primary uk-button-large uk-width-1-1" onClick={login}>Login</a>
+                                            <a className="uk-button uk-button-primary uk-button-large uk-width-1-1" onClick={login} id="login-button">Login</a>
                                         </div>
                                         <div className="uk-text-small uk-text-center">
                                             Not registered? <a href="/signup" style={{ color: "#6c63ff" }}>Create Account</a>
