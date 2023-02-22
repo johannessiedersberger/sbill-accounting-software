@@ -11,7 +11,14 @@
 //
 //
 // -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
+Cypress.Commands.add('login', () => {
+    cy.visit('http://localhost:3000/');
+    cy.contains('Login').click();
+    cy.get('#email-input').type("johannes.siedersberger@gmx.de");
+    cy.get('#password-input').type("1234");
+    cy.get('#login-button').click();
+    cy.contains('Logout');
+});
 //
 //
 // -- This is a child command --
@@ -25,13 +32,15 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 //
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
+
+export { }
+declare global {
+    namespace Cypress {
+        interface Chainable {
+            login(): Chainable<void>
+            // drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
+            // dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
+            // visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
+        }
+    }
+}

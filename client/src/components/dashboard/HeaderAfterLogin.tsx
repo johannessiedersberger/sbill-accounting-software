@@ -16,7 +16,7 @@ const HeaderFrontPage = () => {
             <div className="uk-navbar-left">
                 <ul className="uk-navbar-nav">
                     <li>
-                        <a className="uk-navbar-item uk-logo uk-margin-left">SBill</a>
+                        <a className="uk-navbar-item uk-logo uk-margin-left" id="menu-link">SBill</a>
                         <div className="uk-navbar-dropdown">
                             <ul className="uk-nav uk-navbar-dropdown-nav">
                                 <li><a href="/dashboard">Dashboard</a></li>

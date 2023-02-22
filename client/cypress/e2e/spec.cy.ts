@@ -1,13 +1,20 @@
 /// <reference types="cypress" />
 
-describe('template spec', () => {
+describe('Login with E-Mail and Password', () => {
   it('passes', () => {
-    cy.visit('http://localhost:3000/');
-    cy.contains('Login').click();
-    cy.get('#email-input').type("johannes.siedersberger@gmx.de");
-    cy.get('#password-input').type("1234");
-    cy.get('#login-button').click();
-    cy.contains('Logout');
+    cy.login();
+  })
+})
+
+describe('Create Invoice', () => {
+  it('passes', () => {
+    cy.login();
     cy.url().should('include', '/dashboard')
+    cy.get('#menu-link').invoke('show').click();
+    cy.contains('Rechnungen').click();
+    cy.url().should('include', '/invoices');
+    cy.contains('Neue Rechnung').click();
+    cy.contains('Rechnung');
+
   })
 })
