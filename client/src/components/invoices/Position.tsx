@@ -64,10 +64,10 @@ const Position = (props: PositionDataProps) => {
     }
 
     return (
-        <tr>
-            <td><input className="uk-input" type="text" placeholder="Description" onChange={(e) => descriptionChange(e)} value={String(description)} /></td>
-            <td><input className="uk-input" type="number" placeholder="Quantity" onChange={(e) => quantityChange(e)} value={String(quantity)} /></td>
-            <td><input className="uk-input" type="number" step="0.01" min="1" onChange={(e) => pricePerItemChange(e)} value={String(princePerItem)} placeholder="Price per Item" /></td>
+        <tr id={"position-row-" + props.index}>
+            <td><input id={"description-" + props.index} className="uk-input" type="text" placeholder="Description" onChange={(e) => descriptionChange(e)} value={String(description)} /></td>
+            <td><input id={"quantity-" + props.index} className="uk-input" type="number" placeholder="Quantity" onChange={(e) => quantityChange(e)} value={String(quantity)} /></td>
+            <td><input id={"price-per-item-" + props.index} className="uk-input" type="number" step="0.01" min="1" onChange={(e) => pricePerItemChange(e)} value={String(princePerItem)} placeholder="Price per Item" /></td>
             <td><div style={{ marginTop: "8px" }}>{formatter.format(Number(quantity) * Number(princePerItem))}</div></td>
             <td><FaTrashAlt style={{ marginTop: "10px", cursor: "pointer" }} onClick={ondelete} /></td>
         </tr>

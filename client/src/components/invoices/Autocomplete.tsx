@@ -186,6 +186,7 @@ class Autocomplete extends Component<AutoCompleteProps, AutoCompleteState> {
             <Fragment>
                 <input
                     className="uk-input col"
+                    id="customer-name"
                     type="text"
                     placeholder="Search Client"
                     onChange={onChange}

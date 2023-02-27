@@ -159,7 +159,6 @@ const InvoicePage = () => {
 
     const deleteInvoice = async () => {
 
-
         try {
             await api.deleteInvoice(invoiceNumber);
             window.location.href = `/invoices/`;
@@ -219,13 +218,13 @@ const InvoicePage = () => {
                     <div className="col-10" >
                         <div className="row">
                             <div className="col-4">
-                                <button className="uk-button uk-button-danger uk-align-center" onClick={deleteInvoice} >Löschen</button>
+                                <button id="delete-button" className="uk-button uk-button-danger uk-align-center" onClick={deleteInvoice} >Löschen</button>
                             </div>
                             <div className="col-4">
-                                <button className="uk-button uk-button-primary uk-align-center" onClick={getPDF}>Download</button>
+                                <button id="download-button" className="uk-button uk-button-primary uk-align-center" onClick={getPDF}>Download</button>
                             </div>
                             <div className="col-4">
-                                <button className="uk-button uk-align-center" onClick={updateInvoice}>Speichern</button>
+                                <button id="save-button" className="uk-button uk-align-center" onClick={updateInvoice}>Speichern</button>
                             </div>
                         </div>
 
@@ -251,18 +250,18 @@ const InvoicePage = () => {
                                 </div>
                                 <div className="row uk-margin">
                                     <p style={{ marginLeft: "-10px" }}>Addresse</p>
-                                    <textarea style={{ marginRight: "20px" }} value={address} onChange={(e) => setAddress(e.target.value)} className="uk-textarea col" rows={5} placeholder="Textarea"  ></textarea>
+                                    <textarea style={{ marginRight: "20px" }} id="address" value={address} onChange={(e) => setAddress(e.target.value)} className="uk-textarea col" rows={5} placeholder="Textarea"  ></textarea>
                                 </div>
                             </div>
                             <div className="col-md-6">
                                 <div className="row">
                                     <div className="col-6">
                                         <p>Invoice #</p>
-                                        <input className="uk-input col" type="number" readOnly={true} disabled value={invoiceNumber} onChange={(e) => setInvoiceNumber(Number(e.target.value))} placeholder="Input" />
+                                        <input className="uk-input col" id="invoice-number" type="number" readOnly={true} disabled value={invoiceNumber} onChange={(e) => setInvoiceNumber(Number(e.target.value))} placeholder="Input" />
                                     </div>
                                     <div className="col-6 ">
                                         <p>Topic</p>
-                                        <input className="uk-input col" type="text" value={topic} onChange={(e) => setTopic(e.target.value)} placeholder="Input" />
+                                        <input className="uk-input col" id="topic" type="text" value={topic} onChange={(e) => setTopic(e.target.value)} placeholder="Input" />
                                     </div>
 
                                 </div>
@@ -273,6 +272,7 @@ const InvoicePage = () => {
                                         </div>
                                         <p >Erstellungsdatum</p>
                                         <DatePicker
+                                            id="created-date"
                                             className="uk-input col"
                                             placeholderText="Select a date"
                                             locale={de}
@@ -282,6 +282,7 @@ const InvoicePage = () => {
                                     <div className="col-6">
                                         <p className="">Fällig bis</p>
                                         <DatePicker
+                                            id="due-date"
                                             className="uk-input col"
                                             placeholderText="Select a date"
                                             locale={de}
@@ -313,14 +314,14 @@ const InvoicePage = () => {
                                     </tbody>
 
                                 </table>
-                                <button className="uk-button uk-button-primary" onClick={addPosition}>Add item</button>
+                                <button id="add-item-button" className="uk-button uk-button-primary" onClick={addPosition}>Add item</button>
                             </div>
 
                         </div>
 
                         <div className="row uk-padding">
                             <div className="col-12">
-                                <textarea className="uk-textarea" rows={5} placeholder="Beschreibung" value={textField} onChange={(e) => setTextField(e.target.value)} aria-label="Textarea"></textarea>
+                                <textarea id="description-field" className="uk-textarea" rows={5} placeholder="Beschreibung" value={textField} onChange={(e) => setTextField(e.target.value)} aria-label="Textarea"></textarea>
                             </div>
 
                         </div>
