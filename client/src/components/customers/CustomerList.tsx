@@ -45,7 +45,7 @@ const CustomerList = () => {
                         <div className="row">
                             <div className="col-9" />
                             <div className="col-3">
-                                <button className="uk-button uk-button-primary uk-align-right" onClick={newCustomer}>Neuer Kunde</button>
+                                <button id="new-customer-button" className="uk-button uk-button-primary uk-align-right" onClick={newCustomer}>Neuer Kunde</button>
                             </div>
                         </div>
 

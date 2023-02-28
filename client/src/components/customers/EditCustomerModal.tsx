@@ -56,12 +56,12 @@ const EditCustomerModal = (props: EditCustomerModalProps) => {
         <ReactPortal wrapperId={props.id}>
             <div className="uk-modal-dialog uk-modal-body">
                 <h2 className="uk-margin">Kunden Bearbeiten</h2>
-                <input type="text" name="name" className="uk-input" placeholder="Vor-und Nachname" value={name} onChange={(e) => setName(e.target.value)} />
-                <input style={{ marginTop: "10px" }} type="text" name="address" className="uk-input" placeholder="Addresse" value={address} onChange={(e) => setAddress(e.target.value)} />
-                <input style={{ marginTop: "10px" }} type="text" name="phone" className="uk-input" placeholder="Telefon-Nr" value={phone} onChange={(e) => setPhone(e.target.value)} />
-                <input style={{ marginTop: "10px" }} type="text" name="address" className="uk-input" placeholder="E-Mail" value={email} onChange={(e) => setEMail(e.target.value)} />
-                <button style={{ marginTop: "10px" }} className="uk-button uk-button-default uk-modal-close" type="button" onClick={closeModal}>Abbrechen</button>
-                <button style={{ marginTop: "10px", marginLeft: "10px" }} className="uk-button uk-button-primary uk-modal-close" type="button" onClick={handleSubmit}>Bestätigen</button>
+                <input id="name-input" type="text" name="name" className="uk-input" placeholder="Vor-und Nachname" value={name} onChange={(e) => setName(e.target.value)} />
+                <input id="address-input" style={{ marginTop: "10px" }} type="text" name="address" className="uk-input" placeholder="Addresse" value={address} onChange={(e) => setAddress(e.target.value)} />
+                <input id="phone-input" style={{ marginTop: "10px" }} type="text" name="phone" className="uk-input" placeholder="Telefon-Nr" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                <input id="email-input" style={{ marginTop: "10px" }} type="text" name="email" className="uk-input" placeholder="E-Mail" value={email} onChange={(e) => setEMail(e.target.value)} />
+                <button id="stop-button" style={{ marginTop: "10px" }} className="uk-button uk-button-default uk-modal-close" type="button" onClick={closeModal}>Abbrechen</button>
+                <button id="submit-button" style={{ marginTop: "10px", marginLeft: "10px" }} className="uk-button uk-button-primary uk-modal-close" type="button" onClick={handleSubmit}>Bestätigen</button>
             </div>
         </ReactPortal>
     );
