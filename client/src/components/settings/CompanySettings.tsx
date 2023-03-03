@@ -77,25 +77,25 @@ const CompanySettings = () => {
                             <h2 style={{ textAlign: "center" }}>Firmen-Einstellungen</h2>
                         </div>
                         <div className="uk-margin">
-                            <input className="uk-input" type="text" placeholder="Firmen-Name" aria-label="Input" value={name} onChange={(e) => SetName(e.target.value)} />
+                            <input id="input-company-name" className="uk-input" type="text" placeholder="Firmen-Name" aria-label="Input" value={name} onChange={(e) => SetName(e.target.value)} />
                         </div>
                         <div className="uk-margin">
-                            <textarea className="uk-textarea" rows={5} placeholder="Anschrift" aria-label="Textarea" value={address} onChange={(e) => SetAddress(e.target.value)}></textarea>
+                            <textarea id="input-address" className="uk-textarea" rows={5} placeholder="Anschrift" aria-label="Textarea" value={address} onChange={(e) => SetAddress(e.target.value)}></textarea>
                         </div>
                         <div className="uk-margin">
-                            <input className="uk-input" type="text" placeholder="Firmen-Email" aria-label="Input" value={companyEmail} onChange={(e) => SetCompanyEmail(e.target.value)} />
+                            <input id="input-email" className="uk-input" type="text" placeholder="Firmen-Email" aria-label="Input" value={companyEmail} onChange={(e) => SetCompanyEmail(e.target.value)} />
                         </div>
                         <div className="uk-margin">
-                            <input className="uk-input" type="text" placeholder="Telefon-Nr." aria-label="Input" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                            <input id="input-phone-number" className="uk-input" type="text" placeholder="Telefon-Nr." aria-label="Input" value={phone} onChange={(e) => setPhone(e.target.value)} />
                         </div>
                         <div className="uk-margin">
-                            <input className="uk-input" type="text" placeholder="IBAN" aria-label="Input" value={IBAN} onChange={(e) => setIBAN(e.target.value)} />
+                            <input id="input-iban" className="uk-input" type="text" placeholder="IBAN" aria-label="Input" value={IBAN} onChange={(e) => setIBAN(e.target.value)} />
                         </div>
                         <div className="uk-margin">
-                            <input className="uk-input" type="text" placeholder="Ust.-Id" aria-label="Input" value={valueTaxNumber} onChange={(e) => SetValueTaxNumber(e.target.value)} />
+                            <input id="input-ustid" className="uk-input" type="text" placeholder="Ust.-Id" aria-label="Input" value={valueTaxNumber} onChange={(e) => SetValueTaxNumber(e.target.value)} />
                         </div>
                         <div className="uk-margin">
-                            <button className="uk-button uk-align-center" onClick={updateCompanyData}>Speichern</button>
+                            <button id="button-save" className="uk-button uk-align-center" onClick={updateCompanyData}>Speichern</button>
                         </div>
                     </div>
                     <div className="col-1" />

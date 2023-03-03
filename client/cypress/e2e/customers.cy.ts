@@ -11,8 +11,6 @@ describe('Create Customer', () => {
     cy.contains('Kunden').click();
     cy.url().should('include', '/clients');
 
-
-
     cy.get('#new-customer-button').click();
     cy.wait(1000);
     cy.get('#name-input').type(randomNameCustomer);
