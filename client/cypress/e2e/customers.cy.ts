@@ -46,12 +46,30 @@ describe('Edit Customer', () => {
 
     cy.contains(randomNameCustomer);
     cy.xpath(`//table//tbody//tr//td[normalize-space(text())='${randomNameCustomer}']/parent::tr/td[6]/span`).click();
-    //tr//td//span[@uk-icon='pencil']
+    cy.xpath(`//div[@tabindex='-1']//input[@id='address-input']`).clear().type('Musterstr. 1, 82280 Musterdorf' + randomNameCustomer);
+    cy.xpath(`//div[@tabindex='-1']//button[@id='submit-button']`).click();
 
-    //cy.get('#menu-link').invoke('show').click();
-    //cy.contains('Dashboard').click();
-    //cy.url().should('include', '/dashboard');
+    cy.visit('http://localhost:3000/clients');
 
-    //cy.logout();
+    cy.contains('Musterstr. 1, 82280 Musterdorf' + randomNameCustomer);
+
+  });
+});
+
+describe('Delete Customer', () => {
+  it('passes', () => {
+    cy.login();
+    cy.url().should('include', '/dashboard')
+
+    cy.get('#menu-link').invoke('show').click();
+    cy.contains('Kunden').click();
+    cy.url().should('include', '/clients');
+
+    cy.xpath(`//table//tbody//tr//td[normalize-space(text())='${randomNameCustomer}']/parent::tr/td[7]/span`).click();
+
+    cy.visit('http://localhost:3000/clients');
+
+    cy.contains(randomNameCustomer).should('not.exist');;
+
   });
 });

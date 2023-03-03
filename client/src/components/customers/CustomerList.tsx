@@ -19,7 +19,7 @@ const CustomerList = () => {
 
     useEffect(() => {
         getAllCustomers()
-    }, []);
+    }, []); // TODO: Implement Loading when customer gets added or deleted, dont always load
 
     const getAllCustomers = () => {
         api.getAllCustomers().then((res) => {
