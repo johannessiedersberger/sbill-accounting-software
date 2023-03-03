@@ -204,7 +204,7 @@ const ReceiptPage = () => {
                                             />
                                         ) : (
                                             <div>
-                                                <button className="uk-button uk-button-danger" onClick={deleteFile}>Delete File</button>
+                                                <button id="button-delete-file" className="uk-button uk-button-danger" onClick={deleteFile}>Delete File</button>
 
                                                 <DocViewer
 
