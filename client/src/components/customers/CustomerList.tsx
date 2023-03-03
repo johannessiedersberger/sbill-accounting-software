@@ -35,7 +35,7 @@ const CustomerList = () => {
         <div>
             <HeaderAfterLogin />
 
-            <NewCustomerModal id={'modalNewCustomer'} />
+            <NewCustomerModal reloadCustomers={getAllCustomers} id={'modalNewCustomer'} />
 
 
             <div className="container-fluid uk-padding">
@@ -72,7 +72,7 @@ const CustomerList = () => {
                                 {
                                     customerList?.map((value: CustomerItemProps, index) => {
                                         return (
-                                            <CustomerItem key={index} customerNumber={value.customerNumber} name={value.name} email={value.email} address={value.address} phone={value.phone} />
+                                            <CustomerItem reloadCustomers={getAllCustomers} key={index} customerNumber={value.customerNumber} name={value.name} email={value.email} address={value.address} phone={value.phone} />
                                         );
                                     })
                                 }

@@ -12,7 +12,8 @@ interface CustomerItemProps {
     name: string,
     address: string,
     phone: string,
-    email: string
+    email: string,
+    reloadCustomers: () => any,
 }
 
 const CustomerItem = (props: CustomerItemProps) => {
@@ -30,6 +31,7 @@ const CustomerItem = (props: CustomerItemProps) => {
                 pos: 'top-right',
                 timeout: 5000
             });
+            props.reloadCustomers();
         } catch (err: any) {
             UIkit.notification({
                 message: 'Fehler beim Löschen des Kunden: ' + err.response.data,
