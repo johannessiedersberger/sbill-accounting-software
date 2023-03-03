@@ -47,6 +47,7 @@ declare global {
             // drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
             // dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
             // visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
+            //xpath<E extends Node = HTMLElement>(selector: string, options?: Partial<Loggable & Timeoutable>): Chainable<JQuery<E>>
         }
     }
 }

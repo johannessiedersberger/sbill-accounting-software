@@ -11,6 +11,8 @@ describe('Create Customer', () => {
     cy.contains('Kunden').click();
     cy.url().should('include', '/clients');
 
+
+
     cy.get('#new-customer-button').click();
     cy.wait(1000);
     cy.get('#name-input').type(randomNameCustomer);
@@ -19,10 +21,37 @@ describe('Create Customer', () => {
     cy.get('#email-input').type('musteremail@mustermann.de');
     cy.get('#submit-button').click();
 
+    cy.visit('http://localhost:3000/clients');
+
     cy.contains(randomNameCustomer);
 
 
-    cy.wait(6000);
+    cy.get('#menu-link').invoke('show').click();
+    cy.contains('Dashboard').click();
+    cy.url().should('include', '/dashboard');
+
     cy.logout();
+  });
+});
+
+describe('Edit Customer', () => {
+  it('passes', () => {
+    cy.login();
+    cy.url().should('include', '/dashboard')
+
+    cy.get('#menu-link').invoke('show').click();
+    cy.contains('Kunden').click();
+    cy.url().should('include', '/clients');
+
+
+    cy.contains(randomNameCustomer);
+    cy.xpath(`//table//tbody//tr//td[normalize-space(text())='${randomNameCustomer}']/parent::tr/td[6]/span`).click();
+    //tr//td//span[@uk-icon='pencil']
+
+    //cy.get('#menu-link').invoke('show').click();
+    //cy.contains('Dashboard').click();
+    //cy.url().should('include', '/dashboard');
+
+    //cy.logout();
   });
 });

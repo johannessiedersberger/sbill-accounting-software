@@ -19,7 +19,7 @@ const CustomerList = () => {
 
     useEffect(() => {
         getAllCustomers()
-    });
+    }, []);
 
     const getAllCustomers = () => {
         api.getAllCustomers().then((res) => {
