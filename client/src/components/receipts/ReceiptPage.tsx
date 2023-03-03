@@ -195,7 +195,7 @@ const ReceiptPage = () => {
                                             <input
                                                 type="file"
                                                 accept=".pdf,.png,.jpeg"
-
+                                                id="input-file-upload"
                                                 onChange={(el) =>
                                                     el.target.files?.length &&
 
@@ -207,6 +207,7 @@ const ReceiptPage = () => {
                                                 <button className="uk-button uk-button-danger" onClick={deleteFile}>Delete File</button>
 
                                                 <DocViewer
+
                                                     key={Math.random()}
                                                     documents={docs}
                                                     pluginRenderers={DocViewerRenderers}
@@ -225,36 +226,36 @@ const ReceiptPage = () => {
                             <div className="row">
                                 <div className="col-6">
                                     <p>Beleg #</p>
-                                    <input className="uk-input col" type="text" value={receiptNumber} onChange={(e) => setReceiptNumber(e.target.value)} placeholder="z.B. Rechnungsnummer" />
+                                    <input id="input-receipt-number" className="uk-input col" type="text" value={receiptNumber} onChange={(e) => setReceiptNumber(e.target.value)} placeholder="z.B. Rechnungsnummer" />
                                 </div>
                                 <div className="col-6 ">
                                     <p>Lieferant</p>
-                                    <input className="uk-input col" type="text" value={supplier} onChange={(e) => setSupplier(e.target.value)} placeholder="Lieferant" />
+                                    <input id="input-receipt-seller" className="uk-input col" type="text" value={supplier} onChange={(e) => setSupplier(e.target.value)} placeholder="Lieferant" />
                                 </div>
 
                             </div>
                             <div className="row uk-margin">
                                 <div className="col-6">
                                     <p>Categorie</p>
-                                    <input className="uk-input col" type="text" value={category} onChange={(e) => setCategory(e.target.value)} placeholder="Kategorie" />
+                                    <input id="input-receipt-category" className="uk-input col" type="text" value={category} onChange={(e) => setCategory(e.target.value)} placeholder="Kategorie" />
                                 </div>
                                 <div className="col-6 ">
                                     <p>Beschreibung</p>
-                                    <input className="uk-input col" type="text" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Beschreibung" />
+                                    <input id="input-receipt-description" className="uk-input col" type="text" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Beschreibung" />
                                 </div>
 
                             </div>
                             <div className="row uk-margin">
                                 <div className="col-12">
                                     <p>Betrag</p>
-                                    <input className="uk-input col" type="Number" value={receiptAmount} onChange={(e) => setReceiptAmount(Number(e.target.value))} placeholder="Betrag" />
+                                    <input id="input-receipt-amount" className="uk-input col" type="Number" value={receiptAmount} onChange={(e) => setReceiptAmount(Number(e.target.value))} placeholder="Betrag" />
                                 </div>
                             </div>
                             <div className="uk-margin">
-                                <button className="uk-button uk-button-primary" onClick={save}>Speichern</button>
+                                <button id="save-button" className="uk-button uk-button-primary" onClick={save}>Speichern</button>
                             </div>
                             {
-                                id ? (<button className="uk-button uk-button-danger" onClick={deleteReceipt}>Löschen</button>) : (<div></div>)
+                                id ? (<button id="delte-button" className="uk-button uk-button-danger" onClick={deleteReceipt}>Löschen</button>) : (<div></div>)
                             }
                         </div>
                         <div className="col-1" />

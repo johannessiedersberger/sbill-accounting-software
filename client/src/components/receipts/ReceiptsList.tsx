@@ -36,7 +36,7 @@ const ReceiptsList = (props: any) => {
                         <div className="row">
                             <div className="col-9" />
                             <div className="col-3">
-                                <button className="uk-button uk-button-primary uk-align-right" onClick={openNewReceiptForm}>Ausgabe Erfassen</button>
+                                <button id="button-add-expense" className="uk-button uk-button-primary uk-align-right" onClick={openNewReceiptForm}>Ausgabe Erfassen</button>
                             </div>
                         </div>
 
