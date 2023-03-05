@@ -29,11 +29,8 @@
 - Mange your client list
 - Create Expenses
 
-### Upcoming Features
-
-- Scan Bills using OCR
-- Automated Testing E2E using Cypress 
-- API Testing
+### Testing
+- Automated E2E-Tests using Cypress 
 
 
 
